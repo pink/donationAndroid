@@ -1,5 +1,7 @@
 package com.example.psweeney.donationappandroid;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 

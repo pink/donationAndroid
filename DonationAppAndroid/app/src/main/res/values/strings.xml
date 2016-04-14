@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DonationAppAndroid</string>
+    <string name="email_prompt">Email</string>
+    <string name="password_prompt">Password</string>
+    <string name="splash_login_label">Login</string>
+    <string name="splash_register_label">Sign up</string>
 </resources>
