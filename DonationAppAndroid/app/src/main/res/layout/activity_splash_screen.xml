@@ -10,80 +10,10 @@
     tools:context="com.example.psweeney.donationappandroid.SplashScreen"
     android:background="@color/colorPrimary">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewSplashLogo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo_test_png"
-        android:visibility="visible" />
-
-    <LinearLayout
-        android:orientation="vertical"
+    <com.example.psweeney.donationappandroid.SplashView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/registerAndLoginContainer"
-        android:layout_centerInParent="true"
-        android:visibility="invisible">
+        android:src="@drawable/logo_test_fill_only_tiny"
+        android:layout_centerInParent="true" />
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/email_prompt"
-                android:id="@+id/textView"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:nestedScrollingEnabled="true"
-                android:paddingRight="25dp"
-                android:paddingLeft="0dp" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:layout_row="0"
-                android:layout_column="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/password_prompt"
-                android:id="@+id/textView2"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:paddingLeft="0dp"
-                android:paddingRight="25dp" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/editText2"
-                android:layout_column="1"
-                android:layout_row="1" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                android:layout_row="2"
-                android:paddingTop="20dp">
-
-            </LinearLayout>
-
-        </GridLayout>
-
-    </LinearLayout>
 </RelativeLayout>
