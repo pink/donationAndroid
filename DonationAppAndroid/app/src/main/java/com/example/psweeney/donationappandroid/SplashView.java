@@ -3,10 +3,14 @@ package com.example.psweeney.donationappandroid;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
@@ -71,7 +75,24 @@ public class SplashView extends ImageView {
                 invalidate();
                 return;
             case SPLASH_FINISHED:
-                View loginControls = getActivity().findViewById(R.id.loginControlsContainer);
+                Activity activity;
+                try{
+                    activity = getActivity();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    return;
+                }
+
+                SharedPreferences prefs = activity.getPreferences(Context.MODE_PRIVATE);
+                String storedEmail = prefs.getString(activity.getString(R.string.user_email_key), null);
+
+                if(storedEmail != null){
+                    activity.startActivity(new Intent(activity.getApplicationContext(), LandingScreen.class));
+                    activity.finish();
+                    return;
+                }
+
+                View loginControls = activity.findViewById(R.id.loginControlsContainer);
 
                 try{
                     if(loginControls.getVisibility() != VISIBLE) {

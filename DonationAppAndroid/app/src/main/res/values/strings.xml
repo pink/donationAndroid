@@ -3,4 +3,10 @@
     <string name="email_hint_text">Email address</string>
     <string name="password_hint_text">Password</string>
     <string name="login_or_register_button_text">Login/Sign up</string>
+    <string name="invalid_email_message">Please enter a valid email address</string>
+    <string name="invalid_password_message_1">Password must be at least </string>
+    <string name="invalid_password_message_2"> characters long</string>
+    <string name="user_email_key">user_email_key</string>
+    <string name="user_password_key">user_password_key</string>
+
 </resources>
