@@ -1,5 +1,6 @@
 package com.example.psweeney.donationappandroid;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,9 +9,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+
+import java.util.EventListener;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -22,4 +26,10 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
+    public void onButtonClickLoginRegister(View v) {
+        switch (v.getId()){
+            case R.id.buttonLoginRegister:
+
+        }
+    }
 }

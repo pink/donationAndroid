@@ -8,12 +8,58 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.psweeney.donationappandroid.SplashScreen"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:animateLayoutChanges="true">
 
-    <com.example.psweeney.donationappandroid.SplashView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_test_fill_only_tiny"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:animateLayoutChanges="true">
+
+        <com.example.psweeney.donationappandroid.SplashView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_test_fill_only_tiny"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:id="@+id/splashViewLogo" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:id="@+id/loginControlsContainer"
+            android:paddingTop="40dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/editTextEmailField"
+                android:hint="@string/email_hint_text" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/editTextPasswordField"
+                android:hint="@string/password_hint_text" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_or_register_button_text"
+                android:id="@+id/buttonLoginRegister"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorPrimaryDark"
+                android:onClick="onButtonClickLoginRegister" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

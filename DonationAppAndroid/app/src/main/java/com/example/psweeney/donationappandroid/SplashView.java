@@ -1,8 +1,12 @@
 package com.example.psweeney.donationappandroid;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -10,7 +14,7 @@ import android.widget.ImageView;
  */
 public class SplashView extends ImageView {
     private enum SplashState{
-        SPLASH_NOT_DRAWN, SPLASH_DRAWN, SPLASH_ANIMATION_STARTED
+        SPLASH_NOT_DRAWN, SPLASH_DRAWN, SPLASH_FINISHED
     }
 
     private SplashState _currentState = SplashState.SPLASH_NOT_DRAWN;
@@ -37,6 +41,17 @@ public class SplashView extends ImageView {
         _startTimeMillis = (long) (((double) System.nanoTime()) / ((double) 1000000));
     }
 
+    private Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
+    }
+
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
@@ -51,14 +66,21 @@ public class SplashView extends ImageView {
             case SPLASH_DRAWN:
                 long currentMillis = (long) (((double) System.nanoTime()) / ((double) 1000000));
                 if((currentMillis - _startTimeMillis) >= MIN_SLEEP_MILLIS){
-                    _currentState = SplashState.SPLASH_ANIMATION_STARTED;
-                    this.animate().alpha(0);
+                    _currentState = SplashState.SPLASH_FINISHED;
                 }
 
                 invalidate();
                 return;
-            case SPLASH_ANIMATION_STARTED:
-                return;
+            case SPLASH_FINISHED:
+                View loginControls = getActivity().findViewById(R.id.loginControlsContainer);
+
+                try{
+                    if(loginControls.getVisibility() != VISIBLE) {
+                        loginControls.setVisibility(VISIBLE);
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
 
         }
     }
