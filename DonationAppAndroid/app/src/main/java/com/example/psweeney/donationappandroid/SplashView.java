@@ -54,7 +54,6 @@ public class SplashView extends ImageView {
 
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
-
         //TODO: pretend to check login info or whatever
 
         switch (_currentState){

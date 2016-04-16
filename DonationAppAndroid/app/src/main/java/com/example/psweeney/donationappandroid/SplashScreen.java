@@ -1,5 +1,6 @@
 package com.example.psweeney.donationappandroid;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,13 +24,13 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
     }
 
     public void onButtonClickLoginRegister(View v) {
-        switch (v.getId()){
-            case R.id.buttonLoginRegister:
-
+        if(v == null || v.getId() != R.id.buttonLoginRegister){
+            return;
         }
+        startActivity(new Intent(getApplicationContext(), LandingScreen.class));
+        finish();
     }
 }

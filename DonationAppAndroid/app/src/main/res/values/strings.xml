@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DonationAppAndroid</string>
+    <string name="app_name">Donation App</string>
     <string name="email_hint_text">Email address</string>
     <string name="password_hint_text">Password</string>
     <string name="login_or_register_button_text">Login/Sign up</string>
