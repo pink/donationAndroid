@@ -55,7 +55,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login_or_register_button_text"
+                android:text="@string/login_or_register_button_label"
                 android:id="@+id/buttonLoginRegister"
                 android:background="@color/colorAccent"
                 android:textColor="@color/colorPrimaryDark"

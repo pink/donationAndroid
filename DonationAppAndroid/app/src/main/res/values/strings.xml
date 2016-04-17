@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Donation App</string>
+
     <string name="email_hint_text">Email address</string>
     <string name="password_hint_text">Password</string>
-    <string name="login_or_register_button_text">Login/Sign up</string>
+
+    <string name="login_or_register_button_label">Login/Sign up</string>
+    <string name="auto_donate_label">Auto Donate (On/Off)</string>
+    <string name="category_statistics_button_label">Donations, Statistics, and Options</string>
+    <string name="category_search_button_label">Research Charities and Shelters</string>
+    <string name="category_feed_button_label">Donation Feed</string>
+    <string name="category_account_settings_button_label">Account and Settings</string>
+
     <string name="invalid_email_message">Please enter a valid email address</string>
     <string name="invalid_password_message_1">Password must be at least </string>
     <string name="invalid_password_message_2"> characters long</string>
+
     <string name="user_email_key">user_email_key</string>
+    <string name="user_auto_donate_key">user_auto_donate_key</string>
     <string name="user_password_key">user_password_key</string>
 
 </resources>

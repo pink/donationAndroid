@@ -56,11 +56,11 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         if(!isEmailValid(((EditText) findViewById(R.id.editTextEmailField)).getText().toString())) {
-            Toast.makeText(getApplicationContext(), R.string.invalid_email_message, Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), R.string.invalid_email_message, Toast.LENGTH_SHORT).show();
         } else if(((EditText) findViewById(R.id.editTextPasswordField)).getText().toString().length() < MIN_PASSWORD_LENGTH){
             String invalidPasswordMessage = getString(R.string.invalid_password_message_1) + MIN_PASSWORD_LENGTH +
                     getString(R.string.invalid_password_message_2);
-            Toast.makeText(getApplicationContext(), invalidPasswordMessage, Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), invalidPasswordMessage, Toast.LENGTH_SHORT).show();
         } else {
             SharedPreferences.Editor prefsEditor = getPreferences(MODE_PRIVATE).edit();
             prefsEditor.putString(getString(R.string.user_email_key), ((EditText) findViewById(R.id.editTextEmailField)).getText().toString());
