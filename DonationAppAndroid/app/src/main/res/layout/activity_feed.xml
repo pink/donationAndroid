@@ -12,59 +12,82 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:padding="2dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:text="Medium Text"
+                    android:text="@string/feed_user_label"
                     android:id="@+id/textView"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:background="@color/colorPrimary"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent" />
             </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:text="Medium Text"
+                    android:text="@string/feed_friends_label"
                     android:id="@+id/textView2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
             </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:text="Medium Text"
+                    android:text="@string/feed_charities_label"
                     android:id="@+id/textView3"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary" />
             </FrameLayout>
         </LinearLayout>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewUser" />
     </LinearLayout>
+
 </RelativeLayout>

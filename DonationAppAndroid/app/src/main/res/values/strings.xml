@@ -12,6 +12,9 @@
     <string name="category_search_button_label">Research Charities and Shelters</string>
     <string name="category_feed_button_label">Donation Feed</string>
     <string name="category_account_settings_button_label">Account and Settings</string>
+    <string name="feed_user_label">Me</string>
+    <string name="feed_friends_label">Friends</string>
+    <string name="feed_charities_label">Charities</string>
 
     <string name="invalid_email_message">Please enter a valid email address</string>
     <string name="invalid_password_message_1">Password must be at least </string>
