@@ -111,11 +111,14 @@ public class FeedPostAdapter extends ArrayAdapter{
                 break;
         }
 
-        dateString += " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR) + " at ";
+        dateString += " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR) + " at " +
+                calendar.get(Calendar.HOUR) + ":";
+
         if(calendar.get(Calendar.MINUTE) < 10){
             dateString += "0";
         }
-        dateString += calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+        dateString += calendar.get(Calendar.MINUTE);
+
         if(calendar.get(Calendar.AM_PM) == Calendar.AM){
             dateString += " AM";
         } else {
