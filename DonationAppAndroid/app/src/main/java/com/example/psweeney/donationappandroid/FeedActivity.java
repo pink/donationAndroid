@@ -1,18 +1,19 @@
 package com.example.psweeney.donationappandroid;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.psweeney.donationappandroid.feed.CharityTextPostData;
+import com.example.psweeney.donationappandroid.feed.CharityPostData;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostData;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
@@ -31,27 +32,102 @@ public class FeedActivity extends AppCompatActivity {
 
         List<PostData> dataListUser = new ArrayList<>();
 
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity A", 509));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity B", 142));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity D", 333));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity X", 601));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity A", 49));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity Z", 11));
-        dataListUser.add(new DonationPostData(R.drawable.ic_photo_black_48dp, null, "Charity B", 15));
+        Drawable defUserIcon = getResources().getDrawable(R.drawable.ic_account_box_black_48dp);
+        Drawable defCharityIcon = getResources().getDrawable(R.drawable.ic_local_florist_black_48dp);
+        Drawable defPhotoLibraryIcon = getResources().getDrawable(R.drawable.ic_photo_library_black_48dp);
+
+        DonationPostData newUserDonationPostData1 = new DonationPostData(defUserIcon, null, "Charity A", 509);
+        newUserDonationPostData1.getPostTime().set(Calendar.YEAR, newUserDonationPostData1.getPostTime().get(Calendar.YEAR) - 2);
+
+        DonationPostData newUserDonationPostData2 = new DonationPostData(defUserIcon, null, "Charity B", 142);
+        newUserDonationPostData2.getPostTime().set(Calendar.MONTH, newUserDonationPostData2.getPostTime().get(Calendar.MONTH) - 5);
+
+        DonationPostData newUserDonationPostData3 = new DonationPostData(defUserIcon, null, "Charity D", 330);
+        newUserDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 15);
+
+        DonationPostData newUserDonationPostData4 = new DonationPostData(defUserIcon, null, "Charity X", 601);
+        newUserDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 2);
+
+        DonationPostData newUserDonationPostData5 = new DonationPostData(defUserIcon, null, "Charity A", 49);
+        if(newUserDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
+            newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
+        } else {
+            newUserDonationPostData5.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData5.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
+            newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
+        }
+
+        DonationPostData newUserDonationPostData6 = new DonationPostData(defUserIcon, null, "Charity Z", 11);
+        newUserDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newUserDonationPostData6.getPostTime().get(Calendar.MINUTE) - 10));
+
+        DonationPostData newUserDonationPostData7 = new DonationPostData(defUserIcon, null, "Charity B", 15);
+
+        dataListUser.add(newUserDonationPostData7);
+        dataListUser.add(newUserDonationPostData6);
+        dataListUser.add(newUserDonationPostData5);
+        dataListUser.add(newUserDonationPostData4);
+        dataListUser.add(newUserDonationPostData3);
+        dataListUser.add(newUserDonationPostData2);
+        dataListUser.add(newUserDonationPostData1);
 
         final FeedPostAdapter adapterUser = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListUser);
 
         listViewUser.setAdapter(adapterUser);
 
+        final ListView listViewFriend = (ListView) findViewById(R.id.listViewFriend);
+        String steveName = "Steve Fessler", neilName = "Neil Alberg", seanName = "Sean Kallungal",
+                jonName = "Dr. Jon Froehlich";
+
+        List<PostData> dataListFriend = new ArrayList<>();
+
+        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIcon, jonName, "The Dr. Jon Froehlich Foundation", 99999);
+        newFriendDonationPostData1.getPostTime().set(Calendar.YEAR, newFriendDonationPostData1.getPostTime().get(Calendar.YEAR) - 3);
+
+        DonationPostData newFriendDonationPostData2 = new DonationPostData(defUserIcon, neilName, "Charity A", 142);
+        newFriendDonationPostData2.getPostTime().set(Calendar.MONTH, newFriendDonationPostData2.getPostTime().get(Calendar.MONTH) - 3);
+
+        DonationPostData newFriendDonationPostData3 = new DonationPostData(defUserIcon, neilName, "Charity B", 840);
+        newFriendDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 17);
+
+        DonationPostData newFriendDonationPostData4 = new DonationPostData(defUserIcon, seanName, "Charity T", 84);
+        newFriendDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 4);
+
+        DonationPostData newFriendDonationPostData5 = new DonationPostData(defUserIcon, steveName, "Charity O", 136);
+        if(newFriendDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
+            newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
+        } else {
+            newFriendDonationPostData5.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData5.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
+            newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
+        }
+
+        DonationPostData newFriendDonationPostData6 = new DonationPostData(defUserIcon, seanName, "Charity E", 487);
+        newFriendDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newFriendDonationPostData6.getPostTime().get(Calendar.MINUTE) - 20));
+
+        DonationPostData newFriendDonationPostData7 = new DonationPostData(defUserIcon, steveName, "Charity F", 104);
+
+        dataListFriend.add(newFriendDonationPostData7);
+        dataListFriend.add(newFriendDonationPostData6);
+        dataListFriend.add(newFriendDonationPostData5);
+        dataListFriend.add(newFriendDonationPostData4);
+        dataListFriend.add(newFriendDonationPostData3);
+        dataListFriend.add(newFriendDonationPostData2);
+        dataListFriend.add(newFriendDonationPostData1);
+
+        final FeedPostAdapter adapterFriend = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListFriend);
+
+        listViewFriend.setAdapter(adapterFriend);
+
         final ListView listViewCharity = (ListView) findViewById(R.id.listViewCharity);
 
         List<PostData> dataListCharity = new ArrayList<>();
 
-        dataListCharity.add(new CharityTextPostData(R.drawable.ic_photo_black_48dp, "Charity A",
+        dataListCharity.add(new CharityPostData(defCharityIcon, "Charity A",
                 "Hello everyone,\nThank you for donating to Charity A this month. We're grateful for " +
-                        "every donation we get.\nSincerely,\nThe Charity A Staff"));
+                        "every donation we get.\n\nSincerely,\nThe Charity A Staff"));
+        dataListCharity.add(new CharityPostData(defCharityIcon, "Charity B", defPhotoLibraryIcon,
+                "Hello everyone,\nCheck out our new photos from the Charity B volunteer event last Sunday. We appreciate" +
+                        "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity B Staff"));
 
-        final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity_text, dataListCharity);
+        final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity, dataListCharity);
 
         listViewCharity.setAdapter(adapterCharity);
     }

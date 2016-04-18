@@ -1,5 +1,7 @@
 package com.example.psweeney.donationappandroid.feed;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -9,12 +11,13 @@ import java.util.Map;
  */
 public interface PostData {
     public enum PostDataType {
-        TEXT, DRAWABLE_ID
+        TEXT, DRAWABLE
     }
 
     public int getCount();
-    public int getAuthorIconId();
+    public Drawable getAuthorIcon();
     public String getTitleDisplayString();
+    public Calendar getPostTime();
     public String getDateDisplayString();
     public ArrayList<Object> getDataList();
     public Map<Object, PostDataType> getDataTypeMap();

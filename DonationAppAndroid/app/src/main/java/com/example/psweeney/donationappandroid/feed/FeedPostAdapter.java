@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.psweeney.donationappandroid.R;
 
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -34,24 +35,33 @@ public class FeedPostAdapter extends ArrayAdapter{
             rowView = inflater.inflate(R.layout.feed_post_donation, parent, false);
 
             ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
-            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
+            imageViewAuthorIcon.setImageDrawable(curr.getAuthorIcon());
 
             TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
             textViewTopLine.setText(curr.getTitleDisplayString());
 
             TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
             textViewBottomLine.setText(curr.getDateDisplayString());
-        } else if(curr instanceof CharityTextPostData){
-            rowView = inflater.inflate(R.layout.feed_post_charity_text, parent, false);
+        } else if(curr instanceof CharityPostData){
+            rowView = inflater.inflate(R.layout.feed_post_charity, parent, false);
 
             ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
-            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
+            imageViewAuthorIcon.setImageDrawable(curr.getAuthorIcon());
 
             TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
             textViewTopLine.setText(curr.getTitleDisplayString());
 
+            ImageView imageViewBody = (ImageView) rowView.findViewById(R.id.imageViewBody);
+
+            if(((CharityPostData) curr).getBodyImage() == null){
+                imageViewBody.setVisibility(View.GONE);
+            } else {
+                imageViewBody.setImageDrawable(((CharityPostData) curr).getBodyImage());
+                imageViewBody.setVisibility(View.VISIBLE);
+            }
+
             TextView textViewBody = (TextView) rowView.findViewById(R.id.textViewBody);
-            textViewBody.setText(((CharityTextPostData) curr).getBodyText());
+            textViewBody.setText(((CharityPostData) curr).getBodyText());
 
             TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
             textViewBottomLine.setText(curr.getDateDisplayString());
@@ -101,7 +111,10 @@ public class FeedPostAdapter extends ArrayAdapter{
                 break;
         }
 
-        dateString += " " + calendar.get(Calendar.DAY_OF_MONTH) + " at ";
+        dateString += " " + calendar.get(Calendar.DAY_OF_MONTH) + ", " + calendar.get(Calendar.YEAR) + " at ";
+        if(calendar.get(Calendar.MINUTE) < 10){
+            dateString += "0";
+        }
         dateString += calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
         if(calendar.get(Calendar.AM_PM) == Calendar.AM){
             dateString += " AM";

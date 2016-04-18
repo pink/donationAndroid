@@ -36,14 +36,23 @@
             android:id="@+id/textViewBody"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_alignParentRight="true"
             android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@+id/imageViewAuthorIcon"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Body text"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"/>
+        
+        <ImageView
+            android:id="@+id/imageViewBody"
+            android:layout_width="@dimen/feed_image_size"
+            android:layout_height="@dimen/feed_image_size"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/textViewDateLine"
