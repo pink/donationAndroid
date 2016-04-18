@@ -17,7 +17,7 @@ public class DonationPostData implements PostData{
 
     private static final String USER_POST_NAME = "You";
 
-    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
+    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
         _authorIconId = authorIconId;
         if(authorDisplayName == null){
             _authorDisplayName = USER_POST_NAME;
@@ -26,8 +26,12 @@ public class DonationPostData implements PostData{
         }
 
         _recipientDisplayName = recipientDisplayName;
-        _postTime = Calendar.getInstance();
+        _postTime = postTime;
         _donationAmountCents = donationAmountCents;
+    }
+
+    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
+        this(authorIconId, authorDisplayName, recipientDisplayName, Calendar.getInstance(), donationAmountCents);
     }
 
     public int getAuthorIconId(){
@@ -48,72 +52,20 @@ public class DonationPostData implements PostData{
         return ret;
     }
 
-    public String buildTopString(){
+    public String getTitleDisplayString(){
         return _authorDisplayName + " donated " + getDonationAmountDisplayString() + " to " + _recipientDisplayName + ".";
     }
 
-    private String getDateDisplayString(){
-        String dateString = "";
-        switch (_postTime.get(Calendar.MONTH)){
-            case Calendar.JANUARY:
-                dateString += "January";
-                break;
-            case Calendar.FEBRUARY:
-                dateString += "February";
-                break;
-            case Calendar.MARCH:
-                dateString += "March";
-                break;
-            case Calendar.APRIL:
-                dateString += "April";
-                break;
-            case Calendar.MAY:
-                dateString += "May";
-                break;
-            case Calendar.JUNE:
-                dateString += "June";
-                break;
-            case Calendar.JULY:
-                dateString += "July";
-                break;
-            case Calendar.AUGUST:
-                dateString += "August";
-                break;
-            case Calendar.SEPTEMBER:
-                dateString += "September";
-                break;
-            case Calendar.OCTOBER:
-                dateString += "October";
-                break;
-            case Calendar.NOVEMBER:
-                dateString += "November";
-                break;
-            case Calendar.DECEMBER:
-                dateString += "December";
-                break;
-        }
-
-        dateString += " " + _postTime.get(Calendar.DAY_OF_MONTH) + " at ";
-        dateString += _postTime.get(Calendar.HOUR) + ":" + _postTime.get(Calendar.MINUTE);
-        if(_postTime.get(Calendar.AM_PM) == Calendar.AM){
-            dateString += " AM";
-        } else {
-            dateString += " PM";
-        }
-
-        return dateString;
-    }
-
-    public String buildBottomString(){
-        return getDateDisplayString();
+    public String getDateDisplayString(){
+        return FeedPostAdapter.buildPostTimeString(_postTime);
     }
 
     @Override
     public ArrayList<Object> getDataList() {
         ArrayList<Object> dataList = new ArrayList<>();
         dataList.add(_authorIconId);
-        dataList.add(buildBottomString());
-        dataList.add(buildTopString());
+        dataList.add(getDateDisplayString());
+        dataList.add(getTitleDisplayString());
 
         return dataList;
     }
@@ -122,8 +74,8 @@ public class DonationPostData implements PostData{
     public Map<Object, PostDataType> getDataTypeMap() {
         Map<Object, PostDataType> dataTypeMap = new HashMap<>();
         dataTypeMap.put(_authorIconId, PostDataType.DRAWABLE_ID);
-        dataTypeMap.put(buildBottomString(), PostDataType.TEXT);
-        dataTypeMap.put(buildTopString(), PostDataType.TEXT);
+        dataTypeMap.put(getDateDisplayString(), PostDataType.TEXT);
+        dataTypeMap.put(getTitleDisplayString(), PostDataType.TEXT);
         return dataTypeMap;
     }
 }

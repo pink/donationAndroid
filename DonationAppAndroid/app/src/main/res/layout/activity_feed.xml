@@ -24,19 +24,23 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickUserFeed"
+                android:id="@+id/frameUserFeedButton">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:text="@string/feed_user_label"
-                    android:id="@+id/textView"
+                    android:id="@+id/textViewUserFeedLabel"
                     android:textAlignment="center"
                     android:background="@color/colorPrimary"
                     android:padding="5dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorAccent"
+                    android:clickable="false" />
             </FrameLayout>
 
             <Space
@@ -46,14 +50,17 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:onClick="onButtonClickFriendFeed"
+                android:clickable="true"
+                android:id="@+id/frameFriendFeedButton">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:text="@string/feed_friends_label"
-                    android:id="@+id/textView2"
+                    android:id="@+id/textViewFriendFeedLabel"
                     android:textAlignment="center"
                     android:background="@color/colorAccent"
                     android:padding="5dp"
@@ -68,14 +75,17 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickCharityFeed"
+                android:id="@+id/frameCharityFeedButton">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:text="@string/feed_charities_label"
-                    android:id="@+id/textView3"
+                    android:id="@+id/textViewCharityFeedLabel"
                     android:textAlignment="center"
                     android:background="@color/colorAccent"
                     android:padding="5dp"
@@ -85,9 +95,21 @@
         </LinearLayout>
 
         <ListView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listViewUser" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewFriend"
+            android:visibility="gone" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewCharity"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>

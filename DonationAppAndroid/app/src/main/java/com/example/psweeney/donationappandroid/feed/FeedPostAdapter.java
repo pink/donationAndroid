@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.psweeney.donationappandroid.R;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -35,15 +34,81 @@ public class FeedPostAdapter extends ArrayAdapter{
             rowView = inflater.inflate(R.layout.feed_post_donation, parent, false);
 
             ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
-            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(((DonationPostData) curr).getAuthorIconId()));
+            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
 
-            TextView textViewTopLine = (TextView) rowView.findViewById(R.id.firstLine);
-            textViewTopLine.setText(((DonationPostData) curr).buildTopString());
+            TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
+            textViewTopLine.setText(curr.getTitleDisplayString());
 
-            TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.secondLine);
-            textViewBottomLine.setText(((DonationPostData) curr).buildBottomString());
+            TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
+            textViewBottomLine.setText(curr.getDateDisplayString());
+        } else if(curr instanceof CharityTextPostData){
+            rowView = inflater.inflate(R.layout.feed_post_charity_text, parent, false);
+
+            ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
+            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
+
+            TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
+            textViewTopLine.setText(curr.getTitleDisplayString());
+
+            TextView textViewBody = (TextView) rowView.findViewById(R.id.textViewBody);
+            textViewBody.setText(((CharityTextPostData) curr).getBodyText());
+
+            TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
+            textViewBottomLine.setText(curr.getDateDisplayString());
         }
 
         return rowView;
+    }
+
+    public static String buildPostTimeString(Calendar calendar){
+        String dateString = "";
+        switch (calendar.get(Calendar.MONTH)){
+            case Calendar.JANUARY:
+                dateString += "January";
+                break;
+            case Calendar.FEBRUARY:
+                dateString += "February";
+                break;
+            case Calendar.MARCH:
+                dateString += "March";
+                break;
+            case Calendar.APRIL:
+                dateString += "April";
+                break;
+            case Calendar.MAY:
+                dateString += "May";
+                break;
+            case Calendar.JUNE:
+                dateString += "June";
+                break;
+            case Calendar.JULY:
+                dateString += "July";
+                break;
+            case Calendar.AUGUST:
+                dateString += "August";
+                break;
+            case Calendar.SEPTEMBER:
+                dateString += "September";
+                break;
+            case Calendar.OCTOBER:
+                dateString += "October";
+                break;
+            case Calendar.NOVEMBER:
+                dateString += "November";
+                break;
+            case Calendar.DECEMBER:
+                dateString += "December";
+                break;
+        }
+
+        dateString += " " + calendar.get(Calendar.DAY_OF_MONTH) + " at ";
+        dateString += calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+        if(calendar.get(Calendar.AM_PM) == Calendar.AM){
+            dateString += " AM";
+        } else {
+            dateString += " PM";
+        }
+
+        return dateString;
     }
 }

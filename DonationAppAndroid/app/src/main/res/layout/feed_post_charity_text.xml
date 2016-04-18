@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:padding="10dp"
@@ -21,22 +21,33 @@
 
         <TextView
             android:id="@+id/textViewTitleLine"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/imageViewAuthorIcon"
+            android:gravity="center_vertical"
             android:text="Title text"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:id="@+id/textViewBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_alignParentRight="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@+id/imageViewAuthorIcon"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Body text"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"/>
 
         <TextView
             android:id="@+id/textViewDateLine"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -45,9 +56,8 @@
             android:singleLine="true"
             android:text="Date text"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-            android:textStyle="italic"
-            android:textColor="@color/feedDateTextColor" />
-
+            android:textColor="@color/feedDateTextColor"
+            android:textStyle="italic" />
     </LinearLayout>
 
 

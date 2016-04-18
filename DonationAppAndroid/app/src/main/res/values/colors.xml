@@ -3,6 +3,8 @@
     <color name="colorPrimary">#FFC107</color> <!-- currently set to materialAmber500 -->
     <color name="colorPrimaryDark">#000000</color> <!-- currently set to BLACK -->
     <color name="colorAccent">#FFFFFF</color> <!-- currently set to WHITE -->
+    
+    <color name="feedDateTextColor">#616161</color>
 
     <color name="materialCyan100">#B2EBF2</color>
     <color name="materialCyan200">#80DEEA</color>
