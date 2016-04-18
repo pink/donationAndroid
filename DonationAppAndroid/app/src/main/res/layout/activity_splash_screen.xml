@@ -58,7 +58,7 @@
                 android:text="@string/login_or_register_button_label"
                 android:id="@+id/buttonLoginRegister"
                 android:background="@color/colorAccent"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:onClick="onButtonClickLoginRegister" />
         </LinearLayout>
     </LinearLayout>

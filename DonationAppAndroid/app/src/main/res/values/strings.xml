@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Donation App</string>
 
+    <string name="feed_title_bar_label">Donation Feed</string>
+
     <string name="email_hint_text">Email address</string>
     <string name="password_hint_text">Password</string>
 

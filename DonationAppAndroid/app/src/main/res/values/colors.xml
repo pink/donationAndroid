@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFC107</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <!--color name="colorPrimaryDark">#FFB300</color-->
-    <!-- color name="colorAccent">#FFE082</color-->
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="colorPrimaryCyan">#00BCD4</color>
-    <color name="colorPrimaryDarkCyan">#00ACC1</color>
-    <color name="colorAccentCyan">#B2EBF2</color>
-    <color name="colorPrimaryAmber">#FFC107</color>
-    <color name="colorPrimaryDarkAmber">#FFB300</color>
-    <color name="colorAccentAmber">#FFE082</color>
+    <color name="colorPrimary">#FFC107</color> <!-- currently set to materialAmber500 -->
+    <color name="colorPrimaryDark">#000000</color> <!-- currently set to BLACK -->
+    <color name="colorAccent">#FFFFFF</color> <!-- currently set to WHITE -->
+
+    <color name="materialCyan100">#B2EBF2</color>
+    <color name="materialCyan200">#80DEEA</color>
+    <color name="materialCyan300">#4DD0E1</color>
+    <color name="materialCyan400">#26C6DA</color>
+    <color name="materialCyan500">#00BCD4</color>
+    <color name="materialCyan600">#00ACC1</color>
+    <color name="materialCyan700">#0097A7</color>
+    <color name="materialCyan800">#00838F</color>
+    <color name="materialCyan900">#006064</color>
+
+    <color name="materialAmber100">#FFECB3</color>
+    <color name="materialAmber200">#FFE082</color>
+    <color name="materialAmber300">#FFD54F</color>
+    <color name="materialAmber400">#FFCA28</color>
+    <color name="materialAmber500">#FFC107</color>
+    <color name="materialAmber600">#FFB300</color>
+    <color name="materialAmber700">#FFA000</color>
+    <color name="materialAmber800">#FF8F00</color>
+    <color name="materialAmber900">#FF6F00</color>
+
 </resources>
