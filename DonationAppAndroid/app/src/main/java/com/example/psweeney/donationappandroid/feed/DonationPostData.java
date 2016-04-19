@@ -16,10 +16,14 @@ public class DonationPostData implements PostData{
     private String _recipientDisplayName;
     private Calendar _postTime;
     private int _donationAmountCents;
+    private int _numLikes;
+    private boolean _likedByUser;
+    private ArrayList<CommentData> _comments;
 
     private static final String USER_POST_NAME = "You";
 
-    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
+    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
+                            int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
         _authorIcon = authorIcon;
         if(authorDisplayName == null){
             _authorDisplayName = USER_POST_NAME;
@@ -30,6 +34,17 @@ public class DonationPostData implements PostData{
         _recipientDisplayName = recipientDisplayName;
         _postTime = postTime;
         _donationAmountCents = donationAmountCents;
+        _numLikes = numLikes;
+        _likedByUser = likedByUser;
+        if(comments == null){
+            _comments = new ArrayList<>();
+        } else {
+            _comments = comments;
+        }
+    }
+
+    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
+        this(authorIcon, authorDisplayName, recipientDisplayName, postTime, donationAmountCents, 0, false, null);
     }
 
     public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
@@ -47,6 +62,31 @@ public class DonationPostData implements PostData{
     @Override
     public Calendar getPostTime() {
         return _postTime;
+    }
+
+    @Override
+    public int getNumLikes() {
+        return _numLikes;
+    }
+
+    @Override
+    public void setNumLikes(int newValue) {
+        _numLikes = Math.max(0, newValue);
+    }
+
+    @Override
+    public boolean likedByUser() {
+        return _likedByUser;
+    }
+
+    @Override
+    public void setLikedByUser(boolean newValue) {
+        _likedByUser = newValue;
+    }
+
+    @Override
+    public ArrayList<CommentData> getComments() {
+        return _comments;
     }
 
     @Override
