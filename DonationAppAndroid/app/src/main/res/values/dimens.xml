@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="thin_border_width">2dp</dimen>
+    <dimen name="medium_border_width">4dp</dimen>
     <dimen name="feed_category_text_padding">5dp</dimen>
     <dimen name="feed_icon_size">50dp</dimen>
     <dimen name="feed_button_icon_size">25dp</dimen>
