@@ -16,13 +16,28 @@ public class CharityPostData implements PostData {
     private Drawable _bodyImage;
     private String _bodyText;
     private Calendar _postTime;
+    private int _numLikes;
+    private boolean _likedByUser;
+    private ArrayList<CommentData> _comments;
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText, Calendar postTime){
+    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText, Calendar postTime,
+                           int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
         _authorIcon = authorIcon;
         _authorDisplayName = authorDisplayName;
         _bodyImage = bodyImage;
         _bodyText = bodyText;
         _postTime = postTime;
+        _numLikes = numLikes;
+        _likedByUser = likedByUser;
+        if(comments == null){
+            _comments = new ArrayList<>();
+        } else {
+            _comments = comments;
+        }
+    }
+
+    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText, Calendar postTime){
+        this(authorIcon, authorDisplayName, bodyImage, bodyText, postTime, 0, false, null);
     }
 
     public CharityPostData(Drawable authorIcon, String authorDisplayName, String bodyText, Calendar postTime){
@@ -67,6 +82,31 @@ public class CharityPostData implements PostData {
         }
 
         return total;
+    }
+
+    @Override
+    public int getNumLikes() {
+        return _numLikes;
+    }
+
+    @Override
+    public void setNumLikes(int newValue) {
+        _numLikes = Math.max(0, newValue);
+    }
+
+    @Override
+    public boolean likedByUser() {
+        return _likedByUser;
+    }
+
+    @Override
+    public void setLikedByUser(boolean newValue) {
+        _likedByUser = newValue;
+    }
+
+    @Override
+    public ArrayList<CommentData> getComments() {
+        return _comments;
     }
 
     public String getTitleDisplayString(){

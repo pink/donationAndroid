@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -209,6 +210,40 @@ public class FeedActivity extends AppCompatActivity {
         if(_currentSelection != FeedType.CHARITY){
             _currentSelection = FeedType.CHARITY;
             updateFeedSelection();
+        }
+    }
+
+    public void onButtonClickLike(View v){
+        if(v == null || v.getId() != R.id.frameLayoutLikeContainer){
+            return;
+        }
+
+        ImageView likeIconDisabled = (ImageView) v.findViewById(R.id.imageViewLikeIconDisabled);
+        ImageView likeIconEnabled = (ImageView) v.findViewById(R.id.imageViewLikeIconEnabled);
+
+        TextView likeNumText = (TextView) v.findViewById(R.id.textViewLikeNum);
+        int likeNum;
+        try{
+            likeNum = Integer.parseInt(likeNumText.getText().toString());
+        } catch (Exception e){
+            likeNum = 0;
+        }
+
+        if(likeIconDisabled.getVisibility() == View.VISIBLE){
+            likeIconDisabled.setVisibility(View.GONE);
+            likeIconEnabled.setVisibility(View.VISIBLE);
+            likeNum += 1;
+        } else {
+            likeIconDisabled.setVisibility(View.VISIBLE);
+            likeIconEnabled.setVisibility(View.GONE);
+            likeNum -= 1;
+        }
+
+        likeNumText.setText(Integer.toString(likeNum));
+        if(likeNum > 0){
+            likeNumText.setVisibility(View.VISIBLE);
+        } else {
+            likeNumText.setVisibility(View.GONE);
         }
     }
 }

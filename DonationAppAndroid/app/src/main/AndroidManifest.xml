@@ -24,6 +24,7 @@
         <activity
             android:name=".FeedActivity"
             android:label="@string/feed_title_bar_label" />
+<<<<<<< HEAD
         <activity
             android:name=".SearchActivity"
             android:label="@string/search_title_bar_label" />
@@ -31,6 +32,9 @@
             android:name=".StatisticsActivity"
             android:label="@string/stats_title_bar_label" />
         <activity android:name=".GoalScreen"></activity>
+=======
+        <activity android:name=".SingleFeedPostActivity"></activity>
+>>>>>>> f8d3f142e9a7e3f31573337c2783a3645fbd8537
     </application>
 
 </manifest>

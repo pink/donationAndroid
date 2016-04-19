@@ -21,4 +21,9 @@ public interface PostData {
     public String getDateDisplayString();
     public ArrayList<Object> getDataList();
     public Map<Object, PostDataType> getDataTypeMap();
+    public int getNumLikes();
+    public void setNumLikes(int newValue);
+    public boolean likedByUser();
+    public void setLikedByUser(boolean newValue);
+    public ArrayList<CommentData> getComments();
 }
