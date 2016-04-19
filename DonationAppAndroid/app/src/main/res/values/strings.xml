@@ -18,6 +18,10 @@
     <string name="feed_friends_label">Friends</string>
     <string name="feed_charities_label">Charities</string>
 
+    <string name="category_goals_button_label">Donation Goals</string>
+    <string name="category_history_button_label">Donation History</string>
+    <string name="category_breakdown_button_label">Donation Breakdown</string>
+
     <string name="invalid_email_message">Please enter a valid email address</string>
     <string name="invalid_password_message_1">Password must be at least </string>
     <string name="invalid_password_message_2"> characters long</string>
