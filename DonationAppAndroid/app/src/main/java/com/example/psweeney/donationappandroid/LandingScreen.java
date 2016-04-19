@@ -39,7 +39,7 @@ public class LandingScreen extends AppCompatActivity {
     }
 
     public void onClickCategoryStatistics(View v){
-        Toast.makeText(getApplicationContext(), "This category has not yet been implemented", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
     }
 
     public void onClickCategorySearch(View v){
