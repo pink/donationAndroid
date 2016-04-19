@@ -22,7 +22,7 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:padding="10dp"
-            android:onClick="onClickCategoryStatistics" >
+            android:onClick="onClickCategoryGoals" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:padding="10dp"
-            android:onClick="onClickCategorySearch" >
+            android:onClick="onClickCategoryHistory" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:padding="10dp"
-            android:onClick="onClickCategoryFeed" >
+            android:onClick="onClickCategoryBreakdown" >
 
             <ImageView
                 android:layout_width="wrap_content"
