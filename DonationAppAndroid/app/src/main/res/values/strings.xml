@@ -4,6 +4,8 @@
     <string name="feed_title_bar_label">Donation Feed</string>
     <string name="search_title_bar_label">Research Charities</string>
     <string name="stats_title_bar_label">Donation Statistics</string>
+    <string name="goals_title_bar_label">Donation Goals</string>
+    <string name="history_title_bar_label">Donation History</string>
 
     <string name="email_hint_text">Email address</string>
     <string name="password_hint_text">Password</string>

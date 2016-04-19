@@ -14,11 +14,11 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     public void onClickCategoryGoals(View v){
-        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+        startActivity(new Intent(getApplicationContext(), GoalScreen.class));
     }
 
     public void onClickCategoryHistory(View v){
-        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+        startActivity(new Intent(getApplicationContext(), HistoryScreen.class));
     }
 
     public void onClickCategoryBreakdown(View v){
