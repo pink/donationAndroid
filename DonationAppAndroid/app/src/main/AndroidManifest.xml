@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LandingScreen"
-            android:label="@string/app_name"/>
-        <activity android:name=".FeedActivity"
-            android:label="@string/feed_title_bar_label"/>
+        <activity
+            android:name=".LandingScreen"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".FeedActivity"
+            android:label="@string/feed_title_bar_label" />
+        <activity android:name=".SingleFeedPostActivity"></activity>
     </application>
 
 </manifest>
