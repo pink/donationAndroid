@@ -22,6 +22,11 @@ public class CommentAdapter extends ArrayAdapter {
         _comments = comments;
     }
 
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,9 +34,6 @@ public class CommentAdapter extends ArrayAdapter {
         CommentData curr = _comments.get(position);
 
         View rowView = inflater.inflate(R.layout.feed_comment, parent, false);
-
-        ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewCommentAuthorIcon);
-        imageViewAuthorIcon.setImageDrawable(curr.getAuthorIcon());
 
         TextView textViewAuthorName = (TextView) rowView.findViewById(R.id.textViewCommentAuthor);
         textViewAuthorName.setText(curr.getAuthorDisplayName());

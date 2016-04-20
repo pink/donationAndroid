@@ -14,18 +14,15 @@ import java.util.Set;
  * Created by psweeney on 4/19/16.
  */
 public class CommentData {
-    private BitmapDrawable _authorIcon;
-    private String _authorDisplayName;
-    private String _commentText;
+    public static String commentAuthorDisplayNameKey = "commentAuthorDisplayName";
+    public static String commentTextKey = "commentText";
 
-    public CommentData(BitmapDrawable authorIcon, String authorDisplayName, String commentText){
-        _authorIcon = authorIcon;
+    private String _authorDisplayName = "";
+    private String _commentText = "";
+
+    public CommentData(String authorDisplayName, String commentText){
         _authorDisplayName = new String(authorDisplayName);
         _commentText = new String(commentText);
-    }
-
-    public BitmapDrawable getAuthorIcon() {
-        return _authorIcon;
     }
 
     public String getAuthorDisplayName() {
@@ -36,36 +33,30 @@ public class CommentData {
         return _commentText;
     }
 
-    public static String getAuthorIconBundleKey(int commentNum){
-        return "COMMENT_AUTHOR_ICON_" + commentNum;
+    public void addToBundle(Bundle bundle, int position){
+        if(bundle == null){
+            return;
+        }
+        bundle.putString(commentAuthorDisplayNameKey + Integer.toString(position), _authorDisplayName);
+        bundle.putString(commentTextKey + Integer.toString(position), _commentText);
     }
 
-    public static String getAuthorDisplayNameBundleKey(int commentNum){
-        return "COMMENT_AUTHOR_DISPLAY_NAME_" + commentNum;
-    }
-
-    public static String getCommentTextBundleKey(int commentNum){
-        return "COMMENT_TEXT_" + commentNum;
-    }
-
-    public static ArrayList<CommentData> extractCommentsFromBundle(Bundle b){
-        ArrayList<CommentData> comments = new ArrayList<>();
-        if(b == null || !b.containsKey(PostData.numCommentsKey)){
-            return comments;
+    public static CommentData extractCommentDataFromBundle(Bundle bundle, int position){
+        if(bundle == null){
+            return null;
         }
 
-        int numComments = b.getInt(PostData.numCommentsKey);
-        if(numComments <= 0){
-            return comments;
+        BitmapDrawable authorIcon = null;
+        String authorDisplayName = "";
+        String commentText = "";
+
+        try{
+            authorDisplayName = bundle.getString(commentAuthorDisplayNameKey + Integer.toString(position));
+            commentText = bundle.getString(commentTextKey + Integer.toString(position));
+        } catch (Exception e){
+            return null;
         }
 
-        for(int i = 0; i < numComments; i++){
-            BitmapDrawable authorIcon = b.getParcelable(CommentData.getAuthorIconBundleKey(i));
-            String authorDisplayName = b.getString(CommentData.getAuthorDisplayNameBundleKey(i));
-            String commentText = b.getString(CommentData.getCommentTextBundleKey(i));
-            comments.add(new CommentData(authorIcon, authorDisplayName, commentText));
-        }
-
-        return comments;
+        return new CommentData(authorDisplayName, commentText);
     }
 }

@@ -37,7 +37,10 @@
             android:name=".HistoryScreen"
             android:label="@string/history_title_bar_label" />
 
-        <activity android:name=".SingleDonationPostActivity"></activity>
+        <activity
+            android:name=".SingleDonationPostActivity"
+            android:label="Post Details"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

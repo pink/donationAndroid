@@ -1,5 +1,6 @@
 package com.example.psweeney.donationappandroid.feed;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,26 +14,22 @@ import java.util.Map;
  * Created by psweeney on 4/18/16.
  */
 public class DonationPostData extends PostData{
-    public enum DonationPostDataFields{
-        RECIPIENT_DISPLAY_NAME,  DONATION_AMOUNT_CENTS
-    }
-
     public static String recipientDisplayNameKey = "recipientDisplayName";
     public static String donationAmountCentsKey = "donationAmountCents";
 
-    private BitmapDrawable _authorIcon;
-    private String _authorDisplayName;
     private String _recipientDisplayName;
-    private Calendar _postTime;
     private int _donationAmountCents;
-    private int _numLikes;
-    private boolean _likedByUser;
-    private ArrayList<CommentData> _comments;
 
     private static final String USER_POST_NAME = "You";
 
+    public DonationPostData(){
+        _recipientDisplayName = "";
+        _donationAmountCents = 0;
+    }
+
     public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
                             int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
+        this();
         _authorIcon = authorIcon;
         if(authorDisplayName == null){
             _authorDisplayName = new String(USER_POST_NAME);
@@ -64,18 +61,50 @@ public class DonationPostData extends PostData{
         this(other._authorIcon, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents);
     }
 
-    @Override
-    public PostType getPostType() {
-        return PostType.DONATION;
-    }
+    public DonationPostData(Bundle bundle){
+        this();
+        if(bundle == null || !(bundle.containsKey("postType") && bundle.getString("postType").equals(PostType.DONATION.toString()))){
+            return;
+        }
+        BitmapDrawable authorIcon;
+        String authorDisplayName;
+        String recipientDisplayName;
+        int donationAmountCents;
+        Calendar postTime;
+        int numLikes;
+        boolean likedByUser;
+        int numComments;
 
-    public BitmapDrawable getAuthorIcon(){
-        return _authorIcon;
-    }
+        try{
+            authorIcon = new BitmapDrawable((Bitmap) bundle.getParcelable(PostData.authorIconKey));
+            authorDisplayName = bundle.getString(PostData.authorDisplayNameKey);
+            recipientDisplayName = bundle.getString(recipientDisplayNameKey);
+            donationAmountCents = bundle.getInt(donationAmountCentsKey);
+            postTime = (Calendar) bundle.getSerializable(PostData.postTimeKey);
+            numLikes = bundle.getInt(PostData.numLikesKey);
+            likedByUser = bundle.getBoolean(PostData.likedByUserKey);
+            numComments = bundle.getInt(PostData.numCommentsKey);
+        } catch (Exception e){
+            return;
+        }
 
-    @Override
-    public String getAuthorDisplayName() {
-        return _authorDisplayName;
+        _authorIcon = authorIcon;
+        _authorDisplayName = authorDisplayName;
+        _recipientDisplayName = recipientDisplayName;
+        _donationAmountCents = donationAmountCents;
+        _postTime = postTime;
+        _numLikes = numLikes;
+        _likedByUser = likedByUser;
+
+        for(int i = 0; i < numComments; i++){
+            CommentData cd = null;
+            try {
+                cd = CommentData.extractCommentDataFromBundle(bundle, i);
+            } catch (Exception e){
+                continue;
+            }
+            _comments.add(cd);
+        }
     }
 
     public String getRecipientDisplayName(){
@@ -84,41 +113,6 @@ public class DonationPostData extends PostData{
 
     public int getDonationAmountCents(){
         return _donationAmountCents;
-    }
-
-    @Override
-    public Calendar getPostTime() {
-        return _postTime;
-    }
-
-    @Override
-    public int getNumLikes() {
-        return _numLikes;
-    }
-
-    @Override
-    public void setNumLikes(int newValue) {
-        _numLikes = Math.max(0, newValue);
-    }
-
-    @Override
-    public boolean likedByUser() {
-        return _likedByUser;
-    }
-
-    @Override
-    public void setLikedByUser(boolean newValue) {
-        _likedByUser = newValue;
-    }
-
-    @Override
-    public ArrayList<CommentData> getComments() {
-        return _comments;
-    }
-
-    @Override
-    public int getCount() {
-        return 3;
     }
 
     private String getDonationAmountDisplayString(){
@@ -136,7 +130,15 @@ public class DonationPostData extends PostData{
         return _authorDisplayName + " donated " + getDonationAmountDisplayString() + " to " + _recipientDisplayName + ".";
     }
 
-    public String getDateDisplayString(){
-        return FeedPostAdapter.buildPostTimeString(_postTime);
+    @Override
+    public Bundle convertToBundle() {
+        Bundle bundle = super.convertToBundle();
+        if(bundle == null){
+            return null;
+        }
+        bundle.putString(recipientDisplayNameKey, _recipientDisplayName);
+        bundle.putInt(donationAmountCentsKey, _donationAmountCents);
+
+        return bundle;
     }
 }

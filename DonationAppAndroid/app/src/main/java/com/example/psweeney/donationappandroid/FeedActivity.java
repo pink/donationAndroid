@@ -28,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private FeedType _currentSelection = FeedType.USER;
+    private PostContainer _lastInteraction = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,8 @@ public class FeedActivity extends AppCompatActivity {
         List<PostData> dataListFriend = new ArrayList<>();
 
         ArrayList<CommentData> comments = new ArrayList<>();
-        comments.add(new CommentData(defUserIcon, steveName, "Nice"));
-        comments.add(new CommentData(defUserIcon, jonName, "Super cool"));
+        comments.add(new CommentData(steveName, "Nice"));
+        comments.add(new CommentData(jonName, "Super cool"));
 
         DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIcon, jonName, "The Dr. Jon Froehlich Foundation",
                 Calendar.getInstance(), 99999, 2, false, comments);
@@ -147,6 +148,31 @@ public class FeedActivity extends AppCompatActivity {
         final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity, dataListCharity);
 
         listViewCharity.setAdapter(adapterCharity);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                Bundle bundle = data.getExtras();
+                if(bundle == null || _lastInteraction == null){
+                    return;
+                }
+
+                _lastInteraction.getData().setNumLikes(bundle.getInt(PostData.numLikesKey));
+                _lastInteraction.getData().setLikedByUser(bundle.getBoolean(PostData.likedByUserKey));
+
+                ArrayList<CommentData> newComments = new ArrayList<>();
+                int newNumComments = bundle.getInt(PostData.numCommentsKey);
+                for(int i = 0; i < newNumComments; i++){
+                    newComments.add(CommentData.extractCommentDataFromBundle(bundle, i));
+                }
+
+                _lastInteraction.getData().setComments(newComments);
+                _lastInteraction.updateViews();
+            }
+        }
     }
 
     private void updateFeedSelection(){
@@ -234,13 +260,22 @@ public class FeedActivity extends AppCompatActivity {
             return;
         }
 
-        ImageView likeIconDisabled = (ImageView) v.findViewById(R.id.imageViewLikeIconDisabled);
-        ImageView likeIconEnabled = (ImageView) v.findViewById(R.id.imageViewLikeIconEnabled);
         View subContainer = v.findViewById(R.id.likeSubContainer);
         PostContainer parentContainer = FeedPostAdapter.getParentPostContainer(v);
+        _lastInteraction = parentContainer;
+        parentContainer.getData().setLikedByUser(!parentContainer.getData().likedByUser());
+        if(parentContainer.getData().likedByUser()){
+            parentContainer.getData().setNumLikes(parentContainer.getData().getNumLikes() + 1);
+        } else {
+            parentContainer.getData().setNumLikes(Math.max(0, parentContainer.getData().getNumLikes() - 1));
+        }
+
+        parentContainer.updateViews();
+
         subContainer.setAlpha(0);
         subContainer.animate().alpha(1);
 
+        /*
         TextView likeNumText = (TextView) v.findViewById(R.id.textViewLikeNum);
         int likeNum;
         try{
@@ -272,7 +307,7 @@ public class FeedActivity extends AppCompatActivity {
             likeNumText.setVisibility(View.VISIBLE);
         } else {
             likeNumText.setVisibility(View.GONE);
-        }
+        } */
     }
 
     public void onButtonClickComment(View v){
@@ -285,6 +320,8 @@ public class FeedActivity extends AppCompatActivity {
         subContainer.animate().alpha(1);
 
         PostContainer parentPostContainer = FeedPostAdapter.getParentPostContainer(v);
+        _lastInteraction = parentPostContainer;
+
         if(parentPostContainer == null){
             Toast.makeText(getApplicationContext(), "Something went wrong while trying to comment on this post (invalid container)", Toast.LENGTH_SHORT).show();
             return;
@@ -295,7 +332,7 @@ public class FeedActivity extends AppCompatActivity {
 
         if(parentPostContainer.getData().getPostType() == PostData.PostType.DONATION){
             singlePostIntent = new Intent(getApplicationContext(), SingleDonationPostActivity.class);
-            bundle = FeedPostAdapter.convertPostDataToBundle(parentPostContainer.getData());
+            bundle = parentPostContainer.getData().convertToBundle();
         }
 
         if(singlePostIntent == null || bundle == null){
@@ -304,6 +341,21 @@ public class FeedActivity extends AppCompatActivity {
         }
 
         singlePostIntent.putExtras(bundle);
-        startActivity(singlePostIntent);
+        startActivityForResult(singlePostIntent, 1);
+        //startActivity(singlePostIntent);
+
+        /*
+        parentPostContainer.getData().setNumLikes(bundle.getInt(PostData.numLikesKey));
+        parentPostContainer.getData().setLikedByUser(bundle.getBoolean(PostData.likedByUserKey));
+
+        ArrayList<CommentData> newComments = new ArrayList<>();
+        int newNumComments = bundle.getInt(PostData.numCommentsKey);
+        for(int i = 0; i < newNumComments; i++){
+            newComments.add(CommentData.extractCommentDataFromBundle(bundle, i));
+        }
+
+        parentPostContainer.getData().setComments(newComments);
+        parentPostContainer.updateViews();
+        */
     }
 }

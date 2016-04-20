@@ -3,6 +3,7 @@ package com.example.psweeney.donationappandroid.feed;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,14 +21,8 @@ public class CharityPostData extends PostData {
     public static String bodyTextKey = "bodyText";
     public static String bodyImageKey = "bodyImage";
 
-    private BitmapDrawable _authorIcon;
-    private String _authorDisplayName;
     private BitmapDrawable _bodyImage;
-    private Calendar _postTime;
     private String _bodyText;
-    private int _numLikes;
-    private boolean _likedByUser;
-    private ArrayList<CommentData> _comments;
 
     public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage, String bodyText, Calendar postTime,
                            int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
@@ -74,60 +69,6 @@ public class CharityPostData extends PostData {
         return PostType.CHARITY;
     }
 
-    @Override
-    public BitmapDrawable getAuthorIcon() {
-        return _authorIcon;
-    }
-
-    @Override
-    public String getAuthorDisplayName() {
-        return _authorDisplayName;
-    }
-
-    @Override
-    public Calendar getPostTime() {
-        return _postTime;
-    }
-
-    @Override
-    public int getCount() {
-        int total = 3;
-        if(_bodyImage != null){
-            total++;
-        }
-
-        if(_bodyText != null){
-            total++;
-        }
-
-        return total;
-    }
-
-    @Override
-    public int getNumLikes() {
-        return _numLikes;
-    }
-
-    @Override
-    public void setNumLikes(int newValue) {
-        _numLikes = Math.max(0, newValue);
-    }
-
-    @Override
-    public boolean likedByUser() {
-        return _likedByUser;
-    }
-
-    @Override
-    public void setLikedByUser(boolean newValue) {
-        _likedByUser = newValue;
-    }
-
-    @Override
-    public ArrayList<CommentData> getComments() {
-        return _comments;
-    }
-
     public String getTitleDisplayString(){
         return _authorDisplayName + " posted a new update:";
     }
@@ -140,7 +81,16 @@ public class CharityPostData extends PostData {
         return _bodyImage;
     }
 
-    public String getDateDisplayString(){
-        return FeedPostAdapter.buildPostTimeString(_postTime);
+    @Override
+    public Bundle convertToBundle() {
+        Bundle bundle = super.convertToBundle();
+        if(bundle == null){
+            return null;
+        }
+
+        bundle.putString(bodyTextKey, _bodyText);
+        bundle.putParcelable(bodyImageKey, _bodyImage.getBitmap());
+
+        return bundle;
     }
 }

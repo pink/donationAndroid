@@ -24,7 +24,7 @@ public class SplashView extends ImageView {
     private SplashState _currentState = SplashState.SPLASH_NOT_DRAWN;
     private long _startTimeMillis;
 
-    private static final long MIN_SLEEP_MILLIS = 3000;
+    private static final long MIN_SLEEP_MILLIS = 1000;
 
     public SplashView(Context context) {
         super(context);

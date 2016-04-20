@@ -1,179 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.example.psweeney.donationappandroid.feed.PostContainer xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentContainer"
+    android:id="@+id/parentContainerSinglePost"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin">
 
-    <!--
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorAccent" >
-
-        <LinearLayout
-            android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="@dimen/feed_button_border_width">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp" >
+            android:layout_height="wrap_content"
+            android:text="Comments"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary" />
+    </FrameLayout>
 
-            <ImageView
-                android:layout_width="@dimen/feed_icon_size"
-                android:layout_height="@dimen/feed_icon_size"
-                android:id="@+id/imageViewAuthorIcon"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_photo_black_48dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="6dp" >
-
-                <TextView
-                    android:id="@+id/textViewTitleLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:text="Title text"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:id="@+id/textViewDateLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:text="Date text"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="italic"
-                    android:textColor="@color/feedDateTextColor" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:paddingTop="@dimen/feed_button_border_width" >
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/frameLayoutLikeContainer"
-                android:clickable="true"
-                android:onClick="onButtonClickLike">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="5dp"
-                    android:layout_marginRight="@dimen/feed_button_border_width"
-                    android:id="@+id/likeSubContainer">
-
-                    <ImageView
-                        android:layout_width="@dimen/feed_button_icon_size"
-                        android:layout_height="@dimen/feed_button_icon_size"
-                        android:id="@+id/imageViewLikeIconDisabled"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_favorite_border_white_48dp"
-                        android:tint="@color/colorPrimary" />
-
-                    <ImageView
-                        android:layout_width="@dimen/feed_button_icon_size"
-                        android:layout_height="@dimen/feed_button_icon_size"
-                        android:id="@+id/imageViewLikeIconEnabled"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_favorite_white_48dp"
-                        android:tint="@color/colorPrimary"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/textViewLikeNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignWithParentIfMissing="true"
-                        android:layout_toRightOf="@+id/imageViewAuthorIcon"
-                        android:gravity="center"
-                        android:text="Like num"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:layout_gravity="center"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/frameLayoutCommentContainer"
-                android:clickable="true"
-                android:onClick="onButtonClickComment">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:padding="5dp"
-                    android:id="@+id/commentSubContainer">
-
-                    <ImageView
-                        android:layout_width="@dimen/feed_button_icon_size"
-                        android:layout_height="@dimen/feed_button_icon_size"
-                        android:id="@+id/imageViewCommentIcon"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_comment_white_48dp"
-                        android:tint="@color/colorPrimary" />
-
-                    <TextView
-                        android:id="@+id/textViewCommentNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignWithParentIfMissing="true"
-                        android:layout_toRightOf="@+id/imageViewAuthorIcon"
-                        android:gravity="center"
-                        android:text="Comment num"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:layout_gravity="center"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </LinearLayout> -->
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listViewComments" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/commentBarBackground"
+        android:paddingLeft="@dimen/comment_bar_gap"
+        android:paddingTop="@dimen/comment_bar_gap"
+        android:paddingRight="@dimen/comment_bar_gap">
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:background="@color/colorAccent"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@color/feedCommentTextColor"
+            android:hint="Write a comment..."
+            android:padding="@dimen/comment_bar_gap"
+            android:layout_marginBottom="@dimen/comment_bar_gap" />
+    </FrameLayout>
 
 </com.example.psweeney.donationappandroid.feed.PostContainer>
