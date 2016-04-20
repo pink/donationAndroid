@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.psweeney.donationappandroid.feed.PostContainer xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parentContainer"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="fill_parent"
+    <!--
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/parentDirectChild">
+        android:background="@color/colorAccent" >
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="10dp" >
 
             <ImageView
                 android:layout_width="@dimen/feed_icon_size"
@@ -27,46 +30,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="6dp">
+                android:paddingLeft="6dp" >
 
                 <TextView
                     android:id="@+id/textViewTitleLine"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignWithParentIfMissing="true"
-                    android:layout_toRightOf="@id/imageViewAuthorIcon"
-                    android:gravity="center_vertical"
                     android:text="Title text"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewBody"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_toRightOf="@+id/imageViewAuthorIcon"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Body text"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"/>
-
-                <ImageView
-                    android:id="@+id/imageViewBody"
-                    android:layout_width="@dimen/feed_image_size"
-                    android:layout_height="@dimen/feed_image_size"
-                    android:layout_gravity="left"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="visible"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/textViewDateLine"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
@@ -75,8 +58,8 @@
                     android:singleLine="true"
                     android:text="Date text"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textColor="@color/feedDateTextColor"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:textColor="@color/feedDateTextColor" />
             </LinearLayout>
         </LinearLayout>
 
@@ -85,14 +68,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
-            android:paddingTop="@dimen/feed_button_border_width">
+            android:paddingTop="@dimen/feed_button_border_width" >
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:clickable="true"
                 android:id="@+id/frameLayoutLikeContainer"
+                android:clickable="true"
                 android:onClick="onButtonClickLike">
 
                 <LinearLayout
@@ -137,6 +120,7 @@
                         android:paddingLeft="10dp"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
+
                 </LinearLayout>
             </FrameLayout>
 
@@ -182,12 +166,14 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </FrameLayout>
-
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout> -->
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/activity_vertical_margin" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewComments" />
+
+
 
 </com.example.psweeney.donationappandroid.feed.PostContainer>

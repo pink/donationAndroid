@@ -1,16 +1,21 @@
 package com.example.psweeney.donationappandroid;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.psweeney.donationappandroid.feed.CharityPostData;
+import com.example.psweeney.donationappandroid.feed.CommentData;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
+import com.example.psweeney.donationappandroid.feed.PostContainer;
 import com.example.psweeney.donationappandroid.feed.PostData;
 
 import java.util.ArrayList;
@@ -33,9 +38,15 @@ public class FeedActivity extends AppCompatActivity {
 
         List<PostData> dataListUser = new ArrayList<>();
 
-        Drawable defUserIcon = getResources().getDrawable(R.drawable.ic_account_box_black_48dp);
-        Drawable defCharityIcon = getResources().getDrawable(R.drawable.ic_local_florist_black_48dp);
-        Drawable defPhotoLibraryIcon = getResources().getDrawable(R.drawable.ic_photo_library_black_48dp);
+        /*
+        BitmapDrawable defUserIcon = getResources().getDrawable(R.drawable.ic_account_box_black_48dp);
+        BitmapDrawable defCharityIcon = getResources().getDrawable(R.drawable.ic_local_florist_black_48dp);
+        BitmapDrawable defPhotoLibraryIcon = getResources().getDrawable(R.drawable.ic_photo_library_black_48dp); */
+        BitmapDrawable defUserIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_box_black_48dp));
+        BitmapDrawable defCharityIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_local_florist_black_48dp));
+        BitmapDrawable defPhotoLibraryIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_photo_library_black_48dp));
+
+
 
         DonationPostData newUserDonationPostData1 = new DonationPostData(defUserIcon, null, "Charity A", 509);
         newUserDonationPostData1.getPostTime().set(Calendar.YEAR, newUserDonationPostData1.getPostTime().get(Calendar.YEAR) - 2);
@@ -80,7 +91,12 @@ public class FeedActivity extends AppCompatActivity {
 
         List<PostData> dataListFriend = new ArrayList<>();
 
-        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIcon, jonName, "The Dr. Jon Froehlich Foundation", 99999);
+        ArrayList<CommentData> comments = new ArrayList<>();
+        comments.add(new CommentData(defUserIcon, steveName, "Nice"));
+        comments.add(new CommentData(defUserIcon, jonName, "Super cool"));
+
+        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIcon, jonName, "The Dr. Jon Froehlich Foundation",
+                Calendar.getInstance(), 99999, 2, false, comments);
         newFriendDonationPostData1.getPostTime().set(Calendar.YEAR, newFriendDonationPostData1.getPostTime().get(Calendar.YEAR) - 3);
 
         DonationPostData newFriendDonationPostData2 = new DonationPostData(defUserIcon, neilName, "Charity A", 142);
@@ -220,11 +236,15 @@ public class FeedActivity extends AppCompatActivity {
 
         ImageView likeIconDisabled = (ImageView) v.findViewById(R.id.imageViewLikeIconDisabled);
         ImageView likeIconEnabled = (ImageView) v.findViewById(R.id.imageViewLikeIconEnabled);
+        View subContainer = v.findViewById(R.id.likeSubContainer);
+        PostContainer parentContainer = FeedPostAdapter.getParentPostContainer(v);
+        subContainer.setAlpha(0);
+        subContainer.animate().alpha(1);
 
         TextView likeNumText = (TextView) v.findViewById(R.id.textViewLikeNum);
         int likeNum;
         try{
-            likeNum = Integer.parseInt(likeNumText.getText().toString());
+            likeNum = parentContainer.getData().getNumLikes();
         } catch (Exception e){
             likeNum = 0;
         }
@@ -232,11 +252,19 @@ public class FeedActivity extends AppCompatActivity {
         if(likeIconDisabled.getVisibility() == View.VISIBLE){
             likeIconDisabled.setVisibility(View.GONE);
             likeIconEnabled.setVisibility(View.VISIBLE);
+            parentContainer.getData().setLikedByUser(true);
             likeNum += 1;
         } else {
             likeIconDisabled.setVisibility(View.VISIBLE);
             likeIconEnabled.setVisibility(View.GONE);
+            parentContainer.getData().setLikedByUser(false);
             likeNum -= 1;
+        }
+
+        try{
+            parentContainer.getData().setNumLikes(likeNum);
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         likeNumText.setText(Integer.toString(likeNum));
@@ -245,5 +273,37 @@ public class FeedActivity extends AppCompatActivity {
         } else {
             likeNumText.setVisibility(View.GONE);
         }
+    }
+
+    public void onButtonClickComment(View v){
+        if(v == null || v.getId() != R.id.frameLayoutCommentContainer){
+            return;
+        }
+
+        View subContainer = v.findViewById(R.id.commentSubContainer);
+        subContainer.setAlpha(0);
+        subContainer.animate().alpha(1);
+
+        PostContainer parentPostContainer = FeedPostAdapter.getParentPostContainer(v);
+        if(parentPostContainer == null){
+            Toast.makeText(getApplicationContext(), "Something went wrong while trying to comment on this post (invalid container)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent singlePostIntent = null;
+        Bundle bundle = null;
+
+        if(parentPostContainer.getData().getPostType() == PostData.PostType.DONATION){
+            singlePostIntent = new Intent(getApplicationContext(), SingleDonationPostActivity.class);
+            bundle = FeedPostAdapter.convertPostDataToBundle(parentPostContainer.getData());
+        }
+
+        if(singlePostIntent == null || bundle == null){
+            Toast.makeText(getApplicationContext(), "Something went wrong while trying to comment on this post (null bundle)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        singlePostIntent.putExtras(bundle);
+        startActivity(singlePostIntent);
     }
 }

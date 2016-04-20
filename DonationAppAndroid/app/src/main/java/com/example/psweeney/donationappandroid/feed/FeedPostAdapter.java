@@ -1,6 +1,9 @@
 package com.example.psweeney.donationappandroid.feed;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.psweeney.donationappandroid.R;
 
+import org.w3c.dom.Comment;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,7 +23,7 @@ import java.util.List;
  * Created by psweeney on 4/18/16.
  */
 public class FeedPostAdapter extends ArrayAdapter{
-    List<PostData> _postDataList;
+    private List<PostData> _postDataList;
     public FeedPostAdapter(Context context, int resource, List<PostData> postDataList) {
         super(context, resource, postDataList);
         _postDataList = postDataList;
@@ -41,59 +47,6 @@ public class FeedPostAdapter extends ArrayAdapter{
 
             TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
             textViewBottomLine.setText(curr.getDateDisplayString());
-
-            /*
-            TextView textViewNumLikes = (TextView) rowView.findViewById(R.id.textViewLikeNum);
-
-            if(curr.getNumLikes() <= 0){
-                textViewNumLikes.setVisibility(View.GONE);
-            } else {
-                textViewNumLikes.setText(curr.getNumLikes());
-            }
-
-            ImageView imageViewLikeIcon = (ImageView) rowView.findViewById(R.id.imageViewLikeIcon);
-            if(curr.likedByUser()){
-                imageViewLikeIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_white_48dp));
-            } else {
-                imageViewLikeIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_border_white_48dp));
-            }
-
-            final PostData currDataFinal = curr;
-            final ImageView likeIconFinal = imageViewLikeIcon;
-            final TextView likeTextFinal = textViewNumLikes;
-
-            View likeFrame = rowView.findViewById(R.id.frameLayoutLikeContainer);
-            likeFrame.setOnClickListener(new View.OnClickListener() {
-                PostData data = currDataFinal;
-                ImageView likeIcon = likeIconFinal;
-                TextView likeText = likeTextFinal;
-
-                @Override
-                public void onClick(View v) {
-                    data.setLikedByUser(!data.likedByUser());
-                    if(data.likedByUser()){
-                        likeIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_white_48dp));
-                        data.setNumLikes(data.getNumLikes() + 1);
-                    } else {
-                        likeIcon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_border_white_48dp));
-                        data.setNumLikes(data.getNumLikes() - 1);
-                    }
-
-                    if(data.getNumLikes() > 0){
-                        likeText.setText(data.getNumLikes());
-                        likeText.setVisibility(View.VISIBLE);
-                    } else {
-                        likeText.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-            TextView textViewNumComments = (TextView) rowView.findViewById(R.id.textViewCommentNum);
-            if(curr.getComments().size() <= 0){
-                textViewNumComments.setVisibility(View.GONE);
-            } else {
-                textViewNumComments.setText(curr.getComments().size());
-            } */
         } else if(curr instanceof CharityPostData){
             rowView = inflater.inflate(R.layout.feed_post_charity, parent, false);
 
@@ -117,57 +70,17 @@ public class FeedPostAdapter extends ArrayAdapter{
 
             TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
             textViewBottomLine.setText(curr.getDateDisplayString());
-
-            /*
-            TextView textViewNumLikes = (TextView) rowView.findViewById(R.id.textViewLikeNum);
-
-            if(curr.getNumLikes() <= 0){
-                textViewNumLikes.setVisibility(View.GONE);
-            } else {
-                textViewNumLikes.setText(curr.getNumLikes());
-            }
-
-            final PostData currFinal = curr;
-
-            View likeFrame = rowView.findViewById(R.id.frameLayoutLikeContainer);
-            likeFrame.setOnClickListener(new View.OnClickListener() {
-                PostData data = currFinal;
-                @Override
-                public void onClick(View v) {
-                    ImageView imv = (ImageView) v.findViewById(R.id.imageViewLikeIcon);
-                    data.setLikedByUser(!data.likedByUser());
-                    if(data.likedByUser()){
-                        imv.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_white_48dp));
-                        data.setNumLikes(data.getNumLikes() + 1);
-                    } else {
-                        imv.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorite_border_white_48dp));
-                        data.setNumLikes(data.getNumLikes() - 1);
-                    }
-
-                    TextView textViewNumLikesData = (TextView) v.findViewById(R.id.textViewLikeNum);
-                    if(data.getNumLikes() > 0){
-                        textViewNumLikesData.setText(data.getNumLikes());
-                        textViewNumLikesData.setVisibility(View.VISIBLE);
-                    } else {
-                        textViewNumLikesData.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-            TextView textViewNumComments = (TextView) rowView.findViewById(R.id.textViewCommentNum);
-            if(curr.getComments().size() <= 0){
-                textViewNumComments.setVisibility(View.GONE);
-            } else {
-                textViewNumComments.setText(curr.getComments().size());
-            } */
         }
+
+        PostContainer parentContainer = (PostContainer) rowView.findViewById(R.id.parentContainer);
+        parentContainer.setData(curr);
 
         TextView textViewNumLikes = (TextView) rowView.findViewById(R.id.textViewLikeNum);
 
         if(curr.getNumLikes() <= 0){
             textViewNumLikes.setVisibility(View.GONE);
         } else {
-            textViewNumLikes.setText(curr.getNumLikes());
+            textViewNumLikes.setText(Integer.toString(curr.getNumLikes()));
         }
 
         ImageView imageViewLikeIconDisabled = (ImageView) rowView.findViewById(R.id.imageViewLikeIconDisabled);
@@ -185,10 +98,22 @@ public class FeedPostAdapter extends ArrayAdapter{
         if(curr.getComments().size() <= 0){
             textViewNumComments.setVisibility(View.GONE);
         } else {
-            textViewNumComments.setText(curr.getComments().size());
+            textViewNumComments.setText(Integer.toString(curr.getComments().size()));
         }
 
         return rowView;
+    }
+
+    public static PostContainer getParentPostContainer(View v){
+        if(v instanceof PostContainer){
+            return (PostContainer) v;
+        }
+
+        if(v == null){
+            return null;
+        }
+
+        return getParentPostContainer((View) v.getParent());
     }
 
     public static String buildPostTimeString(Calendar calendar){
@@ -247,5 +172,128 @@ public class FeedPostAdapter extends ArrayAdapter{
         }
 
         return dateString;
+    }
+
+    public static Bundle convertPostDataToBundle(PostData data){
+        if(data.getPostType() == PostData.PostType.DONATION){
+            return convertDonationPostDataToBundle((DonationPostData) data);
+        }
+
+        if(data.getPostType() == PostData.PostType.CHARITY){
+            return convertCharityPostDataToBundle((CharityPostData) data);
+        }
+
+        return new Bundle();
+    }
+
+    public static PostData extractPostDataFromBundle(Bundle bundle){
+        if(bundle == null){
+            return null;
+        }
+
+        if(bundle.getString("postType").equals(PostData.PostType.DONATION.toString())){
+            return extractDonationPostDataFromBundle(bundle);
+        }
+
+        if(bundle.getString("postType").equals(PostData.PostType.CHARITY.toString())){
+            return extractCharityPostDataFromBundle(bundle);
+        }
+
+        return null;
+    }
+
+    private static Bundle convertDonationPostDataToBundle(DonationPostData data){
+        Bundle bundle = new Bundle();
+        if(bundle == null || data == null){
+            return null;
+        }
+
+        bundle.putString("postType", PostData.PostType.DONATION.toString());
+
+        bundle.putParcelable(PostData.authorIconKey, data.getAuthorIcon().getBitmap());
+        bundle.putString(PostData.authorDisplayNameKey, data.getAuthorDisplayName());
+        bundle.putString(DonationPostData.recipientDisplayNameKey, data.getRecipientDisplayName());
+        bundle.putSerializable(PostData.postTimeKey, data.getPostTime());
+        bundle.putInt(DonationPostData.donationAmountCentsKey, data.getDonationAmountCents());
+        bundle.putInt(PostData.numLikesKey, data.getNumLikes());
+        bundle.putBoolean(PostData.likedByUserKey, data.likedByUser());
+        bundle.putInt(PostData.numCommentsKey, data.getComments().size());
+
+        ArrayList<CommentData> comments = data.getComments();
+        for(int i = 0; i < comments.size(); i++){
+            CommentData curr = comments.get(i);
+            bundle.putParcelable(CommentData.getAuthorIconBundleKey(i), curr.getAuthorIcon().getBitmap());
+            bundle.putString(CommentData.getAuthorDisplayNameBundleKey(i), curr.getAuthorDisplayName());
+            bundle.putString(CommentData.getCommentTextBundleKey(i), curr.getCommentText());
+        }
+
+        return bundle;
+    }
+
+    private static Bundle convertCharityPostDataToBundle(CharityPostData data){
+        Bundle bundle = new Bundle();
+        if(bundle == null || data == null){
+            return null;
+        }
+        bundle.putString("postType", PostData.PostType.CHARITY.toString());
+
+        bundle.putParcelable(PostData.authorIconKey, data.getAuthorIcon().getBitmap());
+        bundle.putString(PostData.authorDisplayNameKey, data.getAuthorDisplayName());
+        bundle.putString(CharityPostData.bodyTextKey, data.getBodyText());
+        bundle.putParcelable(CharityPostData.bodyImageKey, data.getBodyImage().getBitmap());
+        bundle.putSerializable(PostData.postTimeKey, data.getPostTime());
+        bundle.putInt(PostData.numLikesKey, data.getNumLikes());
+        bundle.putBoolean(PostData.likedByUserKey, data.likedByUser());
+        bundle.putInt(PostData.numCommentsKey, data.getComments().size());
+
+        ArrayList<CommentData> comments = data.getComments();
+        for(int i = 0; i < comments.size(); i++){
+            CommentData curr = comments.get(i);
+            bundle.putParcelable(CommentData.getAuthorIconBundleKey(i), curr.getAuthorIcon().getBitmap());
+            bundle.putString(CommentData.getAuthorDisplayNameBundleKey(i), curr.getAuthorDisplayName());
+            bundle.putString(CommentData.getCommentTextBundleKey(i), curr.getCommentText());
+        }
+
+        return bundle;
+    }
+
+    private static DonationPostData extractDonationPostDataFromBundle(Bundle bundle){
+        if(bundle == null || !bundle.containsKey("postType") ||
+                !bundle.getString("postType").equals(PostData.PostType.DONATION.toString())){
+            return null;
+        }
+
+        BitmapDrawable authorIcon = new BitmapDrawable((Bitmap) bundle.getParcelable(PostData.authorIconKey));
+        String authorDisplayName = bundle.getString(PostData.authorDisplayNameKey);
+        String recipientDisplayName = bundle.getString(DonationPostData.recipientDisplayNameKey);
+        Calendar postTime = (Calendar) bundle.getSerializable(PostData.postTimeKey);
+        int donationAmountCents = bundle.getInt(DonationPostData.donationAmountCentsKey);
+        int numLikes = bundle.getInt(PostData.numLikesKey);
+        boolean likedByUser = bundle.getBoolean(PostData.likedByUserKey);
+
+        ArrayList<CommentData> comments = CommentData.extractCommentsFromBundle(bundle);
+
+        return new DonationPostData(authorIcon, authorDisplayName, recipientDisplayName, postTime,
+                donationAmountCents, numLikes, likedByUser, comments);
+    }
+
+    private static CharityPostData extractCharityPostDataFromBundle(Bundle bundle){
+        if(bundle == null || !bundle.containsKey("postType") ||
+                !bundle.getString("postType").equals(PostData.PostType.CHARITY.toString())){
+            return null;
+        }
+
+        BitmapDrawable authorIcon = new BitmapDrawable((Bitmap) bundle.getParcelable(PostData.authorIconKey));
+        String authorDisplayName = bundle.getString(PostData.authorDisplayNameKey);
+        String bodyText = bundle.getString(CharityPostData.bodyTextKey);
+        BitmapDrawable bodyImage = new BitmapDrawable((Bitmap) bundle.getParcelable(CharityPostData.bodyImageKey));
+        Calendar postTime = (Calendar) bundle.getSerializable(PostData.postTimeKey);
+        int numLikes = bundle.getInt(PostData.numLikesKey);
+        boolean likedByUser = bundle.getBoolean(PostData.likedByUserKey);
+
+        ArrayList<CommentData> comments = CommentData.extractCommentsFromBundle(bundle);
+
+        return new CharityPostData(authorIcon, authorDisplayName, bodyImage,bodyText, postTime, numLikes,
+                likedByUser, comments);
     }
 }

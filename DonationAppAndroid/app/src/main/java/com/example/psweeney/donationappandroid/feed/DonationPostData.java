@@ -1,6 +1,8 @@
 package com.example.psweeney.donationappandroid.feed;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,8 +12,15 @@ import java.util.Map;
 /**
  * Created by psweeney on 4/18/16.
  */
-public class DonationPostData implements PostData{
-    private Drawable _authorIcon;
+public class DonationPostData extends PostData{
+    public enum DonationPostDataFields{
+        RECIPIENT_DISPLAY_NAME,  DONATION_AMOUNT_CENTS
+    }
+
+    public static String recipientDisplayNameKey = "recipientDisplayName";
+    public static String donationAmountCentsKey = "donationAmountCents";
+
+    private BitmapDrawable _authorIcon;
     private String _authorDisplayName;
     private String _recipientDisplayName;
     private Calendar _postTime;
@@ -22,32 +31,32 @@ public class DonationPostData implements PostData{
 
     private static final String USER_POST_NAME = "You";
 
-    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
+    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
                             int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
         _authorIcon = authorIcon;
         if(authorDisplayName == null){
-            _authorDisplayName = USER_POST_NAME;
+            _authorDisplayName = new String(USER_POST_NAME);
         } else {
-            _authorDisplayName = authorDisplayName;
+            _authorDisplayName = new String(authorDisplayName);
         }
 
-        _recipientDisplayName = recipientDisplayName;
-        _postTime = postTime;
+        _recipientDisplayName = new String(recipientDisplayName);
+        _postTime = (Calendar) postTime.clone();
         _donationAmountCents = donationAmountCents;
         _numLikes = numLikes;
         _likedByUser = likedByUser;
         if(comments == null){
             _comments = new ArrayList<>();
         } else {
-            _comments = comments;
+            _comments = new ArrayList<>(comments);
         }
     }
 
-    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
+    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
         this(authorIcon, authorDisplayName, recipientDisplayName, postTime, donationAmountCents, 0, false, null);
     }
 
-    public DonationPostData(Drawable authorIcon, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
+    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
         this(authorIcon, authorDisplayName, recipientDisplayName, Calendar.getInstance(), donationAmountCents);
     }
 
@@ -55,8 +64,26 @@ public class DonationPostData implements PostData{
         this(other._authorIcon, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents);
     }
 
-    public Drawable getAuthorIcon(){
+    @Override
+    public PostType getPostType() {
+        return PostType.DONATION;
+    }
+
+    public BitmapDrawable getAuthorIcon(){
         return _authorIcon;
+    }
+
+    @Override
+    public String getAuthorDisplayName() {
+        return _authorDisplayName;
+    }
+
+    public String getRecipientDisplayName(){
+        return _recipientDisplayName;
+    }
+
+    public int getDonationAmountCents(){
+        return _donationAmountCents;
     }
 
     @Override
@@ -111,24 +138,5 @@ public class DonationPostData implements PostData{
 
     public String getDateDisplayString(){
         return FeedPostAdapter.buildPostTimeString(_postTime);
-    }
-
-    @Override
-    public ArrayList<Object> getDataList() {
-        ArrayList<Object> dataList = new ArrayList<>();
-        dataList.add(_authorIcon);
-        dataList.add(getDateDisplayString());
-        dataList.add(getTitleDisplayString());
-
-        return dataList;
-    }
-
-    @Override
-    public Map<Object, PostDataType> getDataTypeMap() {
-        Map<Object, PostDataType> dataTypeMap = new HashMap<>();
-        dataTypeMap.put(_authorIcon, PostDataType.DRAWABLE);
-        dataTypeMap.put(getDateDisplayString(), PostDataType.TEXT);
-        dataTypeMap.put(getTitleDisplayString(), PostDataType.TEXT);
-        return dataTypeMap;
     }
 }

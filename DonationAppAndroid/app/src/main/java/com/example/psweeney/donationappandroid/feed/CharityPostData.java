@@ -1,5 +1,7 @@
 package com.example.psweeney.donationappandroid.feed;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
@@ -10,17 +12,24 @@ import java.util.Map;
 /**
  * Created by psweeney on 4/18/16.
  */
-public class CharityPostData implements PostData {
-    private Drawable _authorIcon;
+public class CharityPostData extends PostData {
+    public enum CharityPostDataFields{
+        BODY_TEXT, BODY_IMAGE
+    }
+
+    public static String bodyTextKey = "bodyText";
+    public static String bodyImageKey = "bodyImage";
+
+    private BitmapDrawable _authorIcon;
     private String _authorDisplayName;
-    private Drawable _bodyImage;
-    private String _bodyText;
+    private BitmapDrawable _bodyImage;
     private Calendar _postTime;
+    private String _bodyText;
     private int _numLikes;
     private boolean _likedByUser;
     private ArrayList<CommentData> _comments;
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText, Calendar postTime,
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage, String bodyText, Calendar postTime,
                            int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
         _authorIcon = authorIcon;
         _authorDisplayName = authorDisplayName;
@@ -36,33 +45,43 @@ public class CharityPostData implements PostData {
         }
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText, Calendar postTime){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage, String bodyText, Calendar postTime){
         this(authorIcon, authorDisplayName, bodyImage, bodyText, postTime, 0, false, null);
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, String bodyText, Calendar postTime){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, String bodyText, Calendar postTime){
         this(authorIcon, authorDisplayName, null, bodyText, postTime);
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, Calendar postTime){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage, Calendar postTime){
         this(authorIcon, authorDisplayName, bodyImage, null, postTime);
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage, String bodyText){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage, String bodyText){
         this(authorIcon, authorDisplayName, bodyImage, bodyText, Calendar.getInstance());
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, String bodyText){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, String bodyText){
         this(authorIcon, authorDisplayName, null, bodyText, Calendar.getInstance());
     }
 
-    public CharityPostData(Drawable authorIcon, String authorDisplayName, Drawable bodyImage){
+    public CharityPostData(BitmapDrawable authorIcon, String authorDisplayName, BitmapDrawable bodyImage){
         this(authorIcon, authorDisplayName, bodyImage, null, Calendar.getInstance());
     }
 
     @Override
-    public Drawable getAuthorIcon() {
+    public PostType getPostType() {
+        return PostType.CHARITY;
+    }
+
+    @Override
+    public BitmapDrawable getAuthorIcon() {
         return _authorIcon;
+    }
+
+    @Override
+    public String getAuthorDisplayName() {
+        return _authorDisplayName;
     }
 
     @Override
@@ -117,35 +136,11 @@ public class CharityPostData implements PostData {
         return _bodyText;
     }
 
-    public Drawable getBodyImage(){
+    public BitmapDrawable getBodyImage(){
         return _bodyImage;
     }
 
     public String getDateDisplayString(){
         return FeedPostAdapter.buildPostTimeString(_postTime);
-    }
-
-    @Override
-    public ArrayList<Object> getDataList() {
-        ArrayList<Object> dataList = new ArrayList<>();
-        dataList.add(_authorIcon);
-        dataList.add(getDateDisplayString());
-        dataList.add(_bodyImage);
-        dataList.add(_bodyText);
-        dataList.add(getTitleDisplayString());
-
-        return dataList;
-    }
-
-    @Override
-    public Map<Object, PostDataType> getDataTypeMap() {
-        Map<Object, PostDataType> dataTypeMap = new HashMap<>();
-        dataTypeMap.put(_authorIcon, PostDataType.DRAWABLE);
-        dataTypeMap.put(getTitleDisplayString(), PostDataType.TEXT);
-        dataTypeMap.put(_bodyImage, PostDataType.DRAWABLE);
-        dataTypeMap.put(_bodyText, PostDataType.TEXT);
-        dataTypeMap.put(getDateDisplayString(), PostDataType.TEXT);
-
-        return dataTypeMap;
     }
 }
