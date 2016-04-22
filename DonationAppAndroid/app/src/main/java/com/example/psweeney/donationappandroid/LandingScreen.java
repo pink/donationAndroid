@@ -39,18 +39,22 @@ public class LandingScreen extends AppCompatActivity {
     }
 
     public void onClickCategoryStatistics(View v){
+        Animation.defaultButtonAnimation(v);
         startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
     }
 
     public void onClickCategorySearch(View v){
+        Animation.defaultButtonAnimation(v);
         startActivity(new Intent(getApplicationContext(), SearchActivity.class));
     }
 
     public void onClickCategoryFeed(View v){
+        Animation.defaultButtonAnimation(v);
         startActivity(new Intent(getApplicationContext(), FeedActivity.class));
     }
 
     public void onClickCategoryAccountSettings(View v){
+        Animation.defaultButtonAnimation(v);
         Toast.makeText(getApplicationContext(), "This category has not yet been implemented", Toast.LENGTH_SHORT).show();
     }
 }

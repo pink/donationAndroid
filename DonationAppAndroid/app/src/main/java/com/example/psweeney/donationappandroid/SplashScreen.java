@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
+import com.example.psweeney.donationappandroid.feed.PostFactory;
+
 import java.util.EventListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +37,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        PostFactory.init();
+        CharityDetailFactory.init();
     }
 
     public static boolean isEmailValid(String email) {

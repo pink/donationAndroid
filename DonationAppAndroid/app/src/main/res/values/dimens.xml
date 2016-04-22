@@ -5,9 +5,12 @@
     <dimen name="thin_border_width">2dp</dimen>
     <dimen name="medium_border_width">4dp</dimen>
     <dimen name="comment_bar_gap">8dp</dimen>
+    <dimen name="standard_header_padding">15dp</dimen>
     <dimen name="feed_category_text_padding">5dp</dimen>
     <dimen name="feed_icon_size">50dp</dimen>
     <dimen name="feed_button_icon_size">25dp</dimen>
     <dimen name="feed_button_border_width">1dp</dimen>
     <dimen name="feed_image_size">100dp</dimen>
+    <dimen name="charity_profile_icon_size">100dp</dimen>
+    <dimen name="charity_button_padding_amt">20dp</dimen>
 </resources>

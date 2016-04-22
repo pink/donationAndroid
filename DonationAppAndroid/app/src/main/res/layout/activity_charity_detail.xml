@@ -1,13 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.psweeney.donationappandroid.CharityDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/thin_border_width">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickCharityProfile"
+                android:id="@+id/frameCharityProfileButton">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/charity_view_profile_label"
+                    android:id="@+id/textViewCharityProfileLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:clickable="false" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onButtonClickCharityData"
+                android:clickable="true"
+                android:id="@+id/frameCharityDataButton">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/charity_view_data_label"
+                    android:id="@+id/textViewCharityDataLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickCharityUser"
+                android:id="@+id/frameCharityUserButton">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/charity_view_user_label"
+                    android:id="@+id/textViewCharityUserLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewCharityProfileItems"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutCharityDataItems"
+            android:visibility="gone" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/containerCharityDataItem1"></FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/containerCharityDataItem2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutViewCharityUserItems"
+            android:visibility="gone" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/containerCharityUserItem1" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/containerCharityUserItem2" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

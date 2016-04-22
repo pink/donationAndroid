@@ -79,6 +79,7 @@ public class CharityPostData extends PostData {
         this(authorIconId, authorDisplayName, bodyImageId, Calendar.getInstance());
     }
 
+    /*
     public CharityPostData(Bundle bundle){
         this();
 
@@ -131,7 +132,7 @@ public class CharityPostData extends PostData {
             }
             _comments.add(cd);
         }
-    }
+    } */
 
     @Override
     public PostType getPostType() {
@@ -159,18 +160,10 @@ public class CharityPostData extends PostData {
     }
 
     @Override
-    public Bundle convertToBundle() {
-        Bundle bundle = super.convertToBundle();
-        if(bundle == null){
-            return null;
-        }
-
-        bundle.putString(PostData.postTypeKey, PostType.CHARITY.toString());
-        bundle.putString(bodyTextKey, _bodyText);
-        bundle.putBoolean(useBodyTextKey, _useBodyText);
-        bundle.putInt(bodyImageIdKey, _bodyImageId);
-        bundle.putBoolean(useBodyImageKey, _useBodyImage);
-
-        return bundle;
+    public Integer getPostIdentifier() {
+        Integer ret = super.getPostIdentifier();
+        ret += _bodyText.hashCode();
+        ret += ((Integer) _bodyImageId).hashCode();
+        return ret;
     }
 }

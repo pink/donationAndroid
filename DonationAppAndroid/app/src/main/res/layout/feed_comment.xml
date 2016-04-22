@@ -30,7 +30,7 @@
             android:ellipsize="marquee"
             android:text="Comment body"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-            android:textColor="@color/feedCommentTextColor"
+            android:textColor="@color/defaultTextColor"
             android:layout_weight="1" />
     </LinearLayout>
     <FrameLayout

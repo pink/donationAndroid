@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by psweeney on 4/18/16.
@@ -17,7 +18,7 @@ public class DonationPostData extends PostData{
     private String _recipientDisplayName;
     private int _donationAmountCents;
 
-    private static final String USER_POST_NAME = "You";
+    public static final String USER_POST_NAME = "You";
 
     public DonationPostData(){
         _recipientDisplayName = "";
@@ -25,7 +26,7 @@ public class DonationPostData extends PostData{
     }
 
     public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
-                            int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
+                            int numLikes, boolean likedByUser, List<CommentData> comments){
         this();
         _authorIconId = authorIconId;
         if(authorDisplayName == null){
@@ -55,9 +56,11 @@ public class DonationPostData extends PostData{
     }
 
     public DonationPostData(DonationPostData other){
-        this(other._authorIconId, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents);
+        this(other._authorIconId, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents,
+                other._numLikes, other._likedByUser, other._comments);
     }
 
+    /*
     public DonationPostData(Bundle bundle){
         this();
         if(bundle == null || !(bundle.containsKey("postType") && bundle.getString("postType").equals(PostType.DONATION.toString()))){
@@ -104,6 +107,7 @@ public class DonationPostData extends PostData{
             _comments.add(cd);
         }
     }
+    */
 
     public String getRecipientDisplayName(){
         return _recipientDisplayName;
@@ -129,15 +133,11 @@ public class DonationPostData extends PostData{
     }
 
     @Override
-    public Bundle convertToBundle() {
-        Bundle bundle = super.convertToBundle();
-        if(bundle == null){
-            return null;
-        }
-        bundle.putString(PostData.postTypeKey, PostType.DONATION.toString());
-        bundle.putString(recipientDisplayNameKey, _recipientDisplayName);
-        bundle.putInt(donationAmountCentsKey, _donationAmountCents);
+    public Integer getPostIdentifier() {
+        Integer ret = super.getPostIdentifier();
+        ret += ((Integer) getDonationAmountCents()).hashCode();
+        ret += getRecipientDisplayName().hashCode();
 
-        return bundle;
+        return ret;
     }
 }

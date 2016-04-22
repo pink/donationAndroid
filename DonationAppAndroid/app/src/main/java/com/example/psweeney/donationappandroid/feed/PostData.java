@@ -16,14 +16,7 @@ public abstract class PostData {
         DONATION, CHARITY
     }
 
-    public static String postTypeKey = "postType";
-    public static String authorIconIdKey = "authorIcon";
-    public static String authorDisplayNameKey = "authorDisplayName";
-    public static String postTimeKey = "postTime";
-    public static String numLikesKey = "numLikes";
-    public static String likedByUserKey = "likedByUser";
-    public static String numCommentsKey = "numComments";
-
+    public static String postIdentifierKey = "postIdentifier";
     public static int authorIconIdDefault = R.drawable.ic_photo_black_48dp;
 
     protected int _authorIconId = authorIconIdDefault;
@@ -34,6 +27,10 @@ public abstract class PostData {
     protected List<CommentData> _comments = new ArrayList<>();
 
     public PostType getPostType(){ return PostType.DONATION; }
+
+    public Integer getPostIdentifier(){
+        return _authorDisplayName.hashCode() + _postTime.hashCode();
+    }
 
     public int getAuthorIconId(){ return _authorIconId; }
 
@@ -115,34 +112,12 @@ public abstract class PostData {
 
     public Bundle convertToBundle(){
         Bundle bundle = new Bundle();
+
         if(bundle == null){
             return null;
         }
 
-        bundle.putString("postType", getPostType().toString());
-        bundle.putInt(authorIconIdKey, getAuthorIconId());
-        bundle.putString(authorDisplayNameKey, getAuthorDisplayName());
-        bundle.putSerializable(postTimeKey, getPostTime());
-        bundle.putInt(numLikesKey, getNumLikes());
-        bundle.putBoolean(likedByUserKey, likedByUser());
-
-        List<CommentData> comments = getComments();
-
-
-        if(comments == null){
-            bundle.putInt(numCommentsKey, 0);
-        } else {
-            bundle.putInt(numCommentsKey, comments.size());
-        }
-
-
-
-        if(comments != null && comments.size() > 0){
-            for(int i = 0; i < comments.size(); i++){
-                comments.get(i).addToBundle(bundle, i);
-            }
-        }
-
+        bundle.putInt(postIdentifierKey, getPostIdentifier());
         return bundle;
     }
 

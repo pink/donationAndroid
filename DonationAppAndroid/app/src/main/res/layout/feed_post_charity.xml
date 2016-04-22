@@ -24,7 +24,9 @@
                 android:layout_height="@dimen/feed_icon_size"
                 android:id="@+id/imageViewAuthorIcon"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/ic_photo_black_48dp" />
+                android:src="@drawable/ic_photo_black_48dp"
+                android:clickable="true"
+                android:onClick="onClickCharityIcon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,7 +59,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="Body text"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"/>
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor" />
 
                 <ImageView
                     android:id="@+id/imageViewBody"

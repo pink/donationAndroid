@@ -10,12 +10,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.psweeney.donationappandroid.charity.CharityDetailData;
+import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.feed.CharityPostData;
 import com.example.psweeney.donationappandroid.feed.CommentData;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
 import com.example.psweeney.donationappandroid.feed.PostData;
+import com.example.psweeney.donationappandroid.feed.PostFactory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,117 +41,20 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         final ListView listViewUser = (ListView) findViewById(R.id.listViewUser);
-
-        List<PostData> dataListUser = new ArrayList<>();
-
-        int defUserIconId = R.drawable.ic_account_box_black_48dp;
-        int defCharityIconId = R.drawable.ic_local_florist_black_48dp;
-        int defPhotoLibraryIconId = R.drawable.ic_photo_library_black_48dp;
-
-
-
-        DonationPostData newUserDonationPostData1 = new DonationPostData(defUserIconId, null, "Charity A", 509);
-        newUserDonationPostData1.getPostTime().set(Calendar.YEAR, newUserDonationPostData1.getPostTime().get(Calendar.YEAR) - 2);
-
-        DonationPostData newUserDonationPostData2 = new DonationPostData(defUserIconId, null, "Charity B", 142);
-        newUserDonationPostData2.getPostTime().set(Calendar.MONTH, newUserDonationPostData2.getPostTime().get(Calendar.MONTH) - 5);
-
-        DonationPostData newUserDonationPostData3 = new DonationPostData(defUserIconId, null, "Charity D", 330);
-        newUserDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 15);
-
-        DonationPostData newUserDonationPostData4 = new DonationPostData(defUserIconId, null, "Charity X", 601);
-        newUserDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 2);
-
-        DonationPostData newUserDonationPostData5 = new DonationPostData(defUserIconId, null, "Charity A", 49);
-        if(newUserDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
-            newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
-        } else {
-            newUserDonationPostData5.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData5.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
-            newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
-        }
-
-        DonationPostData newUserDonationPostData6 = new DonationPostData(defUserIconId, null, "Charity Z", 11);
-        newUserDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newUserDonationPostData6.getPostTime().get(Calendar.MINUTE) - 10));
-
-        DonationPostData newUserDonationPostData7 = new DonationPostData(defUserIconId, null, "Charity B", 15);
-
-        dataListUser.add(newUserDonationPostData7);
-        dataListUser.add(newUserDonationPostData6);
-        dataListUser.add(newUserDonationPostData5);
-        dataListUser.add(newUserDonationPostData4);
-        dataListUser.add(newUserDonationPostData3);
-        dataListUser.add(newUserDonationPostData2);
-        dataListUser.add(newUserDonationPostData1);
-
-        final FeedPostAdapter adapterUser = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListUser);
-
-        listViewUser.setAdapter(adapterUser);
+        List<PostData> dataListUser = PostFactory.getAllUserPosts();
 
         final ListView listViewFriend = (ListView) findViewById(R.id.listViewFriend);
-        String steveName = "Steve Fessler", neilName = "Neil Alberg", seanName = "Sean Kallungal",
-                jonName = "Dr. Jon Froehlich";
-
-        List<PostData> dataListFriend = new ArrayList<>();
-
-        ArrayList<CommentData> comments = new ArrayList<>();
-        comments.add(new CommentData(steveName, "Nice"));
-        comments.add(new CommentData(jonName, "Super cool"));
-        comments.add(new CommentData(neilName, "hi"));
-        comments.add(new CommentData(neilName, "hi"));
-        comments.add(new CommentData(seanName, "that's a whole lot of money jon"));
-        comments.add(new CommentData(jonName, "it sure is"));
-
-        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIconId, jonName, "The Dr. Jon Froehlich Foundation",
-                Calendar.getInstance(), 99999, 2, false, comments);
-        newFriendDonationPostData1.getPostTime().set(Calendar.YEAR, newFriendDonationPostData1.getPostTime().get(Calendar.YEAR) - 3);
-
-        DonationPostData newFriendDonationPostData2 = new DonationPostData(defUserIconId, neilName, "Charity A", 142);
-        newFriendDonationPostData2.getPostTime().set(Calendar.MONTH, newFriendDonationPostData2.getPostTime().get(Calendar.MONTH) - 3);
-
-        DonationPostData newFriendDonationPostData3 = new DonationPostData(defUserIconId, neilName, "Charity B", 840);
-        newFriendDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 17);
-
-        DonationPostData newFriendDonationPostData4 = new DonationPostData(defUserIconId, seanName, "Charity T", 84);
-        newFriendDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 4);
-
-        DonationPostData newFriendDonationPostData5 = new DonationPostData(defUserIconId, steveName, "Charity O", 136);
-        if(newFriendDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
-            newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
-        } else {
-            newFriendDonationPostData5.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData5.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
-            newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
-        }
-
-        DonationPostData newFriendDonationPostData6 = new DonationPostData(defUserIconId, seanName, "Charity E", 487);
-        newFriendDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newFriendDonationPostData6.getPostTime().get(Calendar.MINUTE) - 20));
-
-        DonationPostData newFriendDonationPostData7 = new DonationPostData(defUserIconId, steveName, "Charity F", 104);
-
-        dataListFriend.add(newFriendDonationPostData7);
-        dataListFriend.add(newFriendDonationPostData6);
-        dataListFriend.add(newFriendDonationPostData5);
-        dataListFriend.add(newFriendDonationPostData4);
-        dataListFriend.add(newFriendDonationPostData3);
-        dataListFriend.add(newFriendDonationPostData2);
-        dataListFriend.add(newFriendDonationPostData1);
-
-        final FeedPostAdapter adapterFriend = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListFriend);
-
-        listViewFriend.setAdapter(adapterFriend);
+        List<PostData> dataListFriend = PostFactory.getAllFriendPosts();
 
         final ListView listViewCharity = (ListView) findViewById(R.id.listViewCharity);
+        List<PostData> dataListCharity = PostFactory.getAllCharityPosts();
+        final FeedPostAdapter adapterUser = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListUser);
+        listViewUser.setAdapter(adapterUser);
 
-        List<PostData> dataListCharity = new ArrayList<>();
-
-        dataListCharity.add(new CharityPostData(defCharityIconId, "Charity A",
-                "Hello everyone,\nThank you for donating to Charity A this month. We're grateful for " +
-                        "every donation we get.\n\nSincerely,\nThe Charity A Staff"));
-        dataListCharity.add(new CharityPostData(defCharityIconId, "Charity B", defPhotoLibraryIconId,
-                "Hello everyone,\nCheck out our new photos from the Charity B volunteer event last Sunday. We appreciate" +
-                        "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity B Staff"));
+        final FeedPostAdapter adapterFriend = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListFriend);
+        listViewFriend.setAdapter(adapterFriend);
 
         final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity, dataListCharity);
-
         listViewCharity.setAdapter(adapterCharity);
     }
 
@@ -157,21 +63,6 @@ public class FeedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
-                Bundle bundle = data.getExtras();
-                if(bundle == null || _lastInteraction == null){
-                    return;
-                }
-
-                _lastInteraction.getData().setNumLikes(bundle.getInt(PostData.numLikesKey));
-                _lastInteraction.getData().setLikedByUser(bundle.getBoolean(PostData.likedByUserKey));
-
-                ArrayList<CommentData> newComments = new ArrayList<>();
-                int newNumComments = bundle.getInt(PostData.numCommentsKey);
-                for(int i = 0; i < newNumComments; i++){
-                    newComments.add(CommentData.extractCommentDataFromBundle(bundle, i));
-                }
-
-                _lastInteraction.getData().setComments(newComments);
                 _lastInteraction.updateViews();
             }
         }
@@ -264,7 +155,33 @@ public class FeedActivity extends AppCompatActivity {
         startActivityForResult(singlePostIntent, 1);
     }
 
+    public void onClickCharityIcon(View v){
+        Animation.defaultButtonAnimation(v);
+
+        PostContainer postContainer = FeedPostAdapter.getParentPostContainer(v);
+        if(postContainer == null || postContainer.getData() == null){
+            return;
+        }
+
+        CharityDetailData charityDetailData = CharityDetailFactory.searchByCharityName(postContainer.getData().getAuthorDisplayName());
+        if(charityDetailData == null){
+            return;
+        }
+
+        Intent intent = new Intent(getApplicationContext(), CharityDetailActivity.class);
+        Bundle bundle = new Bundle();
+        if(bundle == null){
+            return;
+        }
+
+        bundle.putInt(CharityDetailData.charityIdentifierKey, charityDetailData.getIdentifier());
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
+
     public void onButtonClickUserFeed(View v){
+        Animation.defaultButtonAnimation(v);
         if(_currentSelection != FeedType.USER){
             _currentSelection = FeedType.USER;
             updateFeedSelection();
@@ -272,6 +189,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void onButtonClickFriendFeed(View v){
+        Animation.defaultButtonAnimation(v);
         if(_currentSelection != FeedType.FRIEND){
             _currentSelection = FeedType.FRIEND;
             updateFeedSelection();
@@ -279,6 +197,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void onButtonClickCharityFeed(View v){
+        Animation.defaultButtonAnimation(v);
         if(_currentSelection != FeedType.CHARITY){
             _currentSelection = FeedType.CHARITY;
             updateFeedSelection();
@@ -286,8 +205,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void onButtonClickPostBody(View v){
-        v.setAlpha(0);
-        v.animate().alpha(1);
+        Animation.defaultButtonAnimation(v);
         viewPost(v, false);
     }
 
@@ -307,9 +225,7 @@ public class FeedActivity extends AppCompatActivity {
         }
 
         parentContainer.updateViews();
-
-        subContainer.setAlpha(0);
-        subContainer.animate().alpha(1);
+        Animation.defaultButtonAnimation(subContainer);
     }
 
     public void onButtonClickComment(View v){
@@ -318,8 +234,7 @@ public class FeedActivity extends AppCompatActivity {
         }
 
         View subContainer = v.findViewById(R.id.commentSubContainer);
-        subContainer.setAlpha(0);
-        subContainer.animate().alpha(1);
+        Animation.defaultButtonAnimation(subContainer);
 
         viewPost(v, true);
     }
