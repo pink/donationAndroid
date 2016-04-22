@@ -35,13 +35,47 @@ public class PostContainer extends LinearLayout {
     }
 
     public void updateViews(){
+        ImageView authorIcon = (ImageView) findViewById(R.id.imageViewAuthorIcon);
+
+        TextView titleText = (TextView) findViewById(R.id.textViewTitleLine);
+        TextView dateText = (TextView) findViewById(R.id.textViewDateLine);
+
         ImageView likeIconDisabled = (ImageView) findViewById(R.id.imageViewLikeIconDisabled);
         ImageView likeIconEnabled = (ImageView) findViewById(R.id.imageViewLikeIconEnabled);
         TextView likeNumText = (TextView) findViewById(R.id.textViewLikeNum);
         TextView commentNumText = (TextView) findViewById(R.id.textViewCommentNum);
 
-        if(likeIconDisabled == null || likeIconEnabled == null || likeNumText == null || commentNumText == null){
+        if(_data == null || authorIcon == null || titleText == null || dateText == null || likeIconDisabled == null
+                || likeIconEnabled == null || likeNumText == null || commentNumText == null){
             return;
+        }
+
+        authorIcon.setImageDrawable(getResources().getDrawable(_data.getAuthorIconId()));
+
+        titleText.setText(_data.getTitleDisplayString());
+        dateText.setText(_data.getDateDisplayString());
+
+        if(_data instanceof CharityPostData){
+            TextView bodyText = (TextView) findViewById(R.id.textViewBody);
+            ImageView bodyImage = (ImageView) findViewById(R.id.imageViewBody);
+
+            if(bodyText != null ){
+                if(((CharityPostData) _data).useBodyText() && ((CharityPostData) _data).getBodyText().length() > 0){
+                    bodyText.setText(((CharityPostData) _data).getBodyText());
+                    bodyText.setVisibility(VISIBLE);
+                } else {
+                    bodyText.setVisibility(GONE);
+                }
+            }
+
+            if(bodyImage != null){
+                if(((CharityPostData) _data).useBodyImage()){
+                    bodyImage.setImageDrawable(getResources().getDrawable(((CharityPostData) _data).getBodyImageId()));
+                    bodyImage.setVisibility(VISIBLE);
+                } else {
+                    bodyImage.setVisibility(GONE);
+                }
+            }
         }
 
         if(_data.likedByUser()){

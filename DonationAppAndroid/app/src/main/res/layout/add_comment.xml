@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/commentBarBackground"
+    android:padding="@dimen/comment_bar_gap"
+    android:id="@+id/addCommentContainer"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/addCommentEditText"
+        android:background="@color/colorAccent"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+        android:textColor="@color/feedCommentTextColor"
+        android:hint="@string/post_comment_field_hint"
+        android:layout_weight="1"
+        android:padding="@dimen/comment_bar_gap" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:layout_marginLeft="@dimen/comment_bar_gap"
+        android:background="@color/colorAccent"
+        android:layout_gravity="top|right">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/post_comment_button_label"
+            android:id="@+id/addCommentPostButton"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:background="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:onClick="onButtonClickPostComment"
+            android:padding="@dimen/comment_bar_gap" />
+    </FrameLayout>
+</LinearLayout>

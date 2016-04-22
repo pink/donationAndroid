@@ -1,13 +1,12 @@
 package com.example.psweeney.donationappandroid.feed;
 
-import android.content.SharedPreferences;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import com.example.psweeney.donationappandroid.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by psweeney on 4/18/16.
@@ -17,23 +16,26 @@ public abstract class PostData {
         DONATION, CHARITY
     }
 
-    public static String authorIconKey = "authorIcon";
+    public static String postTypeKey = "postType";
+    public static String authorIconIdKey = "authorIcon";
     public static String authorDisplayNameKey = "authorDisplayName";
     public static String postTimeKey = "postTime";
     public static String numLikesKey = "numLikes";
     public static String likedByUserKey = "likedByUser";
     public static String numCommentsKey = "numComments";
 
-    protected BitmapDrawable _authorIcon = null;
+    public static int authorIconIdDefault = R.drawable.ic_photo_black_48dp;
+
+    protected int _authorIconId = authorIconIdDefault;
     protected String _authorDisplayName = "";
     protected Calendar _postTime = Calendar.getInstance();
     protected int _numLikes = 0;
     protected boolean _likedByUser = false;
-    protected ArrayList<CommentData> _comments = new ArrayList<>();
+    protected List<CommentData> _comments = new ArrayList<>();
 
     public PostType getPostType(){ return PostType.DONATION; }
 
-    public BitmapDrawable getAuthorIcon(){ return _authorIcon; }
+    public int getAuthorIconId(){ return _authorIconId; }
 
     public String getAuthorDisplayName(){ return _authorDisplayName; }
 
@@ -47,9 +49,9 @@ public abstract class PostData {
 
     public void setLikedByUser(boolean newValue){ _likedByUser = newValue; }
 
-    public ArrayList<CommentData> getComments(){ return _comments; }
+    public List<CommentData> getComments(){ return _comments; }
 
-    public void setComments(ArrayList<CommentData> newComments){
+    public void setComments(List<CommentData> newComments){
         _comments = newComments;
     }
 
@@ -118,13 +120,13 @@ public abstract class PostData {
         }
 
         bundle.putString("postType", getPostType().toString());
-        bundle.putParcelable(authorIconKey, getAuthorIcon().getBitmap());
+        bundle.putInt(authorIconIdKey, getAuthorIconId());
         bundle.putString(authorDisplayNameKey, getAuthorDisplayName());
         bundle.putSerializable(postTimeKey, getPostTime());
         bundle.putInt(numLikesKey, getNumLikes());
         bundle.putBoolean(likedByUserKey, likedByUser());
 
-        ArrayList<CommentData> comments = getComments();
+        List<CommentData> comments = getComments();
 
 
         if(comments == null){

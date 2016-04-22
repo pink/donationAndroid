@@ -1,9 +1,6 @@
 package com.example.psweeney.donationappandroid.feed;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +10,6 @@ import android.widget.TextView;
 
 import com.example.psweeney.donationappandroid.R;
 
-import org.w3c.dom.Comment;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -35,12 +28,26 @@ public class FeedPostAdapter extends ArrayAdapter{
 
         PostData curr = _postDataList.get(position);
 
-        View rowView = null;
+        PostContainer parentContainer = null;
+        if(curr.getPostType() == PostData.PostType.DONATION){
+            parentContainer = (PostContainer) inflater.inflate(R.layout.feed_post_donation, parent, false);
+        } else if(curr.getPostType() == PostData.PostType.CHARITY){
+            parentContainer = (PostContainer) inflater.inflate(R.layout.feed_post_charity, parent, false);
+        }
+
+        if(parentContainer == null){
+            return null;
+        }
+        parentContainer.setData(curr);
+        parentContainer.updateViews();
+
+        return parentContainer;
+        /*
         if(curr instanceof DonationPostData){
             rowView = inflater.inflate(R.layout.feed_post_donation, parent, false);
 
             ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
-            imageViewAuthorIcon.setImageDrawable(curr.getAuthorIcon());
+            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
 
             TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
             textViewTopLine.setText(curr.getTitleDisplayString());
@@ -51,22 +58,28 @@ public class FeedPostAdapter extends ArrayAdapter{
             rowView = inflater.inflate(R.layout.feed_post_charity, parent, false);
 
             ImageView imageViewAuthorIcon = (ImageView) rowView.findViewById(R.id.imageViewAuthorIcon);
-            imageViewAuthorIcon.setImageDrawable(curr.getAuthorIcon());
+            imageViewAuthorIcon.setImageDrawable(getContext().getResources().getDrawable(curr.getAuthorIconId()));
 
             TextView textViewTopLine = (TextView) rowView.findViewById(R.id.textViewTitleLine);
             textViewTopLine.setText(curr.getTitleDisplayString());
 
-            ImageView imageViewBody = (ImageView) rowView.findViewById(R.id.imageViewBody);
+            TextView textViewBody = (TextView) rowView.findViewById(R.id.textViewBody);
 
-            if(((CharityPostData) curr).getBodyImage() == null){
-                imageViewBody.setVisibility(View.GONE);
+            if(((CharityPostData) curr).useBodyText()){
+                textViewBody.setText(((CharityPostData) curr).getBodyText());
+                textViewBody.setVisibility(View.VISIBLE);
             } else {
-                imageViewBody.setImageDrawable(((CharityPostData) curr).getBodyImage());
-                imageViewBody.setVisibility(View.VISIBLE);
+                textViewBody.setVisibility(View.GONE);
             }
 
-            TextView textViewBody = (TextView) rowView.findViewById(R.id.textViewBody);
-            textViewBody.setText(((CharityPostData) curr).getBodyText());
+            ImageView imageViewBody = (ImageView) rowView.findViewById(R.id.imageViewBody);
+
+            if(((CharityPostData) curr).useBodyImage()){
+                imageViewBody.setImageDrawable(getContext().getResources().getDrawable(((CharityPostData) curr).getBodyImageId()));
+                imageViewBody.setVisibility(View.VISIBLE);
+            } else {
+                imageViewBody.setVisibility(View.GONE);
+            }
 
             TextView textViewBottomLine = (TextView) rowView.findViewById(R.id.textViewDateLine);
             textViewBottomLine.setText(curr.getDateDisplayString());
@@ -102,6 +115,7 @@ public class FeedPostAdapter extends ArrayAdapter{
         }
 
         return rowView;
+        */
     }
 
     public static PostContainer getParentPostContainer(View v){

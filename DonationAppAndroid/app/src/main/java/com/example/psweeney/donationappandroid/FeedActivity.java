@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +26,9 @@ public class FeedActivity extends AppCompatActivity {
         USER, FRIEND, CHARITY
     }
 
+    public static String currentUserDisplayName = "Current user";
+    public static String commentFieldSelectedKey = "commentFieldSelected";
+
     private FeedType _currentSelection = FeedType.USER;
     private PostContainer _lastInteraction = null;
 
@@ -39,29 +41,25 @@ public class FeedActivity extends AppCompatActivity {
 
         List<PostData> dataListUser = new ArrayList<>();
 
-        /*
-        BitmapDrawable defUserIcon = getResources().getDrawable(R.drawable.ic_account_box_black_48dp);
-        BitmapDrawable defCharityIcon = getResources().getDrawable(R.drawable.ic_local_florist_black_48dp);
-        BitmapDrawable defPhotoLibraryIcon = getResources().getDrawable(R.drawable.ic_photo_library_black_48dp); */
-        BitmapDrawable defUserIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_box_black_48dp));
-        BitmapDrawable defCharityIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_local_florist_black_48dp));
-        BitmapDrawable defPhotoLibraryIcon = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.ic_photo_library_black_48dp));
+        int defUserIconId = R.drawable.ic_account_box_black_48dp;
+        int defCharityIconId = R.drawable.ic_local_florist_black_48dp;
+        int defPhotoLibraryIconId = R.drawable.ic_photo_library_black_48dp;
 
 
 
-        DonationPostData newUserDonationPostData1 = new DonationPostData(defUserIcon, null, "Charity A", 509);
+        DonationPostData newUserDonationPostData1 = new DonationPostData(defUserIconId, null, "Charity A", 509);
         newUserDonationPostData1.getPostTime().set(Calendar.YEAR, newUserDonationPostData1.getPostTime().get(Calendar.YEAR) - 2);
 
-        DonationPostData newUserDonationPostData2 = new DonationPostData(defUserIcon, null, "Charity B", 142);
+        DonationPostData newUserDonationPostData2 = new DonationPostData(defUserIconId, null, "Charity B", 142);
         newUserDonationPostData2.getPostTime().set(Calendar.MONTH, newUserDonationPostData2.getPostTime().get(Calendar.MONTH) - 5);
 
-        DonationPostData newUserDonationPostData3 = new DonationPostData(defUserIcon, null, "Charity D", 330);
+        DonationPostData newUserDonationPostData3 = new DonationPostData(defUserIconId, null, "Charity D", 330);
         newUserDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 15);
 
-        DonationPostData newUserDonationPostData4 = new DonationPostData(defUserIcon, null, "Charity X", 601);
+        DonationPostData newUserDonationPostData4 = new DonationPostData(defUserIconId, null, "Charity X", 601);
         newUserDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newUserDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 2);
 
-        DonationPostData newUserDonationPostData5 = new DonationPostData(defUserIcon, null, "Charity A", 49);
+        DonationPostData newUserDonationPostData5 = new DonationPostData(defUserIconId, null, "Charity A", 49);
         if(newUserDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
             newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
         } else {
@@ -69,10 +67,10 @@ public class FeedActivity extends AppCompatActivity {
             newUserDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
         }
 
-        DonationPostData newUserDonationPostData6 = new DonationPostData(defUserIcon, null, "Charity Z", 11);
+        DonationPostData newUserDonationPostData6 = new DonationPostData(defUserIconId, null, "Charity Z", 11);
         newUserDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newUserDonationPostData6.getPostTime().get(Calendar.MINUTE) - 10));
 
-        DonationPostData newUserDonationPostData7 = new DonationPostData(defUserIcon, null, "Charity B", 15);
+        DonationPostData newUserDonationPostData7 = new DonationPostData(defUserIconId, null, "Charity B", 15);
 
         dataListUser.add(newUserDonationPostData7);
         dataListUser.add(newUserDonationPostData6);
@@ -95,21 +93,25 @@ public class FeedActivity extends AppCompatActivity {
         ArrayList<CommentData> comments = new ArrayList<>();
         comments.add(new CommentData(steveName, "Nice"));
         comments.add(new CommentData(jonName, "Super cool"));
+        comments.add(new CommentData(neilName, "hi"));
+        comments.add(new CommentData(neilName, "hi"));
+        comments.add(new CommentData(seanName, "that's a whole lot of money jon"));
+        comments.add(new CommentData(jonName, "it sure is"));
 
-        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIcon, jonName, "The Dr. Jon Froehlich Foundation",
+        DonationPostData newFriendDonationPostData1 = new DonationPostData(defUserIconId, jonName, "The Dr. Jon Froehlich Foundation",
                 Calendar.getInstance(), 99999, 2, false, comments);
         newFriendDonationPostData1.getPostTime().set(Calendar.YEAR, newFriendDonationPostData1.getPostTime().get(Calendar.YEAR) - 3);
 
-        DonationPostData newFriendDonationPostData2 = new DonationPostData(defUserIcon, neilName, "Charity A", 142);
+        DonationPostData newFriendDonationPostData2 = new DonationPostData(defUserIconId, neilName, "Charity A", 142);
         newFriendDonationPostData2.getPostTime().set(Calendar.MONTH, newFriendDonationPostData2.getPostTime().get(Calendar.MONTH) - 3);
 
-        DonationPostData newFriendDonationPostData3 = new DonationPostData(defUserIcon, neilName, "Charity B", 840);
+        DonationPostData newFriendDonationPostData3 = new DonationPostData(defUserIconId, neilName, "Charity B", 840);
         newFriendDonationPostData3.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData3.getPostTime().get(Calendar.DAY_OF_MONTH) - 17);
 
-        DonationPostData newFriendDonationPostData4 = new DonationPostData(defUserIcon, seanName, "Charity T", 84);
+        DonationPostData newFriendDonationPostData4 = new DonationPostData(defUserIconId, seanName, "Charity T", 84);
         newFriendDonationPostData4.getPostTime().set(Calendar.DAY_OF_MONTH, newFriendDonationPostData4.getPostTime().get(Calendar.DAY_OF_MONTH) - 4);
 
-        DonationPostData newFriendDonationPostData5 = new DonationPostData(defUserIcon, steveName, "Charity O", 136);
+        DonationPostData newFriendDonationPostData5 = new DonationPostData(defUserIconId, steveName, "Charity O", 136);
         if(newFriendDonationPostData5.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
             newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.AM);
         } else {
@@ -117,10 +119,10 @@ public class FeedActivity extends AppCompatActivity {
             newFriendDonationPostData5.getPostTime().set(Calendar.AM_PM, Calendar.PM);
         }
 
-        DonationPostData newFriendDonationPostData6 = new DonationPostData(defUserIcon, seanName, "Charity E", 487);
+        DonationPostData newFriendDonationPostData6 = new DonationPostData(defUserIconId, seanName, "Charity E", 487);
         newFriendDonationPostData6.getPostTime().set(Calendar.MINUTE, Math.max(0, newFriendDonationPostData6.getPostTime().get(Calendar.MINUTE) - 20));
 
-        DonationPostData newFriendDonationPostData7 = new DonationPostData(defUserIcon, steveName, "Charity F", 104);
+        DonationPostData newFriendDonationPostData7 = new DonationPostData(defUserIconId, steveName, "Charity F", 104);
 
         dataListFriend.add(newFriendDonationPostData7);
         dataListFriend.add(newFriendDonationPostData6);
@@ -138,10 +140,10 @@ public class FeedActivity extends AppCompatActivity {
 
         List<PostData> dataListCharity = new ArrayList<>();
 
-        dataListCharity.add(new CharityPostData(defCharityIcon, "Charity A",
+        dataListCharity.add(new CharityPostData(defCharityIconId, "Charity A",
                 "Hello everyone,\nThank you for donating to Charity A this month. We're grateful for " +
                         "every donation we get.\n\nSincerely,\nThe Charity A Staff"));
-        dataListCharity.add(new CharityPostData(defCharityIcon, "Charity B", defPhotoLibraryIcon,
+        dataListCharity.add(new CharityPostData(defCharityIconId, "Charity B", defPhotoLibraryIconId,
                 "Hello everyone,\nCheck out our new photos from the Charity B volunteer event last Sunday. We appreciate" +
                         "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity B Staff"));
 
@@ -184,6 +186,7 @@ public class FeedActivity extends AppCompatActivity {
         ListView userFeed = (ListView) findViewById(R.id.listViewUser);
         ListView friendFeed = (ListView) findViewById(R.id.listViewFriend);
         ListView charityFeed = (ListView) findViewById(R.id.listViewCharity);
+
 
         switch (_currentSelection){
             case USER:
@@ -234,6 +237,33 @@ public class FeedActivity extends AppCompatActivity {
         }
     }
 
+    public void viewPost(View v, boolean commentRequested){
+        if(v == null){
+            return;
+        }
+
+        PostContainer parentPostContainer = FeedPostAdapter.getParentPostContainer(v);
+        _lastInteraction = parentPostContainer;
+
+        if(parentPostContainer == null){
+            Toast.makeText(getApplicationContext(), "Something went wrong while trying to view this post (invalid container)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent singlePostIntent = new Intent(getApplicationContext(), SinglePostActivity.class);
+        Bundle bundle = parentPostContainer.getData().convertToBundle();
+
+        if(singlePostIntent == null || bundle == null){
+            Toast.makeText(getApplicationContext(), "Something went wrong while trying to view this post (null bundle)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        bundle.putBoolean(commentFieldSelectedKey, commentRequested);
+
+        singlePostIntent.putExtras(bundle);
+        startActivityForResult(singlePostIntent, 1);
+    }
+
     public void onButtonClickUserFeed(View v){
         if(_currentSelection != FeedType.USER){
             _currentSelection = FeedType.USER;
@@ -255,6 +285,12 @@ public class FeedActivity extends AppCompatActivity {
         }
     }
 
+    public void onButtonClickPostBody(View v){
+        v.setAlpha(0);
+        v.animate().alpha(1);
+        viewPost(v, false);
+    }
+
     public void onButtonClickLike(View v){
         if(v == null || v.getId() != R.id.frameLayoutLikeContainer){
             return;
@@ -274,44 +310,10 @@ public class FeedActivity extends AppCompatActivity {
 
         subContainer.setAlpha(0);
         subContainer.animate().alpha(1);
-
-        /*
-        TextView likeNumText = (TextView) v.findViewById(R.id.textViewLikeNum);
-        int likeNum;
-        try{
-            likeNum = parentContainer.getData().getNumLikes();
-        } catch (Exception e){
-            likeNum = 0;
-        }
-
-        if(likeIconDisabled.getVisibility() == View.VISIBLE){
-            likeIconDisabled.setVisibility(View.GONE);
-            likeIconEnabled.setVisibility(View.VISIBLE);
-            parentContainer.getData().setLikedByUser(true);
-            likeNum += 1;
-        } else {
-            likeIconDisabled.setVisibility(View.VISIBLE);
-            likeIconEnabled.setVisibility(View.GONE);
-            parentContainer.getData().setLikedByUser(false);
-            likeNum -= 1;
-        }
-
-        try{
-            parentContainer.getData().setNumLikes(likeNum);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        likeNumText.setText(Integer.toString(likeNum));
-        if(likeNum > 0){
-            likeNumText.setVisibility(View.VISIBLE);
-        } else {
-            likeNumText.setVisibility(View.GONE);
-        } */
     }
 
     public void onButtonClickComment(View v){
-        if(v == null || v.getId() != R.id.frameLayoutCommentContainer){
+        if(v.getId() != R.id.frameLayoutCommentContainer) {
             return;
         }
 
@@ -319,43 +321,6 @@ public class FeedActivity extends AppCompatActivity {
         subContainer.setAlpha(0);
         subContainer.animate().alpha(1);
 
-        PostContainer parentPostContainer = FeedPostAdapter.getParentPostContainer(v);
-        _lastInteraction = parentPostContainer;
-
-        if(parentPostContainer == null){
-            Toast.makeText(getApplicationContext(), "Something went wrong while trying to comment on this post (invalid container)", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent singlePostIntent = null;
-        Bundle bundle = null;
-
-        if(parentPostContainer.getData().getPostType() == PostData.PostType.DONATION){
-            singlePostIntent = new Intent(getApplicationContext(), SingleDonationPostActivity.class);
-            bundle = parentPostContainer.getData().convertToBundle();
-        }
-
-        if(singlePostIntent == null || bundle == null){
-            Toast.makeText(getApplicationContext(), "Something went wrong while trying to comment on this post (null bundle)", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        singlePostIntent.putExtras(bundle);
-        startActivityForResult(singlePostIntent, 1);
-        //startActivity(singlePostIntent);
-
-        /*
-        parentPostContainer.getData().setNumLikes(bundle.getInt(PostData.numLikesKey));
-        parentPostContainer.getData().setLikedByUser(bundle.getBoolean(PostData.likedByUserKey));
-
-        ArrayList<CommentData> newComments = new ArrayList<>();
-        int newNumComments = bundle.getInt(PostData.numCommentsKey);
-        for(int i = 0; i < newNumComments; i++){
-            newComments.add(CommentData.extractCommentDataFromBundle(bundle, i));
-        }
-
-        parentPostContainer.getData().setComments(newComments);
-        parentPostContainer.updateViews();
-        */
+        viewPost(v, true);
     }
 }

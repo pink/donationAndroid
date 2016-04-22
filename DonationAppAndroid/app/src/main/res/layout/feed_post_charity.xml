@@ -7,13 +7,17 @@
     <LinearLayout
         android:orientation="vertical" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:id="@+id/parentDirectChild">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:background="@color/colorAccent"
+            android:id="@+id/postUpperContainer"
+            android:clickable="true"
+            android:onClick="onButtonClickPostBody">
 
             <ImageView
                 android:layout_width="@dimen/feed_icon_size"

@@ -2,13 +2,10 @@ package com.example.psweeney.donationappandroid.feed;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by psweeney on 4/18/16.
@@ -27,10 +24,10 @@ public class DonationPostData extends PostData{
         _donationAmountCents = 0;
     }
 
-    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
+    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents,
                             int numLikes, boolean likedByUser, ArrayList<CommentData> comments){
         this();
-        _authorIcon = authorIcon;
+        _authorIconId = authorIconId;
         if(authorDisplayName == null){
             _authorDisplayName = new String(USER_POST_NAME);
         } else {
@@ -49,16 +46,16 @@ public class DonationPostData extends PostData{
         }
     }
 
-    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
-        this(authorIcon, authorDisplayName, recipientDisplayName, postTime, donationAmountCents, 0, false, null);
+    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, Calendar postTime, int donationAmountCents){
+        this(authorIconId, authorDisplayName, recipientDisplayName, postTime, donationAmountCents, 0, false, null);
     }
 
-    public DonationPostData(BitmapDrawable authorIcon, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
-        this(authorIcon, authorDisplayName, recipientDisplayName, Calendar.getInstance(), donationAmountCents);
+    public DonationPostData(int authorIconId, String authorDisplayName, String recipientDisplayName, int donationAmountCents){
+        this(authorIconId, authorDisplayName, recipientDisplayName, Calendar.getInstance(), donationAmountCents);
     }
 
     public DonationPostData(DonationPostData other){
-        this(other._authorIcon, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents);
+        this(other._authorIconId, other._authorDisplayName, other._recipientDisplayName, other._postTime, other._donationAmountCents);
     }
 
     public DonationPostData(Bundle bundle){
@@ -66,7 +63,8 @@ public class DonationPostData extends PostData{
         if(bundle == null || !(bundle.containsKey("postType") && bundle.getString("postType").equals(PostType.DONATION.toString()))){
             return;
         }
-        BitmapDrawable authorIcon;
+
+        int authorIconId;
         String authorDisplayName;
         String recipientDisplayName;
         int donationAmountCents;
@@ -76,7 +74,7 @@ public class DonationPostData extends PostData{
         int numComments;
 
         try{
-            authorIcon = new BitmapDrawable((Bitmap) bundle.getParcelable(PostData.authorIconKey));
+            authorIconId = bundle.getInt(PostData.authorIconIdKey);
             authorDisplayName = bundle.getString(PostData.authorDisplayNameKey);
             recipientDisplayName = bundle.getString(recipientDisplayNameKey);
             donationAmountCents = bundle.getInt(donationAmountCentsKey);
@@ -88,7 +86,7 @@ public class DonationPostData extends PostData{
             return;
         }
 
-        _authorIcon = authorIcon;
+        _authorIconId = authorIconId;
         _authorDisplayName = authorDisplayName;
         _recipientDisplayName = recipientDisplayName;
         _donationAmountCents = donationAmountCents;
@@ -136,6 +134,7 @@ public class DonationPostData extends PostData{
         if(bundle == null){
             return null;
         }
+        bundle.putString(PostData.postTypeKey, PostType.DONATION.toString());
         bundle.putString(recipientDisplayNameKey, _recipientDisplayName);
         bundle.putInt(donationAmountCentsKey, _donationAmountCents);
 

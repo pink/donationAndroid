@@ -19,6 +19,8 @@
     <string name="feed_user_label">Me</string>
     <string name="feed_friends_label">Friends</string>
     <string name="feed_charities_label">Charities</string>
+    <string name="post_comment_field_hint">Write a comment...</string>
+    <string name="post_comment_button_label">Post</string>
 
     <string name="category_goals_button_label">Donation Goals</string>
     <string name="category_history_button_label">Donation History</string>

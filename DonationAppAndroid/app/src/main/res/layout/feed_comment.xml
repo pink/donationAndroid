@@ -33,4 +33,9 @@
             android:textColor="@color/feedCommentTextColor"
             android:layout_weight="1" />
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/commentBottomDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/feed_button_border_width"
+        android:background="@color/commentDividerColor" />
 </com.example.psweeney.donationappandroid.feed.CommentContainer>

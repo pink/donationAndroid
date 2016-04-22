@@ -7,6 +7,7 @@
     <color name="feedTitleColor">#263238</color>
     <color name="feedDateTextColor">#78909C</color>
     <color name="feedCommentTextColor">#455A64</color>
+    <color name="commentDividerColor">#CFD8DC</color>
     <color name="commentBarBackground">#CFD8DC</color>
 
     <!--

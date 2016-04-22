@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.psweeney.donationappandroid">
+    package="com.example.psweeney.donationappandroid" >
     android:large
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,11 +36,12 @@
         <activity
             android:name=".HistoryScreen"
             android:label="@string/history_title_bar_label" />
-
         <activity
-            android:name=".SingleDonationPostActivity"
+            android:name=".SinglePostActivity"
             android:label="Post Details"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".CharityDetailActivity" >
+        </activity>
     </application>
 
 </manifest>
