@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/feed_button_border_width"
+        android:padding="@dimen/thin_border_width"
         android:background="@color/colorPrimary"
         android:clickable="false">
 

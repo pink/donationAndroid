@@ -5,7 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -192,13 +195,15 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         if(controlContainer.getVisibility() != View.VISIBLE)
             controlContainer.setVisibility(View.VISIBLE);
+        else
+            controlContainer.setVisibility(View.GONE);
     }
 
     public void onClickDonateNowSubmit(View v){
         Animation.defaultButtonAnimation(v);
 
         final View container = findViewById(R.id.donateNowControlContainer);
-        EditText donateNowAmountField = (EditText) container.findViewById(R.id.editTextDonateNowAmount);
+        final EditText donateNowAmountField = (EditText) container.findViewById(R.id.editTextDonateNowAmount);
         if(donateNowAmountField == null){
             return;
         }
@@ -217,27 +222,42 @@ public class CharityDetailActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to donate " + donationAmountDisplayString + " to " + _data.getDisplayName() + "?");
 
-        builder.setPositiveButton(getResources().getString(R.string.charity_donate_now_label), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.charity_submit_donation_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 DonationPostData post = new DonationPostData(PostFactory.defUserIconId, FeedActivity.currentUserDisplayName, _data.getDisplayName(),
                         Calendar.getInstance(), donationAmountCents, 0, false, null);
                 PostFactory.addPost(post);
+                donateNowAmountField.setText("");
                 container.setVisibility(View.GONE);
                 Toast.makeText(CharityDetailActivity.this, "You donated " + donationAmountDisplayString + " to " +
                         _data.getDisplayName() + "!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton(getResources().getString(R.string.charity_cancel_donation_label), new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(getResources().getString(R.string.charity_cancel_donation_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(CharityDetailActivity.this, "Donation cancelled", Toast.LENGTH_SHORT).show();
+                donateNowAmountField.clearFocus();
             }
         });
 
         AlertDialog alertDialog = builder.create();
+
         alertDialog.show();
+
+        Button posButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        if(posButton != null) {
+            posButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            posButton.setGravity(Gravity.CENTER);
+        }
+
+        Button negButton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        if(negButton != null) {
+            negButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            negButton.setGravity(Gravity.CENTER);
+        }
     }
 
     public void onClickDonateNowCancel(View v){

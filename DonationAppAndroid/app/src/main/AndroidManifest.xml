@@ -11,7 +11,7 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,8 +39,9 @@
         <activity
             android:name=".SinglePostActivity"
             android:label="Post Details"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".CharityDetailActivity"/>
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity android:name=".CharityDetailActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan"/>
     </application>
 
 </manifest>
