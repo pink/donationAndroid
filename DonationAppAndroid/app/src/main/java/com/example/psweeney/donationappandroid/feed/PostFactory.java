@@ -174,6 +174,12 @@ public class PostFactory {
         return new ArrayList<>(postsByAuthor);
     }
 
+    public static void addPost(PostData postData){
+        if(postData != null){
+            _postMap.put(postData.getPostIdentifier(), postData);
+        }
+    }
+
     public static List<PostData> getAllUserPosts(){
         Set<PostData> userPosts = new TreeSet<>(postComparator);
 

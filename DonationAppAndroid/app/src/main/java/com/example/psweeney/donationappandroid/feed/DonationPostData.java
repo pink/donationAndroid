@@ -117,8 +117,8 @@ public class DonationPostData extends PostData{
         return _donationAmountCents;
     }
 
-    private String getDonationAmountDisplayString(){
-        int dollarNum = _donationAmountCents / 100, centsNum = _donationAmountCents % 100;
+    public static String getDonationAmountDisplayString(int donationAmountCents){
+        int dollarNum = donationAmountCents / 100, centsNum = donationAmountCents % 100;
         String ret = "$" + dollarNum + ".";
 
         if(centsNum < 10){
@@ -129,7 +129,7 @@ public class DonationPostData extends PostData{
     }
 
     public String getTitleDisplayString(){
-        return _authorDisplayName + " donated " + getDonationAmountDisplayString() + " to " + _recipientDisplayName + ".";
+        return _authorDisplayName + " donated " + getDonationAmountDisplayString(_donationAmountCents) + " to " + _recipientDisplayName + ".";
     }
 
     @Override

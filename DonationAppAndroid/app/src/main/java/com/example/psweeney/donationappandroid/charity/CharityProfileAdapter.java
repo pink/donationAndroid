@@ -64,6 +64,35 @@ public class CharityProfileAdapter extends ArrayAdapter {
         }
     }
 
+    public static void updateAutoDonateViews(View v, CharityDetailData data, Resources resources){
+        if(v == null || data == null){
+            return;
+        }
+
+        View container = v.findViewById(R.id.charityButtonContainer);
+        TextView buttonText = (TextView) v.findViewById(R.id.textViewButtonLabel);
+
+        if(buttonText == null){
+            return;
+        }
+
+        if(data.isCurrentRecipient()) {
+            container.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark));
+            buttonText.setBackgroundColor(resources.getColor(R.color.colorAccent));
+            buttonText.setTextColor(resources.getColor(R.color.colorPrimaryDark));
+            buttonText.setText(resources.getString(R.string.charity_auto_donate_label_true));
+        } else {
+            container.setBackgroundColor(resources.getColor(R.color.colorPrimary));
+            buttonText.setBackgroundColor(resources.getColor(R.color.colorPrimary));
+            buttonText.setTextColor(resources.getColor(R.color.colorAccent));
+            buttonText.setText(resources.getString(R.string.charity_auto_donate_label_false));
+        }
+    }
+
+    public static void updateDonateNowViews(View v, CharityDetailData data){
+
+    }
+
     public static void updateBioViews(View v, CharityDetailData data){
         if(v == null || data == null){
             return;
@@ -90,6 +119,7 @@ public class CharityProfileAdapter extends ArrayAdapter {
                 break;
             case 1:
                 ret = inflater.inflate(R.layout.charity_profile_auto_donate_button, parent, false);
+                updateAutoDonateViews(ret, _data, context.getResources());
                 break;
             case 2:
                 ret = inflater.inflate(R.layout.charity_profile_donate_now_button, parent, false);

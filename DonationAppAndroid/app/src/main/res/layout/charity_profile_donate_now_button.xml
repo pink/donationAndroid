@@ -2,19 +2,115 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:animateLayoutChanges="true">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/charityButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/charity_donate_now_label"
-        android:id="@+id/textViewButtonLabel"
-        android:gravity="center"
-        android:padding="@dimen/charity_button_padding_amt"
+        android:orientation="vertical"
+        android:padding="@dimen/feed_button_border_width"
         android:background="@color/colorPrimary"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:onClick="onClickDonateNowButton" />
+        android:clickable="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/charity_donate_now_label"
+            android:id="@+id/textViewButtonLabel"
+            android:gravity="center"
+            android:padding="@dimen/charity_button_padding_amt"
+            android:background="@color/colorPrimary"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onClickDonateNowButton" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/comment_bar_gap"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/donateNowControlContainer"
+            android:visibility="visible"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/editTextDonateNowAmount"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/comment_bar_gap"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:layout_gravity="right"
+                android:hint="@string/charity_submit_donation_field_hint"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/comment_bar_gap"
+                android:editable="true" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7"
+                    android:layout_marginRight="@dimen/comment_bar_gap"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/charity_cancel_donation_label"
+                        android:id="@+id/textViewDonateNowCancel"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:onClick="onClickDonateNowCancel"
+                        android:background="@color/containerBackgroundLightGrey"
+                        android:padding="@dimen/comment_bar_gap" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7"
+                    android:layout_marginLeft="@dimen/comment_bar_gap"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/charity_submit_donation_label"
+                        android:id="@+id/textViewDonateNowSubmit"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:onClick="onClickDonateNowSubmit"
+                        android:background="@color/colorPrimaryDark"
+                        android:padding="@dimen/comment_bar_gap" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

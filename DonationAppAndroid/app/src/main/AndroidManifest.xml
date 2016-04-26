@@ -40,7 +40,7 @@
             android:name=".SinglePostActivity"
             android:label="Post Details"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".CharityDetailActivity"></activity>
+        <activity android:name=".CharityDetailActivity"/>
     </application>
 
 </manifest>

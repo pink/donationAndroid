@@ -1,5 +1,7 @@
 package com.example.psweeney.donationappandroid;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +17,13 @@ import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.charity.CharityProfileAdapter;
 import com.example.psweeney.donationappandroid.feed.CommentAdapter;
 import com.example.psweeney.donationappandroid.feed.CommentData;
+import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
 import com.example.psweeney.donationappandroid.feed.PostData;
+import com.example.psweeney.donationappandroid.feed.PostFactory;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class CharityDetailActivity extends AppCompatActivity {
@@ -52,6 +57,8 @@ public class CharityDetailActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        setTitle(_data.getDisplayName());
 
         final ListView profileInfoListView = (ListView) findViewById(R.id.listViewCharityProfileItems);
         profileInfoListView.setDivider(null);
@@ -178,6 +185,72 @@ public class CharityDetailActivity extends AppCompatActivity {
 
     public void onClickDonateNowButton(View v){
         Animation.defaultButtonAnimation(v);
+        View controlContainer = findViewById(R.id.donateNowControlContainer);
+        if(controlContainer == null){
+            return;
+        }
+
+        if(controlContainer.getVisibility() != View.VISIBLE)
+            controlContainer.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickDonateNowSubmit(View v){
+        Animation.defaultButtonAnimation(v);
+
+        final View container = findViewById(R.id.donateNowControlContainer);
+        EditText donateNowAmountField = (EditText) container.findViewById(R.id.editTextDonateNowAmount);
+        if(donateNowAmountField == null){
+            return;
+        }
+
+        String donationAmountString = donateNowAmountField.getText().toString().replaceAll("[^\\d.]+", "");
+        final int donationAmountCents;
+        try{
+            donationAmountCents = (int) (Float.parseFloat(donationAmountString) * 100);
+        } catch (NumberFormatException e){
+            Toast.makeText(this, "Please enter a valid donation amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final String donationAmountDisplayString = DonationPostData.getDonationAmountDisplayString(donationAmountCents);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to donate " + donationAmountDisplayString + " to " + _data.getDisplayName() + "?");
+
+        builder.setPositiveButton(getResources().getString(R.string.charity_donate_now_label), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, FeedActivity.currentUserDisplayName, _data.getDisplayName(),
+                        Calendar.getInstance(), donationAmountCents, 0, false, null);
+                PostFactory.addPost(post);
+                container.setVisibility(View.GONE);
+                Toast.makeText(CharityDetailActivity.this, "You donated " + donationAmountDisplayString + " to " +
+                        _data.getDisplayName() + "!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.charity_cancel_donation_label), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(CharityDetailActivity.this, "Donation cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void onClickDonateNowCancel(View v){
+        Animation.defaultButtonAnimation(v);
+
+        View container = findViewById(R.id.donateNowControlContainer);
+        EditText donateNowAmountField = (EditText) container.findViewById(R.id.editTextDonateNowAmount);
+        if(container == null || donateNowAmountField == null){
+            return;
+        }
+
+        donateNowAmountField.setText("");
+        container.setVisibility(View.GONE);
     }
 
     public void onButtonClickPostBody(View v){
