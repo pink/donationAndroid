@@ -25,6 +25,7 @@ public class PostFactory {
     public static String neilName = "Neil Alberg";
     public static String seanName = "Sean Kallungal";
     public static String jonName = "Dr. Jon Froehlich";
+    public static Calendar lastUpdate;
 
     private static Map<Integer, PostData> _postMap;
     private static Comparator<PostData> postComparator = new Comparator<PostData>(){
@@ -49,6 +50,7 @@ public class PostFactory {
         populateUserPosts();
         populateFriendPosts();
         populateCharityPosts();
+        lastUpdate = Calendar.getInstance();
     }
 
     private static void populateUserPosts(){
@@ -178,6 +180,7 @@ public class PostFactory {
         if(postData != null){
             _postMap.put(postData.getPostIdentifier(), postData);
         }
+        lastUpdate = Calendar.getInstance();
     }
 
     public static List<PostData> getAllUserPosts(){

@@ -38,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         PostFactory.init();
-        CharityDetailFactory.init();
+        CharityDetailFactory.init(getResources());
     }
 
     public static boolean isEmailValid(String email) {

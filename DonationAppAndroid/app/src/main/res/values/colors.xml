@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFC107</color> <!-- currently set to materialAmber500 -->
-    <color name="colorPrimaryDark">#000000</color> <!-- currently set to BLACK -->
-    <color name="colorAccent">#FFFFFF</color> <!-- currently set to WHITE -->
+    <color name="colorPrimary">@color/materialAmber500</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/white</color>
 
     <color name="feedTitleColor">#263238</color>
     <color name="feedDateTextColor">#78909C</color>
@@ -10,11 +10,34 @@
     <color name="commentDividerColor">#CFD8DC</color>
     <color name="containerBackgroundLightGrey">#CFD8DC</color>
 
+    <color name="spendingCategoryColorFood">@color/materialRed300</color>
+    <color name="spendingCategoryColorSupplies">@color/materialLightBlue300</color>
+    <color name="spendingCategoryColorFundraising">@color/materialDeepPurple300</color>
+    <color name="spendingCategoryColorMarketing">@color/materialTeal300</color>
+    <color name="spendingCategoryColorSalary">@color/materialLime300</color>
+    <color name="spendingCategoryColorOther">@color/materialGrey300</color>
+    
     <!--
     <color name="feedTitleColor">#212121</color>
     <color name="feedDateTextColor">#616161</color>
     <color name="feedCommentTextColor">#424242</color>
     -->
+
+    <color name="black">#000000</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="materialRed300">#E57373</color>
+
+    <color name="materialTeal300">#4DB6AC</color>
+
+    <color name="materialDeepPurple300">#9575CD</color>
+
+    <color name="materialLime300">#DCE775</color>
+
+    <color name="materialLightBlue300">#4FC3F7</color>
+
+    <color name="materialGrey300">#E0E0E0</color>
 
     <color name="materialCyan100">#B2EBF2</color>
     <color name="materialCyan200">#80DEEA</color>

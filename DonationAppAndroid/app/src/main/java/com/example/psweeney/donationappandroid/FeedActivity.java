@@ -34,12 +34,14 @@ public class FeedActivity extends AppCompatActivity {
 
     private FeedType _currentSelection = FeedType.USER;
     private PostContainer _lastInteraction = null;
+    private Calendar lastPostRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        /*
         final ListView listViewUser = (ListView) findViewById(R.id.listViewUser);
         List<PostData> dataListUser = PostFactory.getAllUserPosts();
 
@@ -56,6 +58,9 @@ public class FeedActivity extends AppCompatActivity {
 
         final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity, dataListCharity);
         listViewCharity.setAdapter(adapterCharity);
+        */
+
+        refreshFeeds();
     }
 
     @Override
@@ -66,6 +71,38 @@ public class FeedActivity extends AppCompatActivity {
                 _lastInteraction.updateViews();
             }
         }
+        if(lastPostRefresh != PostFactory.lastUpdate){
+            refreshFeeds();
+        }
+    }
+
+    private void refreshFeeds(){
+        ListView userFeed = (ListView) findViewById(R.id.listViewUser);
+        ListView friendFeed = (ListView) findViewById(R.id.listViewFriend);
+        ListView charityFeed = (ListView) findViewById(R.id.listViewCharity);
+
+        if(userFeed != null){
+            FeedPostAdapter userAdapter = new FeedPostAdapter(this, R.layout.feed_post_donation, PostFactory.getAllUserPosts());
+            userFeed.setAdapter(userAdapter);
+            userAdapter.notifyDataSetChanged();
+            userFeed.invalidate();
+        }
+
+        if(friendFeed != null){
+            FeedPostAdapter friendAdapter = new FeedPostAdapter(this, R.layout.feed_post_donation, PostFactory.getAllFriendPosts());
+            friendFeed.setAdapter(friendAdapter);
+            friendAdapter.notifyDataSetChanged();
+            friendFeed.invalidate();
+        }
+
+        if(charityFeed != null){
+            FeedPostAdapter charityAdapter = new FeedPostAdapter(this, R.layout.feed_post_charity, PostFactory.getAllCharityPosts());
+            charityFeed.setAdapter(charityAdapter);
+            charityAdapter.notifyDataSetChanged();
+            charityFeed.invalidate();
+        }
+
+        lastPostRefresh = PostFactory.lastUpdate;
     }
 
     private void updateFeedSelection(){
@@ -177,7 +214,7 @@ public class FeedActivity extends AppCompatActivity {
         bundle.putInt(CharityDetailData.charityIdentifierKey, charityDetailData.getIdentifier());
         intent.putExtras(bundle);
 
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void onButtonClickUserFeed(View v){

@@ -13,4 +13,7 @@
     <dimen name="feed_image_size">100dp</dimen>
     <dimen name="charity_profile_icon_size">100dp</dimen>
     <dimen name="charity_button_padding_amt">20dp</dimen>
+    <dimen name="charity_pie_chart_size">200dp</dimen>
+    <dimen name="star_rating_icon_size">50dp</dimen>
+    <dimen name="star_rating_icon_padding_horizontal">0dp</dimen>
 </resources>

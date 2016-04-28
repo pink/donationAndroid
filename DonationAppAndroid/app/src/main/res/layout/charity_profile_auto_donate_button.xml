@@ -24,7 +24,8 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:clickable="true"
-            android:onClick="onClickAutoDonateButton" />
+            android:onClick="onClickAutoDonateButton"
+            android:singleLine="true" />
 
     </LinearLayout>
 

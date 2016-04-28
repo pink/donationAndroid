@@ -96,26 +96,109 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listViewCharityProfileItems"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/linearLayoutCharityDataItems"
-            android:visibility="gone" >
+            android:visibility="visible" >
 
-            <FrameLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/containerCharityDataItem1"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:padding="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/charity_rating_detailed_top_label"
+                    android:id="@+id/textView5"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:clickable="false"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="@dimen/activity_vertical_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/star_rating_icon_size"
+                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:id="@+id/imageViewStar1"
+                        android:src="@drawable/ic_star_white_72pt_border" />
+
+                    <ImageView
+                        android:layout_width="@dimen/star_rating_icon_size"
+                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:id="@+id/imageViewStar2"
+                        android:src="@drawable/ic_star_white_72pt_border" />
+
+                    <ImageView
+                        android:layout_width="@dimen/star_rating_icon_size"
+                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:id="@+id/imageViewStar3"
+                        android:src="@drawable/ic_star_white_72pt_border" />
+
+                    <ImageView
+                        android:layout_width="@dimen/star_rating_icon_size"
+                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:id="@+id/imageViewStar4"
+                        android:src="@drawable/ic_star_white_72pt_border" />
+
+                    <ImageView
+                        android:layout_width="@dimen/star_rating_icon_size"
+                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:id="@+id/imageViewStar5"
+                        android:src="@drawable/ic_star_white_72pt_border" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="Rating fraction text"
+                    android:id="@+id/textViewRatingFraction"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin" />
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/containerCharityDataItem1"></FrameLayout>
+                android:id="@+id/containerCharityDataItem2"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center"
+                android:padding="@dimen/activity_vertical_margin">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/containerCharityDataItem2" />
+                <ImageView
+                    android:layout_width="@dimen/charity_pie_chart_size"
+                    android:layout_height="@dimen/charity_pie_chart_size"
+                    android:id="@+id/imageViewPieChart"
+                    android:layout_centerVertical="true" />
+
+                <ImageView
+                    android:layout_width="@dimen/charity_pie_chart_size"
+                    android:layout_height="@dimen/charity_pie_chart_size"
+                    android:id="@+id/imageViewPieChartFrame"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pie_chart_frame_white_300" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

@@ -1,17 +1,24 @@
 package com.example.psweeney.donationappandroid;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +41,7 @@ public class CharityDetailActivity extends AppCompatActivity {
         PROFILE, DATA, USER
     }
 
-    private CharityInfoList _currentSelection = CharityInfoList.PROFILE;
+    private CharityInfoList _currentSelection = CharityInfoList.DATA;
     private CharityDetailData _data;
     private PostContainer _lastInteraction = null;
 
@@ -69,6 +76,86 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         CharityProfileAdapter adapter = new CharityProfileAdapter(this, R.layout.feed_post_charity, _data);
         profileInfoListView.setAdapter(adapter);
+
+        updateFeedSelection();
+        generateDataContents();
+    }
+
+    private void generateDataContents(){
+        LinearLayout dataItemContainer1 = (LinearLayout) findViewById(R.id.containerCharityDataItem1);
+
+        ImageView starIcon1 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar1);
+        ImageView starIcon2 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar2);
+        ImageView starIcon3 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar3);
+        ImageView starIcon4 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar4);
+        ImageView starIcon5 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar5);
+
+        TextView fractionText = (TextView) dataItemContainer1.findViewById(R.id.textViewRatingFraction);
+
+        Drawable emptyStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border);
+        Drawable halfStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_half_filled);
+        Drawable filledStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_filled);
+
+        int iconEffectiveRating = (int) Math.ceil(_data.getRating() * 10);
+
+        switch (iconEffectiveRating){
+            case 0:
+                starIcon1.setImageDrawable(filledStar);
+                starIcon2.setImageDrawable(filledStar);
+                starIcon3.setImageDrawable(filledStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 1:
+                starIcon1.setImageDrawable(halfStar);
+                starIcon2.setImageDrawable(filledStar);
+                starIcon3.setImageDrawable(filledStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 2:
+                starIcon2.setImageDrawable(filledStar);
+                starIcon3.setImageDrawable(filledStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 3:
+                starIcon2.setImageDrawable(halfStar);
+                starIcon3.setImageDrawable(filledStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 4:
+                starIcon3.setImageDrawable(filledStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 5:
+                starIcon3.setImageDrawable(halfStar);
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 6:
+                starIcon4.setImageDrawable(filledStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 7:
+                starIcon4.setImageDrawable(halfStar);
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 8:
+                starIcon5.setImageDrawable(filledStar);
+                break;
+            case 9:
+                starIcon5.setImageDrawable(halfStar);
+                break;
+        }
+
+        fractionText.setText(_data.getRatingDisplayString(5));
+
+        RelativeLayout breakdownContainer = (RelativeLayout) findViewById(R.id.containerCharityDataItem2);
+        ImageView pieChartView = (ImageView) breakdownContainer.findViewById(R.id.imageViewPieChart);
+        pieChartView.setImageDrawable(_data.getPieChartImage((int) getResources().getDimension(R.dimen.charity_pie_chart_size), getResources()));
     }
 
     private void updateFeedSelection(){
@@ -183,11 +270,28 @@ public class CharityDetailActivity extends AppCompatActivity {
     }
 
     public void onClickAutoDonateButton(View v){
-        Animation.defaultButtonAnimation(v);
+        if(v == null || _data.isCurrentRecipient()){
+            return;
+        }
+        View parentContainer = (View) v.getParent();
+        if(parentContainer == null){
+            return;
+        }
+
+        Animation.defaultButtonAnimation(parentContainer);
+
+        CharityDetailFactory.setUserAutoDonateCharity(_data.getIdentifier());
+        CharityProfileAdapter.updateAutoDonateViews(parentContainer, _data, getResources());
+        parentContainer.invalidate();
     }
 
     public void onClickDonateNowButton(View v){
-        Animation.defaultButtonAnimation(v);
+        if(v == null){
+            return;
+        }
+
+        View parentContainer = (View) v.getParent();
+        Animation.defaultButtonAnimation(parentContainer);
         View controlContainer = findViewById(R.id.donateNowControlContainer);
         if(controlContainer == null){
             return;
@@ -225,7 +329,7 @@ public class CharityDetailActivity extends AppCompatActivity {
         builder.setPositiveButton(getResources().getString(R.string.charity_submit_donation_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, FeedActivity.currentUserDisplayName, _data.getDisplayName(),
+                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, DonationPostData.USER_POST_NAME, _data.getDisplayName(),
                         Calendar.getInstance(), donationAmountCents, 0, false, null);
                 PostFactory.addPost(post);
                 donateNowAmountField.setText("");
