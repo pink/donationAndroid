@@ -7,12 +7,14 @@ import com.example.psweeney.donationappandroid.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by psweeney on 4/22/16.
@@ -156,6 +158,13 @@ public class PostFactory {
 
         newPost.getPostTime().set(Calendar.DAY_OF_MONTH, Math.max(1, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 1));
         _postMap.put(newPost.getPostIdentifier(), newPost);
+
+        newPost = new CharityPostData(defCharityIconId, "Charity A", defBodyImageIconId,
+                "Hello everyone,\nCheck out our new photos from the Charity A volunteer event last Saturday. We appreciate " +
+                        "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity A Staff");
+
+        newPost.getPostTime().set(Calendar.DAY_OF_MONTH, Math.max(1, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 1));
+        _postMap.put(newPost.getPostIdentifier(), newPost);
     }
 
     public static PostData getPostById(int key){
@@ -174,6 +183,77 @@ public class PostFactory {
         }
 
         return new ArrayList<>(postsByAuthor);
+    }
+
+    public static int getAuthorDonationTotal(String authorDisplayName){
+        List<PostData> authorPosts = getAllPostsByAuthor(authorDisplayName);
+        int total = 0;
+        for(PostData p : authorPosts){
+            if(p instanceof DonationPostData)
+                total += ((DonationPostData) p).getDonationAmountCents();
+        }
+        return total;
+    }
+
+    public static int getAuthorDonationTotalForRecipient(String authorDisplayName, String recipientDisplayName){
+        List<DonationPostData> posts = getAllDonationsFromAuthorToRecipient(authorDisplayName, recipientDisplayName);
+        int total = 0;
+        for(DonationPostData p : posts){
+            total += p.getDonationAmountCents();
+        }
+        return total;
+    }
+
+    public static int getDaysBetweenFirstAndLastPost(String authorDisplayName){
+        List<PostData> posts = getAllPostsByAuthor(authorDisplayName);
+        if(posts == null || posts.size() <= 0){
+            return 0;
+        }
+        Calendar firstPostTime = posts.get(posts.size() - 1).getPostTime();
+        Calendar lastPostTime = posts.get(0).getPostTime();
+
+        Date firstDate = new Date(firstPostTime.get(Calendar.YEAR), firstPostTime.get(Calendar.MONTH), firstPostTime.get(Calendar.DAY_OF_MONTH));
+        Date lastDate = new Date(lastPostTime.get(Calendar.YEAR), lastPostTime.get(Calendar.MONTH), lastPostTime.get(Calendar.DAY_OF_MONTH));
+        long diff = lastDate.getTime() - firstDate.getTime();
+
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public static int getDaysBetweenFirstAndLastPost(String authorDisplayName, String recipientDisplayName){
+        List<DonationPostData> posts = getAllDonationsFromAuthorToRecipient(authorDisplayName, recipientDisplayName);
+        if(posts == null || posts.size() <= 0){
+            return 0;
+        }
+        Calendar firstPostTime = posts.get(posts.size() - 1).getPostTime();
+        Calendar lastPostTime = posts.get(0).getPostTime();
+
+        Date firstDate = new Date(firstPostTime.get(Calendar.YEAR), firstPostTime.get(Calendar.MONTH), firstPostTime.get(Calendar.DAY_OF_MONTH));
+        Date lastDate = new Date(lastPostTime.get(Calendar.YEAR), lastPostTime.get(Calendar.MONTH), lastPostTime.get(Calendar.DAY_OF_MONTH));
+        long diff = lastDate.getTime() - firstDate.getTime();
+
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public static List<DonationPostData> getAllDonationsFromAuthorToRecipient(String authorDisplayName, String recipientDisplayName){
+        Set<DonationPostData> posts = new TreeSet<>(postComparator);
+        for(PostData p : _postMap.values()){
+            if(p instanceof DonationPostData && p.getAuthorDisplayName().equals(authorDisplayName) &&
+                    ((DonationPostData) p).getRecipientDisplayName().equals(recipientDisplayName)){
+                posts.add((DonationPostData) p);
+            }
+        }
+        return new ArrayList<DonationPostData>(posts);
+    }
+
+    public static float getUserDonationRatioForRecipient(String authorDisplayName, String recipientDisplayName){
+        float donationTotal = getAuthorDonationTotal(authorDisplayName);
+        float recipientTotal = getAuthorDonationTotalForRecipient(authorDisplayName, recipientDisplayName);
+
+        if(donationTotal <= 0){
+            return 0;
+        }
+
+        return recipientTotal/donationTotal;
     }
 
     public static void addPost(PostData postData){

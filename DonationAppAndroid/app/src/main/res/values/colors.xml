@@ -16,6 +16,8 @@
     <color name="spendingCategoryColorMarketing">@color/materialTeal300</color>
     <color name="spendingCategoryColorSalary">@color/materialLime300</color>
     <color name="spendingCategoryColorOther">@color/materialGrey300</color>
+
+    <color name="charityDetailPersonalDonationPercentageBar">@color/materialLightGreen500</color>
     
     <!--
     <color name="feedTitleColor">#212121</color>
@@ -36,6 +38,10 @@
     <color name="materialLime300">#DCE775</color>
 
     <color name="materialLightBlue300">#4FC3F7</color>
+
+    <color name="materialLightGreen500">#8BC34A</color>
+    <color name="materialLightGreenA400">#76FF03</color>
+    <color name="materialLightGreenA700">#64DD17</color>
 
     <color name="materialGrey300">#E0E0E0</color>
 

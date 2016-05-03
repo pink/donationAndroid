@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.psweeney.donationappandroid.R;
-import com.example.psweeney.donationappandroid.feed.CommentData;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
 import com.example.psweeney.donationappandroid.feed.PostData;
 
@@ -129,7 +128,7 @@ public class CharityProfileAdapter extends ArrayAdapter {
                 updateBioViews(ret, _data);
                 break;
             case 4:
-                ret = inflater.inflate(R.layout.charity_recent_posts_header, parent, false);
+                ret = inflater.inflate(R.layout.charity_posts_header, parent, false);
                 break;
         }
         if(ret != null){

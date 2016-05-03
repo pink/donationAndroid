@@ -103,7 +103,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/linearLayoutCharityDataItems"
-            android:visibility="visible" >
+            android:visibility="gone" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -206,25 +206,13 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/linearLayoutViewCharityUserItems"
-            android:visibility="gone" >
+            android:id="@+id/listViewCharityUserItems"
+            android:visibility="visible" >
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/containerCharityUserItem1" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/containerCharityUserItem2" />
-        </LinearLayout>
+        </ListView>
     </LinearLayout>
 
 </RelativeLayout>

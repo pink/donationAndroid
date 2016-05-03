@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.charity.CharityProfileAdapter;
+import com.example.psweeney.donationappandroid.charity.CharityUserAdapter;
 import com.example.psweeney.donationappandroid.chart.PieChartBuilder;
 import com.example.psweeney.donationappandroid.feed.CommentAdapter;
 import com.example.psweeney.donationappandroid.feed.CommentData;
@@ -50,7 +51,7 @@ public class CharityDetailActivity extends AppCompatActivity {
     }
 
 
-    private CharityInfoList _currentSelection = CharityInfoList.DATA;
+    private CharityInfoList _currentSelection = CharityInfoList.USER;
     private CharityDetailData _data;
     private PostContainer _lastInteraction = null;
 
@@ -94,6 +95,7 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         updateFeedSelection();
         generateDataContents();
+        generateUserContents();
     }
 
     private void generateDataContents(){
@@ -197,6 +199,15 @@ public class CharityDetailActivity extends AppCompatActivity {
         pieChartContainer.addView(pieChart);
     }
 
+    private void generateUserContents(){
+        final ListView userListView = (ListView) findViewById(R.id.listViewCharityUserItems);
+        userListView.setDivider(null);
+        userListView.setDividerHeight(0);
+
+        CharityUserAdapter adapter = new CharityUserAdapter(this, R.layout.charity_detail_user_history, _data.getDisplayName());
+        userListView.setAdapter(adapter);
+    }
+
     private void updateFeedSelection(){
         TextView profileLabel = (TextView) findViewById(R.id.textViewCharityProfileLabel);
         TextView dataLabel = (TextView) findViewById(R.id.textViewCharityDataLabel);
@@ -204,7 +215,7 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         View profileItems = findViewById(R.id.listViewCharityProfileItems);
         View dataItems = findViewById(R.id.linearLayoutCharityDataItems);
-        View userItems = findViewById(R.id.linearLayoutViewCharityUserItems);
+        View userItems = findViewById(R.id.listViewCharityUserItems);
 
 
         switch (_currentSelection){

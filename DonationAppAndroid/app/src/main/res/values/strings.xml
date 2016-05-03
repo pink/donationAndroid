@@ -34,7 +34,12 @@
     <string name="charity_cancel_donation_label">Cancel</string>
     <string name="charity_submit_donation_field_hint">Enter a donation amount&#8230;</string>
     <string name="charity_rating_detailed_top_label">CharityNavigator rating:</string>
-
+    <string name="charity_personal_history_title">Personal History</string>
+    <string name="charity_personal_history_text_1">You have donated</string>
+    <string name="charity_personal_history_text_2a">to</string>
+    <string name="charity_personal_history_text_2b">over a period of</string>
+    <string name="charity_personal_history_text_3">has received</string>
+    <string name="charity_personal_history_text_4">of your total lifetime donations.</string>
 
     <string name="post_comment_field_hint">Write a comment&#8230;</string>
     <string name="post_comment_button_label">Post</string>
