@@ -24,6 +24,8 @@ public class CharityDetailFactory {
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 5f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 2f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FOOD, 1f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 4f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 3f);
 
         _charityMap.put(newCharity.getIdentifier(), newCharity);
 
@@ -31,7 +33,10 @@ public class CharityDetailFactory {
                 999, "B Street", "Silver Spring", "MD", 20901, new int[] {9, 8, 7, 6, 5, 4, 3, 2, 1 }, "charity_b", "charities.com", false,
                 "Here at Charity, B, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.6f, null);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 4f);
-        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 3f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 8f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.OTHER, 0.5f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 7f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 5f);
 
         _charityMap.put(newCharity.getIdentifier(), newCharity);
 

@@ -1,20 +1,27 @@
 package com.example.psweeney.donationappandroid.charity;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.example.psweeney.donationappandroid.R;
+import com.example.psweeney.donationappandroid.chart.PieChartBuilder;
 import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -211,6 +218,23 @@ public class CharityDetailData {
         }
     }
 
+    public static Integer getDonationSpendingCategoryColor(DonationSpendingCategory c, Resources resources){
+        switch (c){
+            case FOOD:
+                return resources.getColor(R.color.spendingCategoryColorFood);
+            case SUPPLIES:
+                return resources.getColor(R.color.spendingCategoryColorSupplies);
+            case FUNDRAISING:
+                return resources.getColor(R.color.spendingCategoryColorFundraising);
+            case MARKETING:
+                return resources.getColor(R.color.spendingCategoryColorMarketing);
+            case SALARY:
+                return resources.getColor(R.color.spendingCategoryColorSalary);
+            default:
+                return resources.getColor(R.color.spendingCategoryColorOther);
+        }
+    }
+
     private SortedSet<DonationSpendingCategory> getSpendingCategoriesSorted(){
         SortedSet<DonationSpendingCategory> categories = new TreeSet<>(new Comparator<DonationSpendingCategory>() {
             @Override
@@ -237,11 +261,30 @@ public class CharityDetailData {
         return categories;
     }
 
-    public Drawable getPieChartImage(int sizeX, int sizeY, Map<DonationSpendingCategory, Integer> colors, Resources resources){
-        return new BitmapDrawable(Bitmap.createBitmap(sizeX, sizeY, Bitmap.Config.ARGB_8888));
-    }
+    public PieData getPieData(Context context){
+        Resources resources = context.getResources();
+        List<String> xVals = new ArrayList<>();
+        List<Float> yVals = new ArrayList<>();
+        List<Integer> colors = new ArrayList<>();
 
-    public Drawable getPieChartImage(int size, Resources resources){
-        return getPieChartImage(size, size, CharityDetailFactory.colorMap, resources);
+        Set<DonationSpendingCategory> sortedCategories = getSpendingCategoriesSorted();
+
+        float spendingTotal = 0;
+        for(DonationSpendingCategory c : sortedCategories){
+            spendingTotal += _spendingBreakdown.get(c);
+        }
+
+        float percentageMultiplier = 0;
+        if(spendingTotal > 0){
+            percentageMultiplier = 100/spendingTotal;
+        }
+
+        for(DonationSpendingCategory c : sortedCategories){
+            xVals.add(getDonationSpendingCategoryString(c));
+            yVals.add(_spendingBreakdown.get(c) * percentageMultiplier);
+            colors.add(getDonationSpendingCategoryColor(c, resources));
+        }
+
+        return PieChartBuilder.convertToPieData(xVals, yVals, colors, "Donation Spending Breakdown");
     }
 }

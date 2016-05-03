@@ -1,10 +1,13 @@
 package com.example.psweeney.donationappandroid;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,12 +22,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.charity.CharityProfileAdapter;
+import com.example.psweeney.donationappandroid.chart.PieChartBuilder;
 import com.example.psweeney.donationappandroid.feed.CommentAdapter;
 import com.example.psweeney.donationappandroid.feed.CommentData;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
@@ -32,6 +37,9 @@ import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
 import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.Calendar;
 import java.util.List;
@@ -41,9 +49,16 @@ public class CharityDetailActivity extends AppCompatActivity {
         PROFILE, DATA, USER
     }
 
+
     private CharityInfoList _currentSelection = CharityInfoList.DATA;
     private CharityDetailData _data;
     private PostContainer _lastInteraction = null;
+
+    private PieChart mChart;
+    private SeekBar mSeekBarX, mSeekBarY;
+    private TextView tvX, tvY;
+
+    private Typeface tf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +107,6 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         TextView fractionText = (TextView) dataItemContainer1.findViewById(R.id.textViewRatingFraction);
 
-        Drawable emptyStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border);
         Drawable halfStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_half_filled);
         Drawable filledStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_filled);
 
@@ -153,9 +167,34 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         fractionText.setText(_data.getRatingDisplayString(5));
 
-        RelativeLayout breakdownContainer = (RelativeLayout) findViewById(R.id.containerCharityDataItem2);
-        ImageView pieChartView = (ImageView) breakdownContainer.findViewById(R.id.imageViewPieChart);
-        pieChartView.setImageDrawable(_data.getPieChartImage((int) getResources().getDimension(R.dimen.charity_pie_chart_size), getResources()));
+        LinearLayout breakdownContainer = (LinearLayout) findViewById(R.id.containerCharityDataItem2);
+        TextView breakdownTitle = (TextView) breakdownContainer.findViewById(R.id.textViewBreakdownTitle);
+        String breakdownTitleString = "This is how " + _data.getDisplayName() + " spends its donations:";
+        breakdownTitle.setText(breakdownTitleString);
+
+        PieData pieData = _data.getPieData(getApplicationContext());
+
+        pieData.setValueFormatter(new PercentFormatter());
+
+        pieData.setValueTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        PieChart pieChart = new PieChart(getApplicationContext());
+
+        pieChart.setHoleRadius(60);
+        pieChart.setTransparentCircleRadius(65);
+
+        pieChart.setDescription("");
+        pieChart.getLegend().setEnabled(false);
+
+        pieChart.setClickable(false);
+
+        FrameLayout pieChartContainer = (FrameLayout) breakdownContainer.findViewById(R.id.frameLayoutPieChartContainer);
+
+        float valueTextSize = getResources().getDimension(R.dimen.charity_pie_chart_text_size) / getResources().getDisplayMetrics().density;
+
+        pieData.setValueTextSize(valueTextSize);
+        pieChart.setData(pieData);
+        pieChartContainer.addView(pieChart);
     }
 
     private void updateFeedSelection(){

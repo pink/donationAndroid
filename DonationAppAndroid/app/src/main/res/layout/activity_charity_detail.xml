@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:text="@string/charity_rating_detailed_top_label"
-                    android:id="@+id/textView5"
+                    android:id="@+id/textViewRatingTitle"
                     android:textColor="@color/colorPrimaryDark"
                     android:clickable="false"
                     android:textStyle="bold"
@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:background="@color/colorPrimary"
-                    android:layout_margin="@dimen/activity_vertical_margin">
+                    android:layout_margin="@dimen/comment_bar_gap">
 
                     <ImageView
                         android:layout_width="@dimen/star_rating_icon_size"
@@ -174,31 +174,36 @@
                     android:id="@+id/textViewRatingFraction"
                     android:textColor="@color/colorPrimaryDark"
                     android:clickable="false"
-                    android:gravity="center"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin" />
+                    android:gravity="center" />
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:id="@+id/containerCharityDataItem2"
                 android:background="@color/colorAccent"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:padding="@dimen/activity_vertical_margin">
 
-                <ImageView
-                    android:layout_width="@dimen/charity_pie_chart_size"
-                    android:layout_height="@dimen/charity_pie_chart_size"
-                    android:id="@+id/imageViewPieChart"
-                    android:layout_centerVertical="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="Breakdown Title Text"
+                    android:id="@+id/textViewBreakdownTitle"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:clickable="false"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal" />
 
-                <ImageView
-                    android:layout_width="@dimen/charity_pie_chart_size"
-                    android:layout_height="@dimen/charity_pie_chart_size"
-                    android:id="@+id/imageViewPieChartFrame"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/pie_chart_frame_white_300" />
-            </RelativeLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/frameLayoutPieChartContainer"
+                    android:paddingTop="@dimen/activity_vertical_margin"></FrameLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
