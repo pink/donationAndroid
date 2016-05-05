@@ -17,44 +17,213 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:padding="10dp"
-            android:onClick="onClickCategoryStatistics" >
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/charity_profile_icon_size"
+                android:layout_height="@dimen/charity_profile_icon_size"
                 android:id="@+id/imageView"
-                android:src="@drawable/ic_assessment_white_48dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_margin="@dimen/activity_horizontal_margin" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/category_statistics_button_label"
-                android:id="@+id/textView"
-                android:layout_gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 1"
+                    android:id="@+id/textView"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 2"
+                    android:id="@+id/textView14"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Text"
+                    android:id="@+id/textView15"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Text"
+                    android:id="@+id/textView16"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/charity_profile_icon_size"
+                android:layout_height="@dimen/charity_profile_icon_size"
                 android:id="@+id/imageView2"
-                android:src="@drawable/ic_chevron_right_white_36dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_margin="@dimen/activity_horizontal_margin" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 1"
+                    android:id="@+id/textView17"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 2"
+                    android:id="@+id/textView18"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Text"
+                    android:id="@+id/textView19"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Text"
+                    android:id="@+id/textView20"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent" >
+
+            <ImageView
+                android:layout_width="@dimen/charity_profile_icon_size"
+                android:layout_height="@dimen/charity_profile_icon_size"
+                android:id="@+id/imageView9"
+                android:layout_margin="@dimen/activity_horizontal_margin" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 1"
+                    android:id="@+id/textView21"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Text 2"
+                    android:id="@+id/textView22"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Text"
+                    android:id="@+id/textView23"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Text"
+                    android:id="@+id/textView24"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/thin_border_width" />
 </RelativeLayout>
