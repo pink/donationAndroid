@@ -21,6 +21,10 @@ import java.util.List;
 public class CharityProfileAdapter extends ArrayAdapter {
     private CharityDetailData _data;
 
+    private int _numPosts = 10;
+
+    private static int numPostsDefaultIncrementAmount = 10;
+
     public CharityProfileAdapter(Context context, int resource, CharityDetailData data) {
         super(context, resource, data.getPosts());
         _data = data;
@@ -29,6 +33,11 @@ public class CharityProfileAdapter extends ArrayAdapter {
 
     @Override
     public int getCount() {
+        int numShown = Math.min(_data.getPosts().size(), _numPosts);
+        if(_data.getPosts().size() > _numPosts){
+            numShown++;
+        }
+
         return _data.getPosts().size() + 5;
     }
 
@@ -42,7 +51,8 @@ public class CharityProfileAdapter extends ArrayAdapter {
         }
 
         ImageView icon = (ImageView) v.findViewById(R.id.imageViewContactIcon);
-        TextView address = (TextView) v.findViewById(R.id.textViewCharityAddress);
+        TextView addressLine1 = (TextView) v.findViewById(R.id.textViewCharityAddressLine1);
+        TextView addressLine2 = (TextView) v.findViewById(R.id.textViewCharityAddressLine2);
         TextView phone = (TextView) v.findViewById(R.id.textViewCharityPhone);
         TextView email = (TextView) v.findViewById(R.id.textViewCharityEmail);
 
@@ -50,8 +60,12 @@ public class CharityProfileAdapter extends ArrayAdapter {
             icon.setImageDrawable(resources.getDrawable(data.getIconId()));
         }
 
-        if(address != null){
-            address.setText(data.getAddressShort());
+        if(addressLine1 != null){
+            addressLine1.setText(data.getAddressLine1());
+        }
+
+        if(addressLine2 != null){
+            addressLine2.setText(data.getAddressLine2());
         }
 
         if(phone != null){
@@ -131,8 +145,14 @@ public class CharityProfileAdapter extends ArrayAdapter {
                 ret = inflater.inflate(R.layout.charity_posts_header, parent, false);
                 break;
         }
+
         if(ret != null){
             return ret;
+        }
+
+        if(_data.getPosts().size() > _numPosts && position == getCount() - 1){
+            return inflater.inflate(R.layout.load_more_button, parent, false);
+
         }
 
         PostData currPost = _data.getPosts().get(position - 5);
@@ -140,5 +160,18 @@ public class CharityProfileAdapter extends ArrayAdapter {
         postContainer.setData(currPost);
         postContainer.updateViews();
         return postContainer;
+    }
+
+    public int getNumPosts() {
+        return _numPosts;
+    }
+
+    public void incrementNumPosts(int incrementAmount) {
+        _numPosts += incrementAmount;
+        notifyDataSetChanged();
+    }
+
+    public void incrementNumPosts(){
+        incrementNumPosts(numPostsDefaultIncrementAmount);
     }
 }

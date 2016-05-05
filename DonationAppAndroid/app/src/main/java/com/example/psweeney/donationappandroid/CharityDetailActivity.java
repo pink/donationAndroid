@@ -456,4 +456,23 @@ public class CharityDetailActivity extends AppCompatActivity {
 
         viewPost(v, true);
     }
+
+    public void onButtonClickLoadMore(View v){
+        if(_currentSelection == CharityInfoList.DATA){
+            return;
+        }
+
+        ListView listView;
+        if(_currentSelection == CharityInfoList.PROFILE){
+            listView = (ListView) findViewById(R.id.listViewCharityProfileItems);
+            CharityProfileAdapter adapter = (CharityProfileAdapter) listView.getAdapter();
+            adapter.incrementNumPosts();
+        } else {
+            listView = (ListView) findViewById(R.id.listViewCharityUserItems);
+            CharityUserAdapter adapter = (CharityUserAdapter) listView.getAdapter();
+            adapter.incrementNumPosts();
+        }
+
+        listView.invalidate();
+    }
 }

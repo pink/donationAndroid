@@ -17,15 +17,33 @@ import java.util.List;
  */
 public class FeedPostAdapter extends ArrayAdapter{
     private List<PostData> _postDataList;
-    private int _maxPosts = 10;
+    private int _numPosts = 10;
+
+    private static int numPostsDefaultIncrementAmount = 10;
+
     public FeedPostAdapter(Context context, int resource, List<PostData> postDataList) {
         super(context, resource, postDataList);
         _postDataList = postDataList;
     }
 
+    @Override
+    public int getCount() {
+        int numShown = Math.min(_postDataList.size(), _numPosts);
+        if(_postDataList.size() > _numPosts){
+            numShown++;
+        }
+
+        return numShown;
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
+
         final Context context = getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if(_postDataList.size() > _numPosts && position == getCount() - 1){
+            return inflater.inflate(R.layout.load_more_button, parent, false);
+        }
 
         PostData curr = _postDataList.get(position);
 
@@ -55,5 +73,18 @@ public class FeedPostAdapter extends ArrayAdapter{
         }
 
         return getParentPostContainer((View) v.getParent());
+    }
+
+    public int getNumPosts() {
+        return _numPosts;
+    }
+
+    public void incrementNumPosts(int incrementAmount) {
+        _numPosts += incrementAmount;
+        notifyDataSetChanged();
+    }
+
+    public void incrementNumPosts(){
+        incrementNumPosts(numPostsDefaultIncrementAmount);
     }
 }

@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class CommentAdapter extends ArrayAdapter {
     private PostData _data;
+
     public CommentAdapter(Context context, int resource, PostData data) {
         super(context, resource, data.getComments());
         _data = data;

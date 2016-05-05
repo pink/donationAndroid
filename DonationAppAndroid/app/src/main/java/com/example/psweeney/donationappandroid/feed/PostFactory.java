@@ -90,7 +90,7 @@ public class PostFactory {
         int numLikes = (int) (Math.random() * (float) _maxNumLikes);
 
         return new DonationPostData(defUserIconId, null, charity.getIdentifier(), calendar, donationAmount, numLikes,
-                false, null);
+                false, generateRandomCommentList());
     }
 
     private static void populateUserPosts(){

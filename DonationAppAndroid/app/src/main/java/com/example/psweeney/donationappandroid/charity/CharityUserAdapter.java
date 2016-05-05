@@ -24,6 +24,11 @@ import java.util.List;
 public class CharityUserAdapter extends ArrayAdapter {
     private String _charityDisplayName = "";
     private List<PostData> _userDonations = new ArrayList<>();
+
+    private int _numPosts = 10;
+
+    private static int numPostsDefaultIncrementAmount = 10;
+
     public CharityUserAdapter(Context context, int resource, String charityDisplayName) {
         super(context, resource, PostFactory.getAllDonationsFromAuthorToRecipient(DonationPostData.USER_POST_NAME, charityDisplayName));
         _charityDisplayName = charityDisplayName;
@@ -32,7 +37,12 @@ public class CharityUserAdapter extends ArrayAdapter {
 
     @Override
     public int getCount() {
-        return _userDonations.size() + 2;
+        int numShown = Math.min(_userDonations.size(), _numPosts);
+        if(_userDonations.size() > _numPosts){
+            numShown++;
+        }
+
+        return numShown + 2;
     }
 
     @Override
@@ -47,6 +57,10 @@ public class CharityUserAdapter extends ArrayAdapter {
                 String titleString = "My Donations to " + _charityDisplayName;
                 titleText.setText(titleString);
                 return titleText;
+        }
+
+        if(_userDonations.size() > _numPosts && position == getCount() - 1){
+            return inflater.inflate(R.layout.load_more_button, parent, false);
         }
 
         PostData currData = _userDonations.get(position - 2);
@@ -67,7 +81,7 @@ public class CharityUserAdapter extends ArrayAdapter {
         notifyDataSetChanged();
     }
 
-    public void refresh(){
+    public void refresh() {
         _userDonations.clear();
         _userDonations.addAll(PostFactory.getAllDonationsFromAuthorToRecipient(DonationPostData.USER_POST_NAME, _charityDisplayName));
         notifyDataSetChanged();
@@ -107,5 +121,18 @@ public class CharityUserAdapter extends ArrayAdapter {
         percentageBar.setProgressRatio(ratio);
 
         return container;
+    }
+
+    public int getNumPosts() {
+        return _numPosts;
+    }
+
+    public void incrementNumPosts(int incrementAmount) {
+        _numPosts += incrementAmount;
+        notifyDataSetChanged();
+    }
+
+    public void incrementNumPosts(){
+        incrementNumPosts(numPostsDefaultIncrementAmount);
     }
 }

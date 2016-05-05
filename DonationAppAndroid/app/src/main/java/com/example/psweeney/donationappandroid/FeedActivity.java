@@ -275,4 +275,27 @@ public class FeedActivity extends AppCompatActivity {
 
         viewPost(v, true);
     }
+
+    public void onButtonClickLoadMore(View v){
+        Animation.defaultButtonAnimation(v);
+        ListView listView;
+
+        switch (_currentSelection){
+            case USER:
+                listView = (ListView) findViewById(R.id.listViewUser);
+                break;
+            case FRIEND:
+                listView = (ListView) findViewById(R.id.listViewFriend);
+                break;
+            case CHARITY:
+                listView = (ListView) findViewById(R.id.listViewCharity);
+                break;
+            default:
+                return;
+        }
+
+        FeedPostAdapter adapter = (FeedPostAdapter) listView.getAdapter();
+        adapter.incrementNumPosts();
+        listView.invalidate();
+    }
 }

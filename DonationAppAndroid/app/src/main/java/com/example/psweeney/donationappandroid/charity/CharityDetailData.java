@@ -123,12 +123,12 @@ public class CharityDetailData {
         return _iconId;
     }
 
-    public String getAddressShort(){
+    public String getAddressLine1(){
         return Integer.toString(_addressStreetNumber) + " " + _addressStreet;
     }
 
-    public String getAddressLong(){
-        return getAddressShort() + ", " + _addressCity + ", " + _addressState + " " + Integer.toString(_addressZipCode);
+    public String getAddressLine2(){
+        return _addressCity + ", " + _addressState + " " + Integer.toString(_addressZipCode);
     }
 
     public String getPhoneNumber(){

@@ -53,9 +53,9 @@ public class CharityDetailFactory {
 
         _charityMap.put(newCharity.getIdentifier(), newCharity);
 
-        newCharity = new CharityDetailData("Charity Y", R.drawable.ic_local_florist_black_48dp,
-                555, "Y Street", "Bethesda", "MD", 20901, new int[] {0, 9, 1, 8, 2, 7, 3, 6, 4, 5 }, "charity_y", "charities.com", false,
-                "Here at Charity, Y, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.6f, null);
+        newCharity = new CharityDetailData("The Dr. Jon Froehlich Foundation", R.drawable.ic_local_florist_black_48dp,
+                555, "Froehlich Street", "College Park", "MD", 20740, new int[] {0, 9, 1, 8, 2, 7, 3, 6, 4, 5 }, "jon_froehlich", "charities.com", false,
+                "Here at the Dr. Jon Froehlich Foundation, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.6f, null);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 1f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 3f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FOOD, 12f);
