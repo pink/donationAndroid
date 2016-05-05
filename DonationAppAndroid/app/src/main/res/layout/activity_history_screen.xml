@@ -9,4 +9,145 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.psweeney.donationappandroid.HistoryScreen">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/thin_border_width" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickWeekHistory"
+                android:id="@+id/frameWeekHistoryButton" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/history_week_label"
+                    android:id="@+id/textViewWeekHistoryLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:clickable="false" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onButtonClickMonthHistory"
+                android:clickable="true"
+                android:id="@+id/frameMonthHistoryButton" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/history_month_label"
+                    android:id="@+id/textViewMonthHistoryLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="0dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onButtonClickYearHistory"
+                android:id="@+id/frameYearHistoryButton" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:text="@string/history_year_label"
+                    android:id="@+id/textViewYearHistoryLabel"
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:padding="@dimen/feed_category_text_padding"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="2dp"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout"
+            android:id="@+id/frameLayoutWeek">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/weekChartContainer"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout"
+            android:id="@+id/frameLayoutMonth">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/monthChartContainer"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout"
+            android:id="@+id/frameLayoutYear">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/yearChartContainer"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

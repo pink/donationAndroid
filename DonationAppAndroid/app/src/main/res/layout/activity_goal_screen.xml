@@ -9,4 +9,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.psweeney.donationappandroid.GoalScreen">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/charity_personal_history_title"
+            android:id="@+id/textView5"
+            android:padding="@dimen/standard_header_padding"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:background="@color/containerBackgroundLightGrey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/charity_personal_history_text_1"
+            android:id="@+id/textView6"
+            android:padding="@dimen/standard_header_padding"
+            android:gravity="center"
+            android:textColor="@color/defaultTextColor"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total amount text"
+            android:id="@+id/textView7"
+            android:gravity="center"
+            android:textColor="@color/defaultTextColor"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textSize="@dimen/charity_personal_value_text_size"
+            android:textStyle="bold" />
+    </LinearLayout>
 </RelativeLayout>

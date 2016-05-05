@@ -22,6 +22,10 @@
     <string name="feed_friends_label">Friends</string>
     <string name="feed_charities_label">Charities</string>
 
+    <string name="history_week_label">Week</string>
+    <string name="history_month_label">Month</string>
+    <string name="history_year_label">Year</string>
+
     <string name="charity_view_profile_label">Profile</string>
     <string name="charity_view_data_label">Data</string>
     <string name="charity_view_user_label">Personal</string>
