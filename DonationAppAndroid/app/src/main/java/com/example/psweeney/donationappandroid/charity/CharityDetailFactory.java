@@ -4,7 +4,9 @@ import android.content.res.Resources;
 
 import com.example.psweeney.donationappandroid.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,6 +42,27 @@ public class CharityDetailFactory {
 
         _charityMap.put(newCharity.getIdentifier(), newCharity);
 
+        newCharity = new CharityDetailData("Charity X", R.drawable.ic_local_florist_black_48dp,
+                101, "X Street", "Chevy Chase", "MD", 20901, new int[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, "charity_x", "charities.com", false,
+                "Here at Charity, X, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.7f, null);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 2f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 5f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.OTHER, 1f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 3f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 8f);
+
+        _charityMap.put(newCharity.getIdentifier(), newCharity);
+
+        newCharity = new CharityDetailData("Charity Y", R.drawable.ic_local_florist_black_48dp,
+                555, "Y Street", "Bethesda", "MD", 20901, new int[] {0, 9, 1, 8, 2, 7, 3, 6, 4, 5 }, "charity_y", "charities.com", false,
+                "Here at Charity, Y, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.6f, null);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 1f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 3f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FOOD, 12f);
+        newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 2f);
+
+        _charityMap.put(newCharity.getIdentifier(), newCharity);
+
         colorMap = new HashMap<>();
         colorMap.put(CharityDetailData.DonationSpendingCategory.FOOD, resources.getColor(R.color.spendingCategoryColorFood));
         colorMap.put(CharityDetailData.DonationSpendingCategory.SUPPLIES, resources.getColor(R.color.spendingCategoryColorSupplies));
@@ -47,6 +70,16 @@ public class CharityDetailFactory {
         colorMap.put(CharityDetailData.DonationSpendingCategory.MARKETING, resources.getColor(R.color.spendingCategoryColorMarketing));
         colorMap.put(CharityDetailData.DonationSpendingCategory.SALARY, resources.getColor(R.color.spendingCategoryColorSalary));
         colorMap.put(CharityDetailData.DonationSpendingCategory.OTHER, resources.getColor(R.color.spendingCategoryColorOther));
+    }
+
+    public static void populateCharityPosts(){
+        for(CharityDetailData c : _charityMap.values()){
+            c.populatePosts();
+        }
+    }
+
+    public static List<CharityDetailData> getCharityList(){
+        return new ArrayList<CharityDetailData>(_charityMap.values());
     }
 
     public static CharityDetailData searchByCharityName(String name){

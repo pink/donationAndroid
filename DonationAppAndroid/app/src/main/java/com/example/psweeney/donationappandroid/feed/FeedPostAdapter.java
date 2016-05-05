@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class FeedPostAdapter extends ArrayAdapter{
     private List<PostData> _postDataList;
+    private int _maxPosts = 10;
     public FeedPostAdapter(Context context, int resource, List<PostData> postDataList) {
         super(context, resource, postDataList);
         _postDataList = postDataList;

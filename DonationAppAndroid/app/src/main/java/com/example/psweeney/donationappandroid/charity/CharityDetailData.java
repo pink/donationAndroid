@@ -96,6 +96,10 @@ public class CharityDetailData {
             _spendingBreakdown.putAll(spendingBreakdown);
         }
 
+        _posts = new ArrayList<>();
+    }
+
+    public void populatePosts(){
         _posts = PostFactory.getAllPostsByAuthor(getDisplayName());
     }
 

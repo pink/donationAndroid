@@ -3,6 +3,8 @@ package com.example.psweeney.donationappandroid.feed;
 import android.widget.ListView;
 
 import com.example.psweeney.donationappandroid.R;
+import com.example.psweeney.donationappandroid.charity.CharityDetailData;
+import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,11 +25,12 @@ public class PostFactory {
     public static int defUserIconId = R.drawable.ic_account_box_black_48dp;
     public static int defCharityIconId = R.drawable.ic_local_florist_black_48dp;
     public static int defBodyImageIconId = R.drawable.ic_photo_library_black_48dp;
-    public static String steveName = "Steve Fessler";
-    public static String neilName = "Neil Alberg";
-    public static String seanName = "Sean Kallungal";
-    public static String jonName = "Dr. Jon Froehlich";
     public static Calendar lastUpdate;
+
+    private static int _numUserPosts = 50;
+    private static int _numFriendPosts = 50;
+    private static int _maxNumComments = 5;
+    private static int _maxNumLikes = 10;
 
     private static Map<Integer, PostData> _postMap;
     private static Comparator<PostData> postComparator = new Comparator<PostData>(){
@@ -47,15 +50,58 @@ public class PostFactory {
         }
     };
 
+    private static ArrayList<String> _friendNames = new ArrayList<>();
+
     public static void init(){
         _postMap = new HashMap<>();
+        _friendNames.add("Patrick Sweeney");
+        _friendNames.add("Steve Fessler");
+        _friendNames.add("Neil Alberg");
+        _friendNames.add("Sean Kallungal");
+        _friendNames.add("Dr. Jon Froehlich");
         populateUserPosts();
         populateFriendPosts();
         populateCharityPosts();
         lastUpdate = Calendar.getInstance();
     }
 
+    private static Calendar getRandomCalendar(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, (int) (Math.random() * 12f));
+        calendar.set(Calendar.DAY_OF_MONTH, 1 + (int) (Math.random() * 27f));
+        calendar.set(Calendar.HOUR_OF_DAY, 1 + (int) (Math.random() * 23f));
+        calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR_OF_DAY) % 12);
+        calendar.set(Calendar.MINUTE, (int) (Math.random() * 60f));
+
+        if(calendar.compareTo(Calendar.getInstance()) >= 0){
+            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+        }
+        return calendar;
+    }
+
+    private static DonationPostData generateRandomUserPost(){
+        List<CharityDetailData> charities = CharityDetailFactory.getCharityList();
+
+        Calendar calendar = getRandomCalendar();
+
+        CharityDetailData charity = charities.get((int) (Math.random() * ((float) charities.size())));
+        int donationAmount = (int) (Math.random() * 999f);
+
+        int numLikes = (int) (Math.random() * (float) _maxNumLikes);
+
+        return new DonationPostData(defUserIconId, null, charity.getIdentifier(), calendar, donationAmount, numLikes,
+                false, null);
+    }
+
     private static void populateUserPosts(){
+        List<CharityDetailData> charities = CharityDetailFactory.getCharityList();
+
+        for(int i = 0; i < _numUserPosts; i++){
+            PostData post = generateRandomUserPost();
+            _postMap.put(post.getPostIdentifier(), post);
+        }
+
+        /*
         PostData newPost = new DonationPostData(defUserIconId, null, "Charity A", 509);
         newPost.getPostTime().set(Calendar.YEAR, newPost.getPostTime().get(Calendar.YEAR) - 2);
 
@@ -94,17 +140,58 @@ public class PostFactory {
         newPost = new DonationPostData(defUserIconId, null, "Charity B", 15);
 
         _postMap.put(newPost.getPostIdentifier(), newPost);
+
+        */
+    }
+
+    private static ArrayList<CommentData> generateRandomCommentList(){
+        ArrayList<String> commentStrings = new ArrayList<>();
+
+        commentStrings.add("Nice");
+        commentStrings.add("Super cool");
+        commentStrings.add("hi");
+        commentStrings.add("nice donation");
+        commentStrings.add("good job");
+        commentStrings.add("this is great");
+
+        ArrayList<CommentData> comments = new ArrayList<>();
+        int numComments = (int) (Math.random() * ((float) _maxNumComments));
+        for(int i = 0; i < numComments; i++){
+            String currCommentString = commentStrings.get((int) (Math.random() * ((float) commentStrings.size())));
+            String author = _friendNames.get((int) (Math.random() * ((float) _friendNames.size())));
+
+            comments.add(new CommentData(author, currCommentString));
+        }
+        return comments;
+    }
+
+    private static DonationPostData generateRandomFriendPost(){
+        List<CharityDetailData> charities = CharityDetailFactory.getCharityList();
+
+        String authorName = _friendNames.get((int) (Math.random() * ((float) _friendNames.size())));
+
+        Calendar calendar = getRandomCalendar();
+
+        CharityDetailData charity = charities.get((int) (Math.random() * ((float) charities.size())));
+        int donationAmount = (int) (Math.random() * 999f);
+
+        int numLikes = (int) (Math.random() * (float) _maxNumLikes);
+        boolean likedByUser = Math.random() > 0.75;
+        if(likedByUser)
+            numLikes++;
+
+        return new DonationPostData(defUserIconId, authorName, charity.getIdentifier(), calendar, donationAmount, numLikes,
+                likedByUser, generateRandomCommentList());
     }
 
     private static void populateFriendPosts(){
-        ArrayList<CommentData> comments = new ArrayList<>();
-        comments.add(new CommentData(steveName, "Nice"));
-        comments.add(new CommentData(jonName, "Super cool"));
-        comments.add(new CommentData(neilName, "hi"));
-        comments.add(new CommentData(neilName, "hi"));
-        comments.add(new CommentData(seanName, "that's a whole lot of money jon"));
-        comments.add(new CommentData(jonName, "it sure is"));
 
+        for(int i = 0; i < _numUserPosts; i++){
+            PostData post = generateRandomFriendPost();
+            _postMap.put(post.getPostIdentifier(), post);
+        }
+
+        /*
         PostData newPost = new DonationPostData(defUserIconId, jonName, "The Dr. Jon Froehlich Foundation",
                 Calendar.getInstance(), 99999, 2, false, comments);
         newPost.getPostTime().set(Calendar.YEAR, newPost.getPostTime().get(Calendar.YEAR) - 3);
@@ -144,6 +231,7 @@ public class PostFactory {
         newPost = new DonationPostData(defUserIconId, steveName, "Charity F", 104);
 
         _postMap.put(newPost.getPostIdentifier(), newPost);
+        */
     }
 
     private static void populateCharityPosts(){

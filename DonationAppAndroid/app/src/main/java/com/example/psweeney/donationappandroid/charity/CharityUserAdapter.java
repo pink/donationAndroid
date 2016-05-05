@@ -48,12 +48,6 @@ public class CharityUserAdapter extends ArrayAdapter {
                 titleText.setText(titleString);
                 return titleText;
         }
-        if(position == 0)
-                return buildPersonalHistoryView(parent);
-
-
-
-
 
         PostData currData = _userDonations.get(position - 2);
         PostContainer postContainer = (PostContainer) inflater.inflate(R.layout.feed_post_donation, parent, false);
@@ -68,6 +62,12 @@ public class CharityUserAdapter extends ArrayAdapter {
 
     public void setCharityDisplayName(String charityDisplayName){
         _charityDisplayName = charityDisplayName;
+        _userDonations.clear();
+        _userDonations.addAll(PostFactory.getAllDonationsFromAuthorToRecipient(DonationPostData.USER_POST_NAME, _charityDisplayName));
+        notifyDataSetChanged();
+    }
+
+    public void refresh(){
         _userDonations.clear();
         _userDonations.addAll(PostFactory.getAllDonationsFromAuthorToRecipient(DonationPostData.USER_POST_NAME, _charityDisplayName));
         notifyDataSetChanged();

@@ -1,27 +1,20 @@
 package com.example.psweeney.donationappandroid;
 
 import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,20 +23,15 @@ import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.charity.CharityProfileAdapter;
 import com.example.psweeney.donationappandroid.charity.CharityUserAdapter;
-import com.example.psweeney.donationappandroid.chart.PieChartBuilder;
-import com.example.psweeney.donationappandroid.feed.CommentAdapter;
-import com.example.psweeney.donationappandroid.feed.CommentData;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
-import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class CharityDetailActivity extends AppCompatActivity {
     public enum CharityInfoList{
@@ -51,7 +39,7 @@ public class CharityDetailActivity extends AppCompatActivity {
     }
 
 
-    private CharityInfoList _currentSelection = CharityInfoList.USER;
+    private CharityInfoList _currentSelection = CharityInfoList.PROFILE;
     private CharityDetailData _data;
     private PostContainer _lastInteraction = null;
 
@@ -379,13 +367,19 @@ public class CharityDetailActivity extends AppCompatActivity {
         builder.setPositiveButton(getResources().getString(R.string.charity_submit_donation_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, DonationPostData.USER_POST_NAME, _data.getDisplayName(),
+                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, DonationPostData.USER_POST_NAME, _data.getIdentifier(),
                         Calendar.getInstance(), donationAmountCents, 0, false, null);
                 PostFactory.addPost(post);
                 donateNowAmountField.setText("");
                 container.setVisibility(View.GONE);
                 Toast.makeText(CharityDetailActivity.this, "You donated " + donationAmountDisplayString + " to " +
                         _data.getDisplayName() + "!", Toast.LENGTH_SHORT).show();
+                ListView userDonations = (ListView) findViewById(R.id.listViewCharityUserItems);
+                if(userDonations != null){
+                    CharityUserAdapter adapter = (CharityUserAdapter) userDonations.getAdapter();
+                    adapter.refresh();
+                }
+
             }
         });
 
