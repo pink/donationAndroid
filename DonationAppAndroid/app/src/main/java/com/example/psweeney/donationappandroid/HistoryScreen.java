@@ -8,12 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.psweeney.donationappandroid.feed.DonationPostData;
+import com.example.psweeney.donationappandroid.feed.PostData;
+import com.example.psweeney.donationappandroid.feed.PostFactory;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class HistoryScreen extends AppCompatActivity {
 
@@ -29,7 +35,9 @@ public class HistoryScreen extends AppCompatActivity {
         setContentView(R.layout.activity_history_screen);
 
         updateRangeSelection();
-        generateDataContents();
+        drawWeekGraph();
+        drawMonthGraph();
+        drawYearGraph();
     }
 
     public void onButtonClickWeekHistory(View v){
@@ -114,24 +122,73 @@ public class HistoryScreen extends AppCompatActivity {
         }
     }
 
-    private void generateDataContents() {
+    private void drawWeekGraph() {
         LinearLayout linearLayoutWeek = (LinearLayout) findViewById(R.id.frameLayoutWeek);
         FrameLayout weekGraphContainer = (FrameLayout) linearLayoutWeek.findViewById(R.id.weekChartContainer);
-        LinearLayout breakdownContainer = (LinearLayout) findViewById(R.id.containerCharityDataItem2);
 
         LineChart lineChart = new LineChart(getApplicationContext());
 
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("Sunday");
-        xVals.add("Monday");
-        xVals.add("Tuesday");
-        xVals.add("Wednesday");
-        xVals.add("Thursday");
-        xVals.add("Friday");
-        xVals.add("Saturday");
+        Calendar week = Calendar.getInstance();
+        week.add(Calendar.DAY_OF_YEAR, -6);
+        for (int i = 0; i < 7; i++) {
+            xVals.add(new SimpleDateFormat("MMM d").format(week.getTime()));
+            week.add(Calendar.DAY_OF_YEAR, 1);
+        }
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
+        float[] vals = new float[7];
         for (int i = 0; i < 7; i++) {
+            float mult = (6 + 1);
+            float val = (float) (Math.random() * mult) + 1;// + (float)
+            yVals.add(new Entry(val, i));
+        }
+
+        /*
+        List<PostData> userPosts = PostFactory.getAllUserPosts();
+        for (PostData p: userPosts) {
+
+            Calendar c = p.getPostTime();
+            c.get(Calendar.DAY_OF_YEAR);
+
+
+        }
+        */
+        //userPosts.get(0).getPostTime()
+
+        //System.out.println(new SimpleDateFormat("MMM d").format(week.getTime()));
+
+
+
+        LineDataSet dataset = new LineDataSet(yVals, "Amount Donated");
+        dataset.setDrawCubic(true);
+        dataset.setDrawFilled(true);
+        LineData data = new LineData(xVals, dataset);
+        data.setValueTextSize(9f);
+        lineChart.setData(data);
+        lineChart.animateY(500);
+        lineChart.setDescription("");
+
+        weekGraphContainer.addView(lineChart);
+    }
+
+    private void drawMonthGraph() {
+        LinearLayout linearLayoutMonth = (LinearLayout) findViewById(R.id.frameLayoutMonth);
+        FrameLayout monthGraphContainer = (FrameLayout) linearLayoutMonth.findViewById(R.id.monthChartContainer);
+
+        LineChart lineChart = new LineChart(getApplicationContext());
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        Calendar month = Calendar.getInstance();
+        month.add(Calendar.DAY_OF_YEAR, -29);
+        for (int i = 0; i < 30; i++) {
+            xVals.add(new SimpleDateFormat("MMM d").format(month.getTime()));
+            month.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        float[] vals = new float[7];
+        for (int i = 0; i < 30; i++) {
             float mult = (6 + 1);
             float val = (float) (Math.random() * mult) + 1;// + (float)
             yVals.add(new Entry(val, i));
@@ -146,6 +203,40 @@ public class HistoryScreen extends AppCompatActivity {
         lineChart.animateY(500);
         lineChart.setDescription("");
 
-        weekGraphContainer.addView(lineChart);
+        monthGraphContainer.addView(lineChart);
+    }
+
+    private void drawYearGraph() {
+        LinearLayout linearLayoutYear = (LinearLayout) findViewById(R.id.frameLayoutYear);
+        FrameLayout yearGraphContainer = (FrameLayout) linearLayoutYear.findViewById(R.id.yearChartContainer);
+
+        LineChart lineChart = new LineChart(getApplicationContext());
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        Calendar year = Calendar.getInstance();
+        year.add(Calendar.DAY_OF_YEAR, -364);
+        for (int i = 0; i < 365; i++) {
+            xVals.add(new SimpleDateFormat("MMM d").format(year.getTime()));
+            year.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        float[] vals = new float[7];
+        for (int i = 0; i < 365; i++) {
+            float mult = (6 + 1);
+            float val = (float) (Math.random() * mult) + 1;// + (float)
+            yVals.add(new Entry(val, i));
+        }
+
+        LineDataSet dataset = new LineDataSet(yVals, "Amount Donated");
+        dataset.setDrawCubic(true);
+        dataset.setDrawFilled(true);
+        LineData data = new LineData(xVals, dataset);
+        data.setValueTextSize(9f);
+        lineChart.setData(data);
+        lineChart.animateY(500);
+        lineChart.setDescription("");
+
+        yearGraphContainer.addView(lineChart);
     }
 }
