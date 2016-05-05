@@ -11,7 +11,11 @@ import android.widget.TextView;
 import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -126,7 +130,7 @@ public class HistoryScreen extends AppCompatActivity {
         LinearLayout linearLayoutWeek = (LinearLayout) findViewById(R.id.frameLayoutWeek);
         FrameLayout weekGraphContainer = (FrameLayout) linearLayoutWeek.findViewById(R.id.weekChartContainer);
 
-        LineChart lineChart = new LineChart(getApplicationContext());
+        BarChart lineChart = new BarChart(getApplicationContext());
 
         ArrayList<String> xVals = new ArrayList<String>();
         Calendar week = Calendar.getInstance();
@@ -136,12 +140,12 @@ public class HistoryScreen extends AppCompatActivity {
             week.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
         for (int i = 0; i < 7; i++) {
             float mult = (6 + 1);
             float val = (float) (Math.random() * mult) + 1;// + (float)
-            yVals.add(new Entry(val, i));
+            yVals.add(new BarEntry(val, i));
         }
 
         /*
@@ -160,10 +164,10 @@ public class HistoryScreen extends AppCompatActivity {
 
 
 
-        LineDataSet dataset = new LineDataSet(yVals, "Amount Donated");
-        dataset.setDrawCubic(true);
-        dataset.setDrawFilled(true);
-        LineData data = new LineData(xVals, dataset);
+        BarDataSet dataset = new BarDataSet(yVals, "Amount Donated");
+        //dataset.setDrawCubic(true);
+        //dataset.setDrawFilled(true);
+        BarData data = new BarData(xVals, dataset);
         data.setValueTextSize(9f);
         lineChart.setData(data);
         lineChart.animateY(500);
@@ -176,28 +180,28 @@ public class HistoryScreen extends AppCompatActivity {
         LinearLayout linearLayoutMonth = (LinearLayout) findViewById(R.id.frameLayoutMonth);
         FrameLayout monthGraphContainer = (FrameLayout) linearLayoutMonth.findViewById(R.id.monthChartContainer);
 
-        LineChart lineChart = new LineChart(getApplicationContext());
+        BarChart lineChart = new BarChart(getApplicationContext());
 
         ArrayList<String> xVals = new ArrayList<String>();
         Calendar month = Calendar.getInstance();
-        month.add(Calendar.DAY_OF_YEAR, -29);
-        for (int i = 0; i < 30; i++) {
+        month.add(Calendar.WEEK_OF_YEAR, -4);
+        for (int i = 0; i < 5; i++) {
             xVals.add(new SimpleDateFormat("MMM d").format(month.getTime()));
-            month.add(Calendar.DAY_OF_YEAR, 1);
+            month.add(Calendar.WEEK_OF_YEAR, 1);
         }
 
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 5; i++) {
             float mult = (6 + 1);
-            float val = (float) (Math.random() * mult) + 1;// + (float)
-            yVals.add(new Entry(val, i));
+            float val = (float) (Math.random() * mult) + 10;// + (float)
+            yVals.add(new BarEntry(val, i));
         }
 
-        LineDataSet dataset = new LineDataSet(yVals, "Amount Donated");
-        dataset.setDrawCubic(true);
-        dataset.setDrawFilled(true);
-        LineData data = new LineData(xVals, dataset);
+        BarDataSet dataset = new BarDataSet(yVals, "Amount Donated");
+        //dataset.setDrawCubic(true);
+        //dataset.setDrawFilled(true);
+        BarData data = new BarData(xVals, dataset);
         data.setValueTextSize(9f);
         lineChart.setData(data);
         lineChart.animateY(500);
@@ -210,33 +214,33 @@ public class HistoryScreen extends AppCompatActivity {
         LinearLayout linearLayoutYear = (LinearLayout) findViewById(R.id.frameLayoutYear);
         FrameLayout yearGraphContainer = (FrameLayout) linearLayoutYear.findViewById(R.id.yearChartContainer);
 
-        LineChart lineChart = new LineChart(getApplicationContext());
+        BarChart barChart = new BarChart(getApplicationContext());
 
         ArrayList<String> xVals = new ArrayList<String>();
         Calendar year = Calendar.getInstance();
-        year.add(Calendar.DAY_OF_YEAR, -364);
-        for (int i = 0; i < 365; i++) {
-            xVals.add(new SimpleDateFormat("MMM d").format(year.getTime()));
-            year.add(Calendar.DAY_OF_YEAR, 1);
+        year.add(Calendar.MONTH, -11);
+        for (int i = 0; i < 12; i++) {
+            xVals.add(new SimpleDateFormat("MMM").format(year.getTime()));
+            year.add(Calendar.MONTH, 1);
         }
 
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
-        for (int i = 0; i < 365; i++) {
+        for (int i = 0; i < 12; i++) {
             float mult = (6 + 1);
-            float val = (float) (Math.random() * mult) + 1;// + (float)
-            yVals.add(new Entry(val, i));
+            float val = (float) (Math.random() * mult) + 100;// + (float)
+            yVals.add(new BarEntry(val, i));
         }
 
-        LineDataSet dataset = new LineDataSet(yVals, "Amount Donated");
-        dataset.setDrawCubic(true);
-        dataset.setDrawFilled(true);
-        LineData data = new LineData(xVals, dataset);
+        BarDataSet dataset = new BarDataSet(yVals, "Amount Donated");
+        //dataset.setDrawCubic(true);
+        //dataset.setDrawFilled(true);
+        BarData data = new BarData(xVals, dataset);
         data.setValueTextSize(9f);
-        lineChart.setData(data);
-        lineChart.animateY(500);
-        lineChart.setDescription("");
+        barChart.setData(data);
+        barChart.animateY(500);
+        barChart.setDescription("");
 
-        yearGraphContainer.addView(lineChart);
+        yearGraphContainer.addView(barChart);
     }
 }
