@@ -142,9 +142,11 @@ public class HistoryScreen extends AppCompatActivity {
 
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
+        float total = 0;
         for (int i = 0; i < 7; i++) {
-            float mult = (6 + 1);
+            float mult = (3);
             float val = (float) (Math.random() * mult) + 1;// + (float)
+            total += val;
             yVals.add(new BarEntry(val, i));
         }
 
@@ -174,6 +176,10 @@ public class HistoryScreen extends AppCompatActivity {
         lineChart.setDescription("");
 
         weekGraphContainer.addView(lineChart);
+
+        TextView line = (TextView) linearLayoutWeek.findViewById(R.id.history_week_text);
+        String newText = "$" + Math.round(total * 100.0) / 100.0 + " this week";
+        line.setText(newText);
     }
 
     private void drawMonthGraph() {
@@ -192,9 +198,11 @@ public class HistoryScreen extends AppCompatActivity {
 
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
+        float total = 0;
         for (int i = 0; i < 5; i++) {
             float mult = (6 + 1);
             float val = (float) (Math.random() * mult) + 10;// + (float)
+            total += val;
             yVals.add(new BarEntry(val, i));
         }
 
@@ -208,6 +216,10 @@ public class HistoryScreen extends AppCompatActivity {
         lineChart.setDescription("");
 
         monthGraphContainer.addView(lineChart);
+
+        TextView line = (TextView) linearLayoutMonth.findViewById(R.id.history_month_text);
+        String newText = "$" + Math.round(total * 100.0) / 100.0 + " this month";
+        line.setText(newText);
     }
 
     private void drawYearGraph() {
@@ -226,9 +238,11 @@ public class HistoryScreen extends AppCompatActivity {
 
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         float[] vals = new float[7];
+        float total = 0;
         for (int i = 0; i < 12; i++) {
             float mult = (6 + 1);
             float val = (float) (Math.random() * mult) + 100;// + (float)
+            total += val;
             yVals.add(new BarEntry(val, i));
         }
 
@@ -242,5 +256,9 @@ public class HistoryScreen extends AppCompatActivity {
         barChart.setDescription("");
 
         yearGraphContainer.addView(barChart);
+
+        TextView line = (TextView) linearLayoutYear.findViewById(R.id.history_year_text);
+        String newText = "$" + Math.round(total * 100.0) / 100.0 + " this year";
+        line.setText(newText);
     }
 }

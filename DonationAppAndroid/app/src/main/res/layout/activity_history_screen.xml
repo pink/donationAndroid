@@ -109,11 +109,47 @@
             android:layout_below="@+id/linearLayout"
             android:id="@+id/frameLayoutWeek">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="@string/graph_day_label"
+                android:id="@+id/textView8"
+                android:textAlignment="center"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/feed_category_text_padding"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:id="@+id/weekChartContainer"
-                android:paddingTop="@dimen/activity_vertical_margin" />
+                android:paddingTop="@dimen/activity_vertical_margin" >
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history_donation_text"
+                android:id="@+id/textView11"
+                android:padding="@dimen/standard_header_padding"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total amount text"
+                android:id="@+id/history_week_text"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textSize="@dimen/charity_personal_value_text_size"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -125,11 +161,45 @@
             android:layout_below="@+id/linearLayout"
             android:id="@+id/frameLayoutMonth">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="@string/graph_week_label"
+                android:id="@+id/textView9"
+                android:textAlignment="center"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/feed_category_text_padding"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:id="@+id/monthChartContainer"
                 android:paddingTop="@dimen/activity_vertical_margin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history_donation_text"
+                android:id="@+id/textView12"
+                android:padding="@dimen/standard_header_padding"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total amount text"
+                android:id="@+id/history_month_text"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textSize="@dimen/charity_personal_value_text_size"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -141,11 +211,44 @@
             android:layout_below="@+id/linearLayout"
             android:id="@+id/frameLayoutYear">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="@string/graph_month_label"
+                android:id="@+id/textView10"
+                android:textAlignment="center"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/feed_category_text_padding"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:id="@+id/yearChartContainer"
                 android:paddingTop="@dimen/activity_vertical_margin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history_donation_text"
+                android:id="@+id/textView13"
+                android:padding="@dimen/standard_header_padding"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total amount text"
+                android:id="@+id/history_year_text"
+                android:gravity="center"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textSize="@dimen/charity_personal_value_text_size"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
