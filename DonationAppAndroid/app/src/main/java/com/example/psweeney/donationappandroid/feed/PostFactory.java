@@ -100,48 +100,6 @@ public class PostFactory {
             PostData post = generateRandomUserPost();
             _postMap.put(post.getPostIdentifier(), post);
         }
-
-        /*
-        PostData newPost = new DonationPostData(defUserIconId, null, "Charity A", 509);
-        newPost.getPostTime().set(Calendar.YEAR, newPost.getPostTime().get(Calendar.YEAR) - 2);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity B", 142);
-        newPost.getPostTime().set(Calendar.MONTH, newPost.getPostTime().get(Calendar.MONTH) - 5);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity D", 330);
-        newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 15);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity X", 601);
-        newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 2);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity A", 49);
-        if(newPost.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
-            newPost.getPostTime().set(Calendar.AM_PM, Calendar.AM);
-        } else {
-            newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
-            newPost.getPostTime().set(Calendar.AM_PM, Calendar.PM);
-        }
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity Z", 11);
-        newPost.getPostTime().set(Calendar.MINUTE, Math.max(0, newPost.getPostTime().get(Calendar.MINUTE) - 10));
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, null, "Charity B", 15);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        */
     }
 
     private static ArrayList<CommentData> generateRandomCommentList(){
@@ -191,63 +149,23 @@ public class PostFactory {
             _postMap.put(post.getPostIdentifier(), post);
         }
 
-        /*
-        PostData newPost = new DonationPostData(defUserIconId, jonName, "The Dr. Jon Froehlich Foundation",
-                Calendar.getInstance(), 99999, 2, false, comments);
-        newPost.getPostTime().set(Calendar.YEAR, newPost.getPostTime().get(Calendar.YEAR) - 3);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, neilName, "Charity A", 142);
-        newPost.getPostTime().set(Calendar.MONTH, newPost.getPostTime().get(Calendar.MONTH) - 3);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, neilName, "Charity B", 840);
-        newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 17);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, seanName, "Charity T", 84);
-        newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 4);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, steveName, "Charity O", 136);
-        if(newPost.getPostTime().get(Calendar.AM_PM) == Calendar.PM){
-            newPost.getPostTime().set(Calendar.AM_PM, Calendar.AM);
-        } else {
-            newPost.getPostTime().set(Calendar.DAY_OF_MONTH, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 1);
-            newPost.getPostTime().set(Calendar.AM_PM, Calendar.PM);
-        }
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, seanName, "Charity E", 487);
-        newPost.getPostTime().set(Calendar.MINUTE, Math.max(0, newPost.getPostTime().get(Calendar.MINUTE) - 20));
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-
-        newPost = new DonationPostData(defUserIconId, steveName, "Charity F", 104);
-
-        _postMap.put(newPost.getPostIdentifier(), newPost);
-        */
     }
 
     private static void populateCharityPosts(){
-        PostData newPost = new CharityPostData(defCharityIconId, "Charity A",
+        List<CharityDetailData> charityList = CharityDetailFactory.getCharityList();
+        PostData newPost = new CharityPostData(charityList.get(0).getIdentifier(),
                 "Hello everyone,\nThank you for donating to Charity A this month. We're grateful for " +
                         "every donation we get.\n\nSincerely,\nThe Charity A Staff");
         _postMap.put(newPost.getPostIdentifier(), newPost);
 
-        newPost = new CharityPostData(defCharityIconId, "Charity B", defBodyImageIconId,
+        newPost = new CharityPostData(charityList.get(1).getIdentifier(), defBodyImageIconId,
                 "Hello everyone,\nCheck out our new photos from the Charity B volunteer event last Sunday. We appreciate " +
                         "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity B Staff");
 
         newPost.getPostTime().set(Calendar.DAY_OF_MONTH, Math.max(1, newPost.getPostTime().get(Calendar.DAY_OF_MONTH) - 1));
         _postMap.put(newPost.getPostIdentifier(), newPost);
 
-        newPost = new CharityPostData(defCharityIconId, "Charity A", defBodyImageIconId,
+        newPost = new CharityPostData(charityList.get(2).getIdentifier(), defBodyImageIconId,
                 "Hello everyone,\nCheck out our new photos from the Charity A volunteer event last Saturday. We appreciate " +
                         "the help as well as your continued support through donations.\n\nSincerely,\nThe Charity A Staff");
 

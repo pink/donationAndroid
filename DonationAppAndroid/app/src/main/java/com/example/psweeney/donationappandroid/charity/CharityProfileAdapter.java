@@ -23,7 +23,7 @@ public class CharityProfileAdapter extends ArrayAdapter {
 
     private int _numPosts = 10;
 
-    private static int numPostsDefaultIncrementAmount = 10;
+    private static final int numPostsDefaultIncrementAmount = 10;
 
     public CharityProfileAdapter(Context context, int resource, CharityDetailData data) {
         super(context, resource, data.getPosts());
@@ -38,14 +38,18 @@ public class CharityProfileAdapter extends ArrayAdapter {
             numShown++;
         }
 
-        return _data.getPosts().size() + 5;
+        if(numShown <= 0){
+            return numShown + 4;
+        }
+
+        return numShown + 5;
     }
 
     public CharityDetailData getData() {
         return _data;
     }
 
-    public static void updateContactViews(View v, CharityDetailData data, Resources resources){
+    public static void updateContactViews(View v, CharityDetailData data, Resources resources, boolean showName){
         if(data == null || v == null || resources == null){
             return;
         }
@@ -61,11 +65,19 @@ public class CharityProfileAdapter extends ArrayAdapter {
         }
 
         if(addressLine1 != null){
-            addressLine1.setText(data.getAddressLine1());
+            if(showName){
+                addressLine1.setText(data.getDisplayName());
+            } else {
+                addressLine1.setText(data.getAddressLine1());
+            }
         }
 
         if(addressLine2 != null){
-            addressLine2.setText(data.getAddressLine2());
+            if(showName){
+                addressLine2.setText(data.getAddressLine1());
+            } else {
+                addressLine2.setText(data.getAddressLine2());
+            }
         }
 
         if(phone != null){
@@ -128,7 +140,7 @@ public class CharityProfileAdapter extends ArrayAdapter {
         switch (position){
             case 0:
                 ret = inflater.inflate(R.layout.charity_contact_info, parent, false);
-                updateContactViews(ret, _data, context.getResources());
+                updateContactViews(ret, _data, context.getResources(), false);
                 break;
             case 1:
                 ret = inflater.inflate(R.layout.charity_profile_auto_donate_button, parent, false);

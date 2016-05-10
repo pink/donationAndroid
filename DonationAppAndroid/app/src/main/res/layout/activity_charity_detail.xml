@@ -136,32 +136,32 @@
                     android:layout_margin="@dimen/comment_bar_gap">
 
                     <ImageView
-                        android:layout_width="@dimen/star_rating_icon_size"
-                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:layout_width="@dimen/star_rating_icon_size_detail"
+                        android:layout_height="@dimen/star_rating_icon_size_detail"
                         android:id="@+id/imageViewStar1"
                         android:src="@drawable/ic_star_white_72pt_border" />
 
                     <ImageView
-                        android:layout_width="@dimen/star_rating_icon_size"
-                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:layout_width="@dimen/star_rating_icon_size_detail"
+                        android:layout_height="@dimen/star_rating_icon_size_detail"
                         android:id="@+id/imageViewStar2"
                         android:src="@drawable/ic_star_white_72pt_border" />
 
                     <ImageView
-                        android:layout_width="@dimen/star_rating_icon_size"
-                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:layout_width="@dimen/star_rating_icon_size_detail"
+                        android:layout_height="@dimen/star_rating_icon_size_detail"
                         android:id="@+id/imageViewStar3"
                         android:src="@drawable/ic_star_white_72pt_border" />
 
                     <ImageView
-                        android:layout_width="@dimen/star_rating_icon_size"
-                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:layout_width="@dimen/star_rating_icon_size_detail"
+                        android:layout_height="@dimen/star_rating_icon_size_detail"
                         android:id="@+id/imageViewStar4"
                         android:src="@drawable/ic_star_white_72pt_border" />
 
                     <ImageView
-                        android:layout_width="@dimen/star_rating_icon_size"
-                        android:layout_height="@dimen/star_rating_icon_size"
+                        android:layout_width="@dimen/star_rating_icon_size_detail"
+                        android:layout_height="@dimen/star_rating_icon_size_detail"
                         android:id="@+id/imageViewStar5"
                         android:src="@drawable/ic_star_white_72pt_border" />
                 </LinearLayout>

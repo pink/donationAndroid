@@ -14,6 +14,8 @@ public class DonationPostData extends PostData{
 
     private Integer _recipientIdentifier;
     private int _donationAmountCents;
+    private String _authorDisplayName;
+    private Integer _authorIconId;
 
     public static final String USER_POST_NAME = "You";
 
@@ -57,54 +59,13 @@ public class DonationPostData extends PostData{
                 other._numLikes, other._likedByUser, other._comments);
     }
 
-    /*
-    public DonationPostData(Bundle bundle){
-        this();
-        if(bundle == null || !(bundle.containsKey("postType") && bundle.getString("postType").equals(PostType.DONATION.toString()))){
-            return;
-        }
-
-        int authorIconId;
-        String authorDisplayName;
-        String recipientDisplayName;
-        int donationAmountCents;
-        Calendar postTime;
-        int numLikes;
-        boolean likedByUser;
-        int numComments;
-
-        try{
-            authorIconId = bundle.getInt(PostData.authorIconIdKey);
-            authorDisplayName = bundle.getString(PostData.authorDisplayNameKey);
-            recipientDisplayName = bundle.getString(recipientDisplayNameKey);
-            donationAmountCents = bundle.getInt(donationAmountCentsKey);
-            postTime = (Calendar) bundle.getSerializable(PostData.postTimeKey);
-            numLikes = bundle.getInt(PostData.numLikesKey);
-            likedByUser = bundle.getBoolean(PostData.likedByUserKey);
-            numComments = bundle.getInt(PostData.numCommentsKey);
-        } catch (Exception e){
-            return;
-        }
-
-        _authorIconId = authorIconId;
-        _authorDisplayName = authorDisplayName;
-        _recipientIdentifier = recipientDisplayName;
-        _donationAmountCents = donationAmountCents;
-        _postTime = postTime;
-        _numLikes = numLikes;
-        _likedByUser = likedByUser;
-
-        for(int i = 0; i < numComments; i++){
-            CommentData cd = null;
-            try {
-                cd = CommentData.extractCommentDataFromBundle(bundle, i);
-            } catch (Exception e){
-                continue;
-            }
-            _comments.add(cd);
-        }
+    public String getAuthorDisplayName(){
+        return _authorDisplayName;
     }
-    */
+
+    public int getAuthorIconId(){
+        return _authorIconId;
+    }
 
     public String getRecipientDisplayName(){
         CharityDetailData charity = CharityDetailFactory.getCharityById(_recipientIdentifier);

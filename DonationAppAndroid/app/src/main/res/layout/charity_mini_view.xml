@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary">
+
+    <com.example.psweeney.donationappandroid.charity.CharityDetailContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipientDataContainer"
+        android:orientation="horizontal"
+        android:background="@color/colorAccent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="onClickCharityMiniView">
+        <ImageView
+            android:layout_width="@dimen/feed_icon_size"
+            android:layout_height="@dimen/feed_icon_size"
+            android:id="@+id/imageViewRecipientIcon"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_local_florist_black_48dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recipient name"
+                android:id="@+id/textViewRecipientName"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:padding="@dimen/thin_border_width"
+                android:textStyle="bold" />
+
+                -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/thin_border_width"
+                android:layout_marginRight="@dimen/thin_border_width"
+                android:layout_marginBottom="@dimen/thin_border_width"
+                android:layout_weight="1"
+                android:id="@+id/recipientRatingContainer">
+
+                <ImageView
+                    android:layout_width="@dimen/star_rating_icon_size_discover"
+                    android:layout_height="@dimen/star_rating_icon_size_discover"
+                    android:id="@+id/imageViewStar1"
+                    android:src="@drawable/ic_star_white_72pt_border" />
+
+                <ImageView
+                    android:layout_width="@dimen/star_rating_icon_size_discover"
+                    android:layout_height="@dimen/star_rating_icon_size_discover"
+                    android:id="@+id/imageViewStar2"
+                    android:src="@drawable/ic_star_white_72pt_border" />
+
+                <ImageView
+                    android:layout_width="@dimen/star_rating_icon_size_discover"
+                    android:layout_height="@dimen/star_rating_icon_size_discover"
+                    android:id="@+id/imageViewStar3"
+                    android:src="@drawable/ic_star_white_72pt_border" />
+
+                <ImageView
+                    android:layout_width="@dimen/star_rating_icon_size_discover"
+                    android:layout_height="@dimen/star_rating_icon_size_discover"
+                    android:id="@+id/imageViewStar4"
+                    android:src="@drawable/ic_star_white_72pt_border" />
+
+                <ImageView
+                    android:layout_width="@dimen/star_rating_icon_size_discover"
+                    android:layout_height="@dimen/star_rating_icon_size_discover"
+                    android:id="@+id/imageViewStar5"
+                    android:src="@drawable/ic_star_white_72pt_border" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recipient distance"
+                android:id="@+id/textViewRecipientDistance"
+                android:textColor="@color/defaultTextColor"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:padding="@dimen/thin_border_width" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/feed_icon_size"
+            android:layout_height="@dimen/search_chevron_right_size"
+            android:id="@+id/imageViewChevronRight"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_chevron_right_white_48dp"
+            android:tint="@color/colorPrimary" />
+    </com.example.psweeney.donationappandroid.charity.CharityDetailContainer>
+
+
+</LinearLayout>

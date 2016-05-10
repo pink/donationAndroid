@@ -44,6 +44,8 @@ public class CharityDetailData {
     private String _addressState = "MD";
     private int _addressZipCode = 20740;
 
+    private float _distance = 0;
+
     private int[] _phoneNumber = new int[10];
 
     private String _emailUser = "fake";
@@ -64,7 +66,7 @@ public class CharityDetailData {
     }
 
     public CharityDetailData(String displayName, int iconId, int addressStreetNumber, String addressStreet, String addressCity,
-                             String addressState, int addressZipCode, int[] phoneNumber, String emailUser, String emailHost,
+                             String addressState, int addressZipCode, float distance, int[] phoneNumber, String emailUser, String emailHost,
                              boolean isCurrentRecipient, String bioText, float rating,
                              Map<DonationSpendingCategory, Float> spendingBreakdown){
         _displayName = displayName;
@@ -75,6 +77,8 @@ public class CharityDetailData {
         _addressCity = addressCity;
         _addressState = addressState;
         _addressZipCode = addressZipCode;
+
+        _distance = distance;
 
         _phoneNumber = new int[10];
 
@@ -129,6 +133,17 @@ public class CharityDetailData {
 
     public String getAddressLine2(){
         return _addressCity + ", " + _addressState + " " + Integer.toString(_addressZipCode);
+    }
+
+    public float getDistance(){
+        return _distance;
+    }
+
+    public String getDisplayDistance(){
+        String displayDistance = Integer.toString(Math.round(_distance));
+        displayDistance += '.' + Integer.toString(Math.round((_distance * 10) % 10));
+        displayDistance += " miles away";
+        return displayDistance;
     }
 
     public String getPhoneNumber(){

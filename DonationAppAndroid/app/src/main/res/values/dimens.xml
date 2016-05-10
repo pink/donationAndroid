@@ -17,6 +17,8 @@
     <dimen name="charity_pie_chart_text_size">11dp</dimen>
     <dimen name="charity_personal_value_text_size">24dp</dimen>
     <dimen name="charity_personal_donation_percentage_height">50dp</dimen>
-    <dimen name="star_rating_icon_size">50dp</dimen>
+    <dimen name="star_rating_icon_size_detail">50dp</dimen>
+    <dimen name="star_rating_icon_size_discover">25dp</dimen>
     <dimen name="star_rating_icon_padding_horizontal">0dp</dimen>
+    <dimen name="search_chevron_right_size">36dp</dimen>
 </resources>

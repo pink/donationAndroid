@@ -14,13 +14,17 @@
     <string name="auto_donate_label">Auto Donate (On/Off)</string>
 
     <string name="category_statistics_button_label">Donations, Statistics, and Options</string>
-    <string name="category_search_button_label">Research Charities and Shelters</string>
+    <string name="category_search_button_label">Discover Charities and Foundations</string>
     <string name="category_feed_button_label">Donation Feed</string>
     <string name="category_account_settings_button_label">Account and Settings</string>
 
     <string name="feed_user_label">Me</string>
     <string name="feed_friends_label">Friends</string>
     <string name="feed_charities_label">Charities</string>
+
+    <string name="search_rating_sort_label">Rating</string>
+    <string name="search_distance_sort_label">Distance</string>
+    <string name="search_name_sort_label">Name</string>
 
     <string name="graph_day_label">Day:</string>
     <string name="graph_week_label">Week of:</string>

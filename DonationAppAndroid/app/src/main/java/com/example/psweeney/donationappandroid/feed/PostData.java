@@ -19,8 +19,6 @@ public abstract class PostData {
     public static String postIdentifierKey = "postIdentifier";
     public static int authorIconIdDefault = R.drawable.ic_photo_black_48dp;
 
-    protected int _authorIconId = authorIconIdDefault;
-    protected String _authorDisplayName = "";
     protected Calendar _postTime = Calendar.getInstance();
     protected int _numLikes = 0;
     protected boolean _likedByUser = false;
@@ -29,12 +27,12 @@ public abstract class PostData {
     public PostType getPostType(){ return PostType.DONATION; }
 
     public Integer getPostIdentifier(){
-        return _authorDisplayName.hashCode() + _postTime.hashCode();
+        return getAuthorDisplayName().hashCode() + _postTime.hashCode();
     }
 
-    public int getAuthorIconId(){ return _authorIconId; }
+    public abstract int getAuthorIconId();
 
-    public String getAuthorDisplayName(){ return _authorDisplayName; }
+    public abstract String getAuthorDisplayName();
 
     public Calendar getPostTime(){ return _postTime; }
 

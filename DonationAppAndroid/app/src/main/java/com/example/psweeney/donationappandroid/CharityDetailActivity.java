@@ -3,6 +3,7 @@ package com.example.psweeney.donationappandroid;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -86,21 +87,21 @@ public class CharityDetailActivity extends AppCompatActivity {
         generateUserContents();
     }
 
-    private void generateDataContents(){
-        LinearLayout dataItemContainer1 = (LinearLayout) findViewById(R.id.containerCharityDataItem1);
+    public static void applyRatingToStarList(LinearLayout parent, Resources resources, float rating){
+        if(parent == null || resources == null){
+            return;
+        }
 
-        ImageView starIcon1 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar1);
-        ImageView starIcon2 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar2);
-        ImageView starIcon3 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar3);
-        ImageView starIcon4 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar4);
-        ImageView starIcon5 = (ImageView) dataItemContainer1.findViewById(R.id.imageViewStar5);
+        ImageView starIcon1 = (ImageView) parent.findViewById(R.id.imageViewStar1);
+        ImageView starIcon2 = (ImageView) parent.findViewById(R.id.imageViewStar2);
+        ImageView starIcon3 = (ImageView) parent.findViewById(R.id.imageViewStar3);
+        ImageView starIcon4 = (ImageView) parent.findViewById(R.id.imageViewStar4);
+        ImageView starIcon5 = (ImageView) parent.findViewById(R.id.imageViewStar5);
 
-        TextView fractionText = (TextView) dataItemContainer1.findViewById(R.id.textViewRatingFraction);
+        Drawable halfStar = resources.getDrawable(R.drawable.ic_star_white_72pt_border_half_filled);
+        Drawable filledStar = resources.getDrawable(R.drawable.ic_star_white_72pt_border_filled);
 
-        Drawable halfStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_half_filled);
-        Drawable filledStar = getResources().getDrawable(R.drawable.ic_star_white_72pt_border_filled);
-
-        int iconEffectiveRating = (int) Math.ceil(_data.getRating() * 10);
+        int iconEffectiveRating = (int) Math.ceil(rating * 10);
 
         switch (iconEffectiveRating){
             case 0:
@@ -154,6 +155,14 @@ public class CharityDetailActivity extends AppCompatActivity {
                 starIcon5.setImageDrawable(halfStar);
                 break;
         }
+    }
+
+    private void generateDataContents(){
+        LinearLayout dataItemContainer1 = (LinearLayout) findViewById(R.id.containerCharityDataItem1);
+
+        applyRatingToStarList(dataItemContainer1, getResources(), _data.getRating());
+
+        TextView fractionText = (TextView) dataItemContainer1.findViewById(R.id.textViewRatingFraction);
 
         fractionText.setText(_data.getRatingDisplayString(5));
 
