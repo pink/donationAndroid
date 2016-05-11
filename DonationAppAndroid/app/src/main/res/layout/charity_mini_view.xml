@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorBoldPop"
                 android:layout_marginTop="@dimen/thin_border_width"
                 android:layout_marginRight="@dimen/thin_border_width"
                 android:layout_marginBottom="@dimen/thin_border_width"
@@ -59,31 +59,36 @@
                     android:layout_width="@dimen/star_rating_icon_size_discover"
                     android:layout_height="@dimen/star_rating_icon_size_discover"
                     android:id="@+id/imageViewStar1"
-                    android:src="@drawable/ic_star_white_72pt_border" />
+                    android:src="@drawable/ic_star_white_72pt_border"
+                    android:tint="@color/colorAccent" />
 
                 <ImageView
                     android:layout_width="@dimen/star_rating_icon_size_discover"
                     android:layout_height="@dimen/star_rating_icon_size_discover"
                     android:id="@+id/imageViewStar2"
-                    android:src="@drawable/ic_star_white_72pt_border" />
+                    android:src="@drawable/ic_star_white_72pt_border"
+                    android:tint="@color/colorAccent" />
 
                 <ImageView
                     android:layout_width="@dimen/star_rating_icon_size_discover"
                     android:layout_height="@dimen/star_rating_icon_size_discover"
                     android:id="@+id/imageViewStar3"
-                    android:src="@drawable/ic_star_white_72pt_border" />
+                    android:src="@drawable/ic_star_white_72pt_border"
+                    android:tint="@color/colorAccent" />
 
                 <ImageView
                     android:layout_width="@dimen/star_rating_icon_size_discover"
                     android:layout_height="@dimen/star_rating_icon_size_discover"
                     android:id="@+id/imageViewStar4"
-                    android:src="@drawable/ic_star_white_72pt_border" />
+                    android:src="@drawable/ic_star_white_72pt_border"
+                    android:tint="@color/colorAccent" />
 
                 <ImageView
                     android:layout_width="@dimen/star_rating_icon_size_discover"
                     android:layout_height="@dimen/star_rating_icon_size_discover"
                     android:id="@+id/imageViewStar5"
-                    android:src="@drawable/ic_star_white_72pt_border" />
+                    android:src="@drawable/ic_star_white_72pt_border"
+                    android:tint="@color/colorAccent" />
             </LinearLayout>
 
             <TextView

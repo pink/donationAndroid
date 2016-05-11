@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +32,25 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.Calendar;
 
+/**
+ * Created by psweeney
+ *
+ * This activity is where the user will view the different sets of detailed data the app
+ * has stored for a specific charity.
+ *
+ * There are three sections used to store this information, denoted by the CharityInfoList enum:
+ *
+ *      PROFILE -   contains the charity's contact information, display image, bio, and recent posts,
+ *                  as well as controls for setting the charity as the user's auto-donate recipient
+ *                  and making immediate one-time donations
+ *
+ *      DATA -      contains the charity's CharityNavigator rating and a pie chart detailing how
+ *                  it spends its donations
+ *
+ *      USER -      contains a summary of the user's history with the charity being viewed as well
+ *                  as a list of all past donations the user has made to the charity
+ *
+ */
 public class CharityDetailActivity extends AppCompatActivity {
     public enum CharityInfoList{
         PROFILE, DATA, USER
@@ -43,12 +60,6 @@ public class CharityDetailActivity extends AppCompatActivity {
     private CharityInfoList _currentSelection = CharityInfoList.PROFILE;
     private CharityDetailData _data;
     private PostContainer _lastInteraction = null;
-
-    private PieChart mChart;
-    private SeekBar mSeekBarX, mSeekBarY;
-    private TextView tvX, tvY;
-
-    private Typeface tf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +73,7 @@ public class CharityDetailActivity extends AppCompatActivity {
         }
 
         try{
-            _data = CharityDetailFactory.getCharityById(bundle.getInt(CharityDetailData.charityIdentifierKey));
+            _data = CharityDetailFactory.getCharityById(bundle.getInt(CharityDetailData.CHARITY_IDENTIFIER_KEY));
         } catch (NullPointerException e){
             finish();
             return;
@@ -85,6 +96,16 @@ public class CharityDetailActivity extends AppCompatActivity {
         updateFeedSelection();
         generateDataContents();
         generateUserContents();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                _lastInteraction.updateViews();
+            }
+        }
     }
 
     public static void applyRatingToStarList(LinearLayout parent, Resources resources, float rating){
@@ -285,7 +306,7 @@ public class CharityDetailActivity extends AppCompatActivity {
             return;
         }
 
-        bundle.putBoolean(FeedActivity.commentFieldSelectedKey, commentRequested);
+        bundle.putBoolean(FeedActivity.COMMENT_FIELD_SELECTED_KEY, commentRequested);
 
         singlePostIntent.putExtras(bundle);
         startActivityForResult(singlePostIntent, 1);
@@ -376,7 +397,7 @@ public class CharityDetailActivity extends AppCompatActivity {
         builder.setPositiveButton(getResources().getString(R.string.charity_submit_donation_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DonationPostData post = new DonationPostData(PostFactory.defUserIconId, DonationPostData.USER_POST_NAME, _data.getIdentifier(),
+                DonationPostData post = new DonationPostData(PostFactory.DEF_USER_ICON_ID, DonationPostData.USER_POST_NAME, _data.getIdentifier(),
                         Calendar.getInstance(), donationAmountCents, 0, false, null);
                 PostFactory.addPost(post);
                 donateNowAmountField.setText("");

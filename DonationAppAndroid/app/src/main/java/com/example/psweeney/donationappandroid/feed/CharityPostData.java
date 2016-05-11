@@ -1,8 +1,5 @@
 package com.example.psweeney.donationappandroid.feed;
 
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-
 import com.example.psweeney.donationappandroid.R;
 import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
@@ -12,10 +9,14 @@ import java.util.Calendar;
 
 /**
  * Created by psweeney on 4/18/16.
+ *
+ * Class used to store posts by Charities. Unlike DonationPostData objects, these do not have a recipient or a
+ * donation amount, instead storing an image, some body text, or both
+ *
  */
 public class CharityPostData extends PostData {
-    public static int charityAuthorIdDefault = R.drawable.ic_local_florist_black_48dp;
-    public static int bodyImageIdDefault = R.drawable.ic_photo_library_black_48dp;
+    public static final int CHARITY_AUTHOR_ID_DEFAULT = R.drawable.ic_local_florist_black_48dp;
+    public static final int BODY_IMAGE_ID_DEFAULT = R.drawable.ic_photo_library_black_48dp;
 
     private CharityDetailData _author;
     private String _bodyText;
@@ -24,7 +25,7 @@ public class CharityPostData extends PostData {
     private boolean _useBodyImage = false;
 
     public CharityPostData(){
-        _bodyImageId = charityAuthorIdDefault;
+        _bodyImageId = CHARITY_AUTHOR_ID_DEFAULT;
         _bodyText = "";
         _postTime = Calendar.getInstance();
         _numLikes = 0;
@@ -56,7 +57,7 @@ public class CharityPostData extends PostData {
     }
 
     public CharityPostData(Integer authorId, String bodyText, Calendar postTime){
-        this(authorId, bodyImageIdDefault, false, bodyText, true, postTime, 0, false, null);
+        this(authorId, BODY_IMAGE_ID_DEFAULT, false, bodyText, true, postTime, 0, false, null);
     }
 
     public CharityPostData(Integer authorId, int bodyImageId, Calendar postTime){

@@ -15,6 +15,9 @@ import android.widget.ImageView;
 
 /**
  * Created by psweeney on 4/15/16.
+ *
+ * Used for controlling what happens during the initial splash/loading screen
+ *
  */
 public class SplashView extends ImageView {
     private enum SplashState{

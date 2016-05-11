@@ -8,6 +8,9 @@ import android.widget.ImageView;
 
 /**
  * Created by psweeney on 5/3/16.
+ *
+ * Just an ImageView extension where the background drawable is set according to the value of _progressRatio,
+ * where 0 <= _progressRatio <= 1
  */
 public class PercentageView extends ImageView {
     private float _progressRatio = 1;
@@ -35,7 +38,7 @@ public class PercentageView extends ImageView {
     }
 
     public void setProgressRatio(float progressRatio) {
-        _progressRatio = progressRatio;
+        _progressRatio = Math.min(1, Math.max(0, progressRatio));
         invalidate();
     }
 

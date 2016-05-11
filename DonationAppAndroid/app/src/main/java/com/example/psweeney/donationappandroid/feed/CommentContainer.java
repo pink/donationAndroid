@@ -6,6 +6,9 @@ import android.widget.LinearLayout;
 
 /**
  * Created by psweeney on 4/19/16.
+ *
+ * LinearLayout extension used to store a CommentData object
+ *
  */
 public class CommentContainer extends LinearLayout{
     private CommentData _commentData;

@@ -20,7 +20,7 @@
             android:text="Title text"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textStyle="bold"
-            android:textColor="@color/feedTitleColor" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/textViewCommentBody"

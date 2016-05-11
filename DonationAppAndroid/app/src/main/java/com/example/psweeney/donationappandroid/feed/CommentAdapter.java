@@ -15,6 +15,10 @@ import java.util.List;
 
 /**
  * Created by psweeney on 4/19/16.
+ *
+ * ArrayAdapter extension used to display a list of items involved with viewing details
+ * of a single post by a user or a charity
+ *
  */
 public class CommentAdapter extends ArrayAdapter {
     private PostData _data;

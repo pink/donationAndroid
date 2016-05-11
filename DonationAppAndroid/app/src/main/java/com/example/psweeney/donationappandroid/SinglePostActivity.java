@@ -21,6 +21,14 @@ import com.example.psweeney.donationappandroid.feed.PostFactory;
 
 import java.util.List;
 
+/**
+ * Created by psweeney
+ *
+ * This activity is where the user will view a single post by another user or by a charity,
+ * as well as comments left by others on the post. The user also has the option to add their
+ * own comment or like the post from within this activity.
+ *
+ */
 public class SinglePostActivity extends AppCompatActivity {
     PostData _data;
 
@@ -36,7 +44,7 @@ public class SinglePostActivity extends AppCompatActivity {
         }
 
         try{
-            _data = PostFactory.getPostById(bundle.getInt(PostData.postIdentifierKey));
+            _data = PostFactory.getPostById(bundle.getInt(PostData.POST_IDENTIFIER_KEY));
         } catch (NullPointerException e){
             finish();
             return;
@@ -55,7 +63,7 @@ public class SinglePostActivity extends AppCompatActivity {
         final CommentAdapter commentAdapter = new CommentAdapter(this, R.layout.feed_comment, _data);
         listViewComments.setAdapter(commentAdapter);
 
-        if(bundle.getBoolean(FeedActivity.commentFieldSelectedKey)){
+        if(bundle.getBoolean(FeedActivity.COMMENT_FIELD_SELECTED_KEY)){
             focusOnNewCommentField();
         }
     }
@@ -108,7 +116,7 @@ public class SinglePostActivity extends AppCompatActivity {
             return;
         }
 
-        bundle.putInt(CharityDetailData.charityIdentifierKey, charityDetailData.getIdentifier());
+        bundle.putInt(CharityDetailData.CHARITY_IDENTIFIER_KEY, charityDetailData.getIdentifier());
         intent.putExtras(bundle);
 
         startActivity(intent);
@@ -154,7 +162,7 @@ public class SinglePostActivity extends AppCompatActivity {
 
         CommentAdapter adapter = (CommentAdapter) currentCommentListView.getAdapter();
 
-        CommentData newComment = new CommentData(FeedActivity.currentUserDisplayName, addCommentEditText.getText().toString());
+        CommentData newComment = new CommentData(FeedActivity.CURRENT_USER_DISPLAY_NAME, addCommentEditText.getText().toString());
         adapter.getComments().add(newComment);
         adapter.notifyDataSetChanged();
         addCommentEditText.setText(null);

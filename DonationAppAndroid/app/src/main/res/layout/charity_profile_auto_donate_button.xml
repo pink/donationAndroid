@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/thin_border_width"
-        android:background="@color/colorPrimary"
+        android:background="@color/containerBackgroundLightGrey"
         android:clickable="false">
 
         <TextView
@@ -19,7 +19,7 @@
             android:id="@+id/textViewButtonLabel"
             android:gravity="center"
             android:padding="@dimen/charity_button_padding_amt"
-            android:background="@color/colorPrimary"
+            android:background="@color/containerBackgroundLightGrey"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"

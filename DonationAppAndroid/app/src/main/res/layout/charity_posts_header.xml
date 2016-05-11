@@ -13,6 +13,6 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
-        android:background="@color/colorPrimaryDark" />
+        android:background="@color/colorPrimary" />
 
 </LinearLayout>

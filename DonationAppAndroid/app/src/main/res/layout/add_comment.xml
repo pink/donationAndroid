@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/containerBackgroundLightGrey"
+    android:background="@color/colorPrimary"
     android:padding="@dimen/comment_bar_gap"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:id="@+id/addCommentContainer"

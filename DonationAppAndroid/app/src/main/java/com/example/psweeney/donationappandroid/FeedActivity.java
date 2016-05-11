@@ -1,8 +1,6 @@
 package com.example.psweeney.donationappandroid;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,25 +10,30 @@ import android.widget.Toast;
 
 import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
-import com.example.psweeney.donationappandroid.feed.CharityPostData;
-import com.example.psweeney.donationappandroid.feed.CommentData;
-import com.example.psweeney.donationappandroid.feed.DonationPostData;
 import com.example.psweeney.donationappandroid.feed.FeedPostAdapter;
 import com.example.psweeney.donationappandroid.feed.PostContainer;
-import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+
+/**
+ * Created by psweeney
+ *
+ * This activity is where the user will view their post feeds, with separate feeds for posts by the user,
+ * posts by the user's friends, and posts by charities the user has interacted with in the past.
+ *
+ * The user can like posts from the feed activity, but clicking the post body or the comment body will
+ * take them to a new SinglePostActivity where further interaction can happen.
+ *
+ */
 
 public class FeedActivity extends AppCompatActivity {
     private enum FeedType{
         USER, FRIEND, CHARITY
     }
 
-    public static String currentUserDisplayName = "Current user";
-    public static String commentFieldSelectedKey = "commentFieldSelected";
+    public static final String CURRENT_USER_DISPLAY_NAME = "Current user";
+    public static final String COMMENT_FIELD_SELECTED_KEY = "commentFieldSelected";
 
     private FeedType _currentSelection = FeedType.USER;
     private PostContainer _lastInteraction = null;
@@ -40,25 +43,6 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
-        /*
-        final ListView listViewUser = (ListView) findViewById(R.id.listViewUser);
-        List<PostData> dataListUser = PostFactory.getAllUserPosts();
-
-        final ListView listViewFriend = (ListView) findViewById(R.id.listViewFriend);
-        List<PostData> dataListFriend = PostFactory.getAllFriendPosts();
-
-        final ListView listViewCharity = (ListView) findViewById(R.id.listViewCharity);
-        List<PostData> dataListCharity = PostFactory.getAllCharityPosts();
-        final FeedPostAdapter adapterUser = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListUser);
-        listViewUser.setAdapter(adapterUser);
-
-        final FeedPostAdapter adapterFriend = new FeedPostAdapter(this, R.layout.feed_post_donation, dataListFriend);
-        listViewFriend.setAdapter(adapterFriend);
-
-        final FeedPostAdapter adapterCharity = new FeedPostAdapter(this, R.layout.feed_post_charity, dataListCharity);
-        listViewCharity.setAdapter(adapterCharity);
-        */
 
         refreshFeeds();
     }
@@ -186,7 +170,7 @@ public class FeedActivity extends AppCompatActivity {
             return;
         }
 
-        bundle.putBoolean(commentFieldSelectedKey, commentRequested);
+        bundle.putBoolean(COMMENT_FIELD_SELECTED_KEY, commentRequested);
 
         singlePostIntent.putExtras(bundle);
         startActivityForResult(singlePostIntent, 1);
@@ -211,7 +195,7 @@ public class FeedActivity extends AppCompatActivity {
             return;
         }
 
-        bundle.putInt(CharityDetailData.charityIdentifierKey, charityDetailData.getIdentifier());
+        bundle.putInt(CharityDetailData.CHARITY_IDENTIFIER_KEY, charityDetailData.getIdentifier());
         intent.putExtras(bundle);
 
         startActivityForResult(intent, 1);

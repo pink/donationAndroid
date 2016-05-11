@@ -10,14 +10,20 @@ import java.util.List;
 
 /**
  * Created by psweeney on 4/18/16.
+ *
+ * Abstract class used instead of interface since many of the fields and methods used by
+ * DonationPostData and CharityPostData are the same
+ *
+ * PostData classes are used to store information needed to properly display posts, which
+ * may appear in different activities
+ *
  */
 public abstract class PostData {
     public enum PostType{
         DONATION, CHARITY
     }
 
-    public static String postIdentifierKey = "postIdentifier";
-    public static int authorIconIdDefault = R.drawable.ic_photo_black_48dp;
+    public static final String POST_IDENTIFIER_KEY = "postIdentifier";
 
     protected Calendar _postTime = Calendar.getInstance();
     protected int _numLikes = 0;
@@ -115,7 +121,7 @@ public abstract class PostData {
             return null;
         }
 
-        bundle.putInt(postIdentifierKey, getPostIdentifier());
+        bundle.putInt(POST_IDENTIFIER_KEY, getPostIdentifier());
         return bundle;
     }
 

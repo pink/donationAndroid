@@ -7,7 +7,13 @@ import android.widget.RelativeLayout;
 
 /**
  * Created by psweeney on 4/22/16.
+ *
+ * Simple LinearLayout extension that contains a CharityDetailContainer reference which can be retrieved
+ * programmatically
+ *
  */
+
+
 public class CharityDetailContainer extends LinearLayout {
     private CharityDetailData _data;
 

@@ -11,15 +11,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
  * Created by psweeney on 4/22/16.
+ *
+ * Used for retrieving and editing CharityDetailData across different classes and activities
+ *
+ * During the SplashScreen activity (setup period), this class's init() method is called, followed by
+ * PostFactory's init() method, and finally this class's populateCharityPosts() method.
+ *
+ * A few CharityDetailData objects added to CHARITY_MAP are hardcoded but most are randomly
+ * generated.
+ *
  */
 public class CharityDetailFactory {
-    private static Map<Integer, CharityDetailData> _charityMap;
-    public static Map<CharityDetailData.DonationSpendingCategory, Integer> colorMap;
+    private static final Map<Integer, CharityDetailData> CHARITY_MAP = new HashMap<>();
+    private static final int NUM_RANDOM_CHARITIES = 15;
 
     private static final Comparator<CharityDetailData> RATING_COMPARATOR = new Comparator<CharityDetailData>() {
         @Override
@@ -93,12 +101,17 @@ public class CharityDetailFactory {
         }
     };
 
+    /**
+     * Generates random charity
+     *
+     * @return randomized CharityDetailData object
+     */
     public static CharityDetailData generateRandomCharity(){
         String charityChar = "" + (char)((int)'A'+Math.random()*((int)'Z'-(int)'A'+1));
 
         String charityName = "Charity " + charityChar;
 
-        if(getCharityByDisplayName(charityName) != null){
+        if(searchByCharityName(charityName) != null){
             return generateRandomCharity();
         }
 
@@ -171,9 +184,13 @@ public class CharityDetailFactory {
         return ret;
     }
 
-    public static void init(Resources resources){
-        _charityMap = new HashMap<>();
+    /**
+     * Generates a few hardcoded charities and some number of randomly generated charities
+     * according to NUM_RANDOM_CHARITIES
+     *
+     */
 
+    public static void init(){
         CharityDetailData newCharity = new CharityDetailData("Paint Branch Cleanup Project", R.drawable.ic_local_florist_black_48dp,
                 6600, "Kenilworth Avenue", "Riverdale", "MD", 20737, 1.7f, new int[] { 3, 0, 1, 6, 9, 9, 2, 2, 5, 5 }, "pbcp", "pgparks.com", false,
                 "Here at the Paint Branch Cleanup Project, we're committed to keeping Paint Branch stream clean and beautiful, " +
@@ -184,21 +201,21 @@ public class CharityDetailFactory {
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 5f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 2f);
 
-        _charityMap.put(newCharity.getIdentifier(), newCharity);
+        CHARITY_MAP.put(newCharity.getIdentifier(), newCharity);
 
         newCharity = new CharityDetailData("The Dr. Jon Froehlich Foundation", R.drawable.ic_local_florist_black_48dp,
                 555, "Froehlich Street", "College Park", "MD", 20740, 6.1f, new int[] {0, 9, 1, 8, 2, 7, 3, 6, 4, 5 }, "jon_froehlich", "charities.com", false,
-                "Here at the Dr. Jon Froehlich Foundation, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 0.6f, null);
+                "Here at the Dr. Jon Froehlich Foundation, we think that sdhbsdksdfgbm\nsdfsdfsdf\nasdfsfgdfhdh\nsdfgsdfhshfh\n", 1.0f, null);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SUPPLIES, 1f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.SALARY, 3f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FOOD, 12f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 2f);
 
-        _charityMap.put(newCharity.getIdentifier(), newCharity);
+        CHARITY_MAP.put(newCharity.getIdentifier(), newCharity);
 
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < NUM_RANDOM_CHARITIES; i++){
             newCharity = generateRandomCharity();
-            _charityMap.put(newCharity.getIdentifier(), newCharity);
+            CHARITY_MAP.put(newCharity.getIdentifier(), newCharity);
         }
 
         /*
@@ -211,7 +228,7 @@ public class CharityDetailFactory {
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 7f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 5f);
 
-        _charityMap.put(newCharity.getIdentifier(), newCharity);
+        CHARITY_MAP.put(newCharity.getIdentifier(), newCharity);
 
         newCharity = new CharityDetailData("Charity X", R.drawable.ic_local_florist_black_48dp,
                 101, "X Street", "Chevy Chase", "MD", 20901, 2.0f, new int[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, "charity_x", "charities.com", false,
@@ -222,7 +239,7 @@ public class CharityDetailFactory {
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.FUNDRAISING, 3f);
         newCharity.getSpendingBreakdown().put(CharityDetailData.DonationSpendingCategory.MARKETING, 8f);
 
-        _charityMap.put(newCharity.getIdentifier(), newCharity);
+        CHARITY_MAP.put(newCharity.getIdentifier(), newCharity);
 
         colorMap = new HashMap<>();
         colorMap.put(CharityDetailData.DonationSpendingCategory.FOOD, resources.getColor(R.color.spendingCategoryColorFood));
@@ -234,18 +251,37 @@ public class CharityDetailFactory {
         */
     }
 
+    /**
+     * This is called after PostFactory.init() has completed; it populates the posts data structure of
+     * each CharityDetailData object based on what posts have been created in PostFactory
+     *
+     */
+
     public static void populateCharityPosts(){
-        for(CharityDetailData c : _charityMap.values()){
+        for(CharityDetailData c : CHARITY_MAP.values()){
             c.populatePosts();
         }
     }
 
+    /**
+     * Returns a list of all CharityDetailData objects stored in CHARITY_MAP
+     * @return List of CharityDetailData objects
+     *
+     */
+
     public static List<CharityDetailData> getCharityList(){
-        return new ArrayList<CharityDetailData>(_charityMap.values());
+        return new ArrayList<CharityDetailData>(CHARITY_MAP.values());
     }
 
+    /**
+     * Attempt to find a CharityDetailData object with a display name matching the name parameter
+     * @param name String used to search for charity name
+     * @return CharityDetailData object matching name if found, null otherwise
+     *
+     */
+
     public static CharityDetailData searchByCharityName(String name){
-        for(CharityDetailData c : _charityMap.values()){
+        for(CharityDetailData c : CHARITY_MAP.values()){
             if(c.getDisplayName().equals(name)){
                 return c;
             }
@@ -253,24 +289,28 @@ public class CharityDetailFactory {
         return null;
     }
 
+    /**
+     * Attempt to find a CharityDetailData object with an identifier matching the key parameter
+     * @param key Integer used to search for charity key
+     * @return CharityDetailData object matching identifier if found, null otherwise
+     *
+     */
+
     public static CharityDetailData getCharityById(Integer key){
-        if(!_charityMap.containsKey(key)){
+        if(!CHARITY_MAP.containsKey(key)){
             return null;
         }
-        return _charityMap.get(key);
+        return CHARITY_MAP.get(key);
     }
 
-    public static CharityDetailData getCharityByDisplayName(String displayName){
-        for(CharityDetailData data : _charityMap.values()){
-            if(data.getDisplayName().equals(displayName)){
-                return data;
-            }
-        }
-        return null;
-    }
+    /**
+     * Attempt to find the CharityDetailData object that the user has set as their auto donate recipient
+     * @return CharityDetailData object with (isCurrentRecipient() == true) if exists, null otherwise
+     *
+     */
 
     public static CharityDetailData getUserAutoDonateCharity(){
-        for(CharityDetailData data : _charityMap.values()){
+        for(CharityDetailData data : CHARITY_MAP.values()){
             if(data.isCurrentRecipient()){
                 return data;
             }
@@ -279,6 +319,12 @@ public class CharityDetailFactory {
         return null;
     }
 
+    /**
+     * Returns one of this classes Comparators based on the sortType parameter
+     * @param sortType SuggestionSortType corresponding to desired Comparator
+     * @return Comparator<CharityDetailData> corresponding to sortType (default is NAME_COMPARATOR)
+     *
+     */
     public static Comparator<CharityDetailData> getComparatorForSuggestionSortType(SearchActivity.SuggestionSortType sortType){
         switch (sortType){
             case RATING:
@@ -290,6 +336,12 @@ public class CharityDetailFactory {
         return NAME_COMPARATOR;
     }
 
+    /**
+     * Get list of all charities besides the user's auto-donate recipient, sorted according to the comparator parameter
+     * @param comparator Comparator<CharityDetailData> used to sort list. Will use NAME_COMPARATOR if null.
+     * @return sorted List<CharityDetailData> containing all charities besides the user's auto-donate recipient
+     */
+
     public static List<CharityDetailData> getSortedListOfDiscoverableCharities(Comparator<CharityDetailData> comparator){
         SortedSet<CharityDetailData> charities;
         if(comparator != null){
@@ -298,7 +350,7 @@ public class CharityDetailFactory {
             charities = new TreeSet<>(NAME_COMPARATOR);
         }
 
-        for(CharityDetailData data : _charityMap.values()){
+        for(CharityDetailData data : CHARITY_MAP.values()){
             if(!data.isCurrentRecipient()){
                 charities.add(data);
             }
@@ -307,16 +359,24 @@ public class CharityDetailFactory {
         return new ArrayList<>(charities);
     }
 
+    /**
+     * Calls setIsCurrentRecipient(false) on all charities besides the one with the given charityId,
+     * which is set to true
+     *
+     * @param charityId Identifier key used to search for new auto-donate recipient
+     *
+     */
+
     public static void setUserAutoDonateCharity(Integer charityId){
-        if(!_charityMap.containsKey(charityId)){
+        if(!CHARITY_MAP.containsKey(charityId)){
             return;
         }
 
-        for(CharityDetailData data : _charityMap.values()){
+        for(CharityDetailData data : CHARITY_MAP.values()){
             data.setIsCurrentRecipient(false);
         }
 
-        _charityMap.get(charityId).setIsCurrentRecipient(true);
+        CHARITY_MAP.get(charityId).setIsCurrentRecipient(true);
 
     }
 }

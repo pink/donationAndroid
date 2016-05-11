@@ -18,9 +18,9 @@
             android:padding="@dimen/standard_header_padding"
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-            android:background="@color/containerBackgroundLightGrey" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:layout_width="match_parent"

@@ -20,23 +20,23 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/landingPageAutoDonateBackgroundColor"
             android:layout_weight="0">
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/auto_donate_label"
+                android:text="@string/auto_donate_label_on"
                 android:id="@+id/switchAutoDonate"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@color/landingPageAutoDonateBackgroundColor"
                 android:padding="10dp"
                 android:checked="true"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/landingPageAutoDonateForegroundColor"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:enabled="true"
-                android:trackTint="@color/colorPrimaryDark"
+                android:trackTint="@color/landingPageAutoDonateForegroundColor"
                 android:onClick="onClickAutoDonateSwitch" />
         </FrameLayout>
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/landingPageStatisticsBackgroundColor"
             android:clickable="true"
             android:padding="10dp"
             android:onClick="onClickCategoryStatistics">
@@ -59,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewStatisticsIcon"
                 android:src="@drawable/ic_assessment_white_48dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageStatisticsForegroundColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                 android:text="@string/category_statistics_button_label"
                 android:id="@+id/textViewStatisticsLabel"
                 android:layout_gravity="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/landingPageStatisticsForegroundColor"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:textAlignment="center"
@@ -80,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewStatisticsChevron"
                 android:src="@drawable/ic_chevron_right_white_36dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageStatisticsForegroundColor" />
 
         </LinearLayout>
 
@@ -93,50 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:padding="10dp"
-            android:onClick="onClickCategorySearch">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewSearchIcon"
-                android:src="@drawable/ic_favorite_border_white_48dp"
-                android:layout_gravity="center_vertical" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/category_search_button_label"
-                android:id="@+id/textViewSearchLabel"
-                android:layout_gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewSearchChevron"
-                android:src="@drawable/ic_chevron_right_white_36dp"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/thin_border_width" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/landingPageFeedBackgroundColor"
             android:clickable="true"
             android:padding="10dp"
             android:onClick="onClickCategoryFeed">
@@ -147,7 +106,8 @@
                 android:id="@+id/imageViewFeedIcon"
                 android:src="@drawable/ic_view_list_white_48dp"
                 android:layout_gravity="center_vertical"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/landingPageFeedBackgroundColor"
+                android:background="@color/landingPageFeedForegroundColor"
                 android:tintMode="screen" />
 
             <TextView
@@ -157,7 +117,7 @@
                 android:text="@string/category_feed_button_label"
                 android:id="@+id/textViewFeedLabel"
                 android:layout_gravity="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/landingPageFeedForegroundColor"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:textAlignment="center"
@@ -169,7 +129,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewFeedChevron"
                 android:src="@drawable/ic_chevron_right_white_36dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageFeedForegroundColor" />
         </LinearLayout>
 
         <Space
@@ -181,7 +142,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/landingPageSearchBackgroundColor"
+            android:clickable="true"
+            android:padding="10dp"
+            android:onClick="onClickCategorySearch">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewSearchIcon"
+                android:src="@drawable/ic_favorite_border_white_48dp"
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageSearchForegroundColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/category_search_button_label"
+                android:id="@+id/textViewSearchLabel"
+                android:layout_gravity="center"
+                android:textColor="@color/landingPageSearchForegroundColor"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewSearchChevron"
+                android:src="@drawable/ic_chevron_right_white_36dp"
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageSearchForegroundColor" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/thin_border_width" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/landingPageSettingsBackgroundColor"
             android:clickable="true"
             android:padding="10dp"
             android:measureWithLargestChild="false"
@@ -192,7 +198,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewAccountSettingsIcon"
                 android:src="@drawable/ic_settings_white_48dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageSettingsForegroundColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -201,7 +208,7 @@
                 android:text="@string/category_account_settings_button_label"
                 android:id="@+id/textViewAccountSettingsLabel"
                 android:layout_gravity="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/landingPageSettingsForegroundColor"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:textAlignment="center"
@@ -213,7 +220,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewAccountSettingsChevron"
                 android:src="@drawable/ic_chevron_right_white_36dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:tint="@color/landingPageSettingsForegroundColor" />
         </LinearLayout>
 
     </LinearLayout>

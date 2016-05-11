@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,6 +18,12 @@ import com.example.psweeney.donationappandroid.charity.CharityDetailData;
 import com.example.psweeney.donationappandroid.charity.CharityDetailFactory;
 import com.example.psweeney.donationappandroid.charity.CharityDiscoverMiniAdapter;
 
+/**
+ * This activity is used for navigating the list of selected charities/recipients, as well as for viewing the user's
+ * current auto-donate recipient (if it is set). Since we don't have a real, sizable backend with thousands of
+ * different charities, the set of suggested charities contains all charities, but the user can choose to sort them
+ * different ways (by distance, rating or name).
+ */
 public class SearchActivity extends AppCompatActivity {
     public enum SuggestionSortType{
         DISTANCE, RATING, NAME
@@ -170,7 +175,7 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
 
-        bundle.putInt(CharityDetailData.charityIdentifierKey, data.getIdentifier());
+        bundle.putInt(CharityDetailData.CHARITY_IDENTIFIER_KEY, data.getIdentifier());
         intent.putExtras(bundle);
 
         startActivityForResult(intent, 1);

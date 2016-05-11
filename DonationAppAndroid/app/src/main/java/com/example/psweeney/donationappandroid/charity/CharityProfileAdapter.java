@@ -17,13 +17,16 @@ import java.util.List;
 
 /**
  * Created by psweeney on 4/22/16.
+ *
+ * ArrayAdapter extension for the Profile section of a CharityDetailActivity
  */
+
 public class CharityProfileAdapter extends ArrayAdapter {
     private CharityDetailData _data;
 
     private int _numPosts = 10;
 
-    private static final int numPostsDefaultIncrementAmount = 10;
+    private static final int NUM_POSTS_DEFAULT_INCREMENT_AMOUNT = 10;
 
     public CharityProfileAdapter(Context context, int resource, CharityDetailData data) {
         super(context, resource, data.getPosts());
@@ -102,13 +105,13 @@ public class CharityProfileAdapter extends ArrayAdapter {
         }
 
         if(data.isCurrentRecipient()) {
-            container.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark));
+            container.setBackgroundColor(resources.getColor(R.color.containerBackgroundLightGrey));
             buttonText.setBackgroundColor(resources.getColor(R.color.colorAccent));
-            buttonText.setTextColor(resources.getColor(R.color.colorPrimaryDark));
+            buttonText.setTextColor(resources.getColor(R.color.containerBackgroundLightGrey));
             buttonText.setText(resources.getString(R.string.charity_auto_donate_label_true));
         } else {
-            container.setBackgroundColor(resources.getColor(R.color.colorPrimary));
-            buttonText.setBackgroundColor(resources.getColor(R.color.colorPrimary));
+            container.setBackgroundColor(resources.getColor(R.color.containerBackgroundLightGrey));
+            buttonText.setBackgroundColor(resources.getColor(R.color.containerBackgroundLightGrey));
             buttonText.setTextColor(resources.getColor(R.color.colorAccent));
             buttonText.setText(resources.getString(R.string.charity_auto_donate_label_false));
         }
@@ -184,6 +187,6 @@ public class CharityProfileAdapter extends ArrayAdapter {
     }
 
     public void incrementNumPosts(){
-        incrementNumPosts(numPostsDefaultIncrementAmount);
+        incrementNumPosts(NUM_POSTS_DEFAULT_INCREMENT_AMOUNT);
     }
 }

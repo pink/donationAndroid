@@ -11,6 +11,9 @@ import com.example.psweeney.donationappandroid.R;
 
 /**
  * Created by psweeney on 4/19/16.
+ *
+ * LinearLayout extension that stores a PostData object
+ *
  */
 public class PostContainer extends LinearLayout {
     private PostData _data;

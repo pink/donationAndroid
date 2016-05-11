@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.psweeney.donationappandroid.R;
 
@@ -14,12 +12,15 @@ import java.util.List;
 
 /**
  * Created by psweeney on 4/18/16.
+ *
+ * ArrayAdapter extension for displaying PostData objects of either type in a FeedActivity
  */
+
 public class FeedPostAdapter extends ArrayAdapter{
     private List<PostData> _postDataList;
     private int _numPosts = 10;
 
-    private static int numPostsDefaultIncrementAmount = 10;
+    private static final int NUM_POSTS_DEFAULT_INCREMENT_AMOUNT = 10;
 
     public FeedPostAdapter(Context context, int resource, List<PostData> postDataList) {
         super(context, resource, postDataList);
@@ -85,6 +86,6 @@ public class FeedPostAdapter extends ArrayAdapter{
     }
 
     public void incrementNumPosts(){
-        incrementNumPosts(numPostsDefaultIncrementAmount);
+        incrementNumPosts(NUM_POSTS_DEFAULT_INCREMENT_AMOUNT);
     }
 }

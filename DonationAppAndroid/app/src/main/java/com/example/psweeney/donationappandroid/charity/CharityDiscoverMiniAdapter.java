@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Created by psweeney on 5/10/16.
+ *
+ * ArrayAdapter extension for displaying an abbreviated charity view in SearchActivity
  */
 public class CharityDiscoverMiniAdapter extends ArrayAdapter{
     public CharityDiscoverMiniAdapter(Context context, int resource, SearchActivity.SuggestionSortType sortType) {

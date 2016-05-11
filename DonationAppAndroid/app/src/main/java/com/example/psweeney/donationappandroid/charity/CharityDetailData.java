@@ -2,19 +2,12 @@ package com.example.psweeney.donationappandroid.charity;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.example.psweeney.donationappandroid.R;
 import com.example.psweeney.donationappandroid.chart.PieChartBuilder;
 import com.example.psweeney.donationappandroid.feed.PostData;
 import com.example.psweeney.donationappandroid.feed.PostFactory;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,16 +20,19 @@ import java.util.TreeSet;
 
 /**
  * Created by psweeney on 4/22/16.
+ *
+ * Class for holding data about a charity or other recipient
+ *
  */
 public class CharityDetailData {
     public enum DonationSpendingCategory{
         FOOD, SUPPLIES, FUNDRAISING, MARKETING, SALARY, OTHER
     }
 
-    public static String charityIdentifierKey = "charityIdentifier";
+    public static final String CHARITY_IDENTIFIER_KEY = "charityIdentifier";
 
     private String _displayName = "Fake Charity";
-    private int _iconId = PostFactory.defCharityIconId;
+    private int _iconId = PostFactory.DEF_CHARITY_ICON_ID;
 
     private int _addressStreetNumber = 0;
     private String _addressStreet = "Fake Street";
@@ -103,9 +99,19 @@ public class CharityDetailData {
         _posts = new ArrayList<>();
     }
 
+    /**
+     * Populates _posts with all posts by this charity found by PostFactory
+     */
     public void populatePosts(){
         _posts = PostFactory.getAllPostsByAuthor(getDisplayName());
     }
+
+    /**
+     * Generates identifier used as a key by CharityDetailFactory using several of the charity's
+     * fields
+     *
+     * @return Integer used as key by CharityDetailFactory
+     */
 
     public Integer getIdentifier(){
         Integer identifier = _displayName.hashCode();
@@ -127,9 +133,21 @@ public class CharityDetailData {
         return _iconId;
     }
 
+    /**
+     * Returns the first portion of the charity's address (just the street number and street)
+     *
+     * @return String containing charity's street address
+     */
+
     public String getAddressLine1(){
         return Integer.toString(_addressStreetNumber) + " " + _addressStreet;
     }
+
+    /**
+     * Returns the second portion of the charity's address (city, state, zip)
+     *
+     * @return String containing the charity's city, state, and zip code
+     */
 
     public String getAddressLine2(){
         return _addressCity + ", " + _addressState + " " + Integer.toString(_addressZipCode);
@@ -139,12 +157,24 @@ public class CharityDetailData {
         return _distance;
     }
 
+    /**
+     * Returns a String with the charity's distance value rounded to the tenths place
+     *
+     * @return String containing rounded distance value
+     */
+
     public String getDisplayDistance(){
         String displayDistance = Integer.toString(Math.round(_distance));
         displayDistance += '.' + Integer.toString(Math.round((_distance * 10) % 10));
         displayDistance += " miles away";
         return displayDistance;
     }
+
+    /**
+     * Returns display string for the phone number array
+     *
+     * @return String containing displayable phone number
+     */
 
     public String getPhoneNumber(){
         String phoneString = "";
@@ -185,6 +215,13 @@ public class CharityDetailData {
         return _rating;
     }
 
+    /**
+     * Returns display string for rounded rating fraction with numerator and denominator determined
+     * by the ratingMax argument
+     *
+     * @param ratingMax the maximum rating (denominator) that the _rating field (where 0 <= _rating <= 1) should be scaled to
+     * @return
+     */
     public String getRatingDisplayString(float ratingMax){
         float displayRatingValue = _rating * ratingMax;
 
@@ -195,21 +232,6 @@ public class CharityDetailData {
         denominatorString = denominatorString.substring(0, denominatorString.indexOf('.') + 2);
 
         return numeratorString + " / " + denominatorString;
-    }
-
-    public Drawable getRatingBarDrawable(float width, float height, int backgroundColor, int foregroundColor){
-        Bitmap barBitmap = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config.ARGB_8888);
-        Canvas barCanvas = new Canvas(barBitmap);
-
-        Paint paint = new Paint();
-        paint.setColor(backgroundColor);
-
-        barCanvas.drawRect(0, 0, width, height, paint);
-
-        paint.setColor(foregroundColor);
-        barCanvas.drawRect(0, 0, width * _rating, height, paint);
-
-        return new BitmapDrawable(barBitmap);
     }
 
     public Map<DonationSpendingCategory, Float> getSpendingBreakdown(){
@@ -254,6 +276,12 @@ public class CharityDetailData {
         }
     }
 
+    /**
+     * Returns set of DonationSpendingCategory keys in _spendingBreakdown sorted by their corresponding
+     * percentage of total spending (in ascending order)
+     * @return
+     */
+
     private SortedSet<DonationSpendingCategory> getSpendingCategoriesSorted(){
         SortedSet<DonationSpendingCategory> categories = new TreeSet<>(new Comparator<DonationSpendingCategory>() {
             @Override
@@ -279,6 +307,13 @@ public class CharityDetailData {
         categories.addAll(_spendingBreakdown.keySet());
         return categories;
     }
+
+    /**
+     * Converts _spendingBreakdown data into a valid PieData object for use in a pie chart
+     *
+     * @param context
+     * @return PieData object representing the _spendingBreakdown map
+     */
 
     public PieData getPieData(Context context){
         Resources resources = context.getResources();

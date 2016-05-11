@@ -20,14 +20,18 @@ import java.util.List;
 
 /**
  * Created by psweeney on 5/3/16.
+ *
+ * ArrayAdapter extension for the User section of a CharityDetailActivity
+ *
  */
+
 public class CharityUserAdapter extends ArrayAdapter {
     private String _charityDisplayName = "";
     private List<PostData> _userDonations = new ArrayList<>();
 
     private int _numPosts = 10;
 
-    private static int numPostsDefaultIncrementAmount = 10;
+    private static final int NUM_POSTS_DEFAULT_INCREMENT_AMOUNT = 10;
 
     public CharityUserAdapter(Context context, int resource, String charityDisplayName) {
         super(context, resource, PostFactory.getAllDonationsFromAuthorToRecipient(DonationPostData.USER_POST_NAME, charityDisplayName));
@@ -133,6 +137,6 @@ public class CharityUserAdapter extends ArrayAdapter {
     }
 
     public void incrementNumPosts(){
-        incrementNumPosts(numPostsDefaultIncrementAmount);
+        incrementNumPosts(NUM_POSTS_DEFAULT_INCREMENT_AMOUNT);
     }
 }

@@ -23,8 +23,8 @@
             android:id="@+id/textViewCurrentRecipientTitle"
             android:padding="@dimen/standard_header_padding"
             android:gravity="center"
-            android:background="@color/containerBackgroundLightGrey"
-            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 

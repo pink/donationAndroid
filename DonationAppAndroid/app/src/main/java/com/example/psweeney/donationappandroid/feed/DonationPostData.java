@@ -9,6 +9,12 @@ import java.util.List;
 
 /**
  * Created by psweeney on 4/18/16.
+ *
+ * Class used to store donation posts by users (not charities). Since these posts would simply be automatically
+ * generated with each transaction (or each n transactions, or all transactions per week/month/etc) there is
+ * no need for body text or other content. It simply stores the name of the donor, the donor's icon id, the
+ * recipient identifier, and the donation amount.
+ *
  */
 public class DonationPostData extends PostData{
 

@@ -1,10 +1,7 @@
 package com.example.psweeney.donationappandroid.chart;
 
-import android.content.Context;
 import android.graphics.Color;
 
-import com.example.psweeney.donationappandroid.R;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -14,10 +11,13 @@ import java.util.List;
 
 /**
  * Created by psweeney on 5/2/16.
+ *
+ * This class was just created to store a few methods to help convert objects/data into usable pie chart related
+ * objects
  */
 public class PieChartBuilder {
-    private static String missingLabel = "Error";
-    private static Integer missingColor = Color.BLACK;
+    private static final String MISSING_LABEL = "Error";
+    private static final int MISSING_COLOR = Color.BLACK;
 
     public static PieData convertToPieData(List<String> xVals, List<Float> percentages, List<Integer> colors, String title){
         ArrayList<String> sortedXVals = new ArrayList<>(xVals);
@@ -59,13 +59,13 @@ public class PieChartBuilder {
             if(xVals.size() > largestIndex){
                 newXVals.add(xVals.remove(largestIndex));
             } else {
-                newXVals.add(missingLabel);
+                newXVals.add(MISSING_LABEL);
             }
 
             if(colors.size() > largestIndex){
                 newColors.add(colors.remove(largestIndex));
             } else {
-                newColors.add(missingColor);
+                newColors.add(MISSING_COLOR);
             }
         }
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorBoldPop"
         android:clickable="false"
         android:padding="@dimen/thin_border_width">
 
@@ -38,24 +38,31 @@
             android:background="@color/colorAccent"
             android:layout_marginTop="@dimen/thin_border_width">
 
-            <EditText
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/editTextDonateNowAmount"
-                android:padding="@dimen/comment_bar_gap"
-                android:layout_weight="1"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:layout_gravity="right"
-                android:hint="@string/charity_submit_donation_field_hint"
-                android:editable="true"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:singleLine="true"
-                android:backgroundTintMode="src_over"
-                android:gravity="center"
-                android:textColor="@color/defaultTextColor"
-                android:background="@color/containerBackgroundLightGrey" />
+                android:layout_height="match_parent"
+                android:padding="@dimen/thin_border_width"
+                android:background="@color/colorPrimaryDark"
+                android:layout_margin="@dimen/activity_vertical_margin">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/editTextDonateNowAmount"
+                    android:padding="@dimen/comment_bar_gap"
+                    android:layout_weight="1"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:layout_gravity="right"
+                    android:hint="@string/charity_submit_donation_field_hint"
+                    android:editable="true"
+                    android:singleLine="true"
+                    android:backgroundTintMode="src_over"
+                    android:gravity="center"
+                    android:textColor="@color/defaultTextColor"
+                    android:background="@color/colorAccent" />
+            </FrameLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -71,7 +78,7 @@
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/comment_bar_gap"
                     android:padding="@dimen/thin_border_width"
-                    android:background="@color/colorPrimary">
+                    android:background="@color/colorPrimaryDark">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -81,11 +88,10 @@
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:textStyle="bold"
                         android:clickable="true"
                         android:onClick="onClickDonateNowCancel"
-                        android:background="@color/colorAccent"
                         android:padding="@dimen/feed_category_text_padding" />
                 </FrameLayout>
 
@@ -111,7 +117,7 @@
                         android:textStyle="bold"
                         android:clickable="true"
                         android:onClick="onClickDonateNowSubmit"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorBoldPop"
                         android:padding="@dimen/comment_bar_gap" />
                 </FrameLayout>
             </LinearLayout>
