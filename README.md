@@ -2,6 +2,7 @@
 This project was to create an Android application that would round up users' credit card purchases to the next dollar, and donate the difference to charity.
 
 The members of our team that worked on this application were:
+
 Neil Alberg - Worked on the graphics for displaying individual donation statistics on Android. 
 Patrick Sweeney - Worked on donation and charity feeds, as well as displaying different categories of detailed data about individual charities.
 
