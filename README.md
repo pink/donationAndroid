@@ -23,3 +23,5 @@ http://developer.android.com/reference/android/content/SharedPreferences.html
 http://developer.android.com/reference/android/os/Bundle.html
 http://developer.android.com/reference/android/view/LayoutInflater.html
 http://developer.android.com/reference/android/widget/ArrayAdapter.html
+
+In addition, nearly all images in res/drawable (besides the custom app icon) are either copies or slightly modified versions of icons from the Material icon set, found at https://design.google.com/icons/
